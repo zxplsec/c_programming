@@ -1,0 +1,325 @@
+\section{文件的读写}
+\begin{frame}[fragile]\ft{\secname}
+  当文件打开后，就可以对它进行读写了。常用的读写函数有：\vspace{.05in}
+
+  \begin{itemize}
+  \item {\tf fputc()}和{\tf fgetc()}    \\[0.1in]
+  \item {\tf fprintf()}和{\tf fscanf()} \\[0.1in]
+  \item {\tf fread()}和{\tf fwrite()}   
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：{\tf fputc()}}
+  对于{\tf fputc()}，
+  \begin{itemize}
+    \item 原型声明
+    \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int fputc(int c, FILE * stream);
+    \end{lstlisting}
+  \item 函数说明：{\tf fputc()}将参数{\tf c}转为{\tf unsigned char}后写入参数{\tf stream}指定的文件中。
+  \item 返回值：成功时返回字符{\tf c}的{\tf ASCII}码，失败时返回{\tf EOF}。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fgetc()}}
+  对于{\tf fgetc()}，
+  \begin{itemize}
+    \item 原型声明
+    \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int fgetc(FILE * stream);
+    \end{lstlisting}
+    \item 函数说明：{\tf fgetc()}从参数{\tf stream}所指的文件中读取一个字符。 若读到文件尾而无数据时便返回{\tf EOF}.
+  \end{itemize}
+  \begin{itemize}
+  \item[$\bullet$]  对于文本文件，遇文件尾时返回文件结束标志{\tf EOF}。\\[0.1in]
+  \item[$\bullet$]  对于二进制文件，用{\tf feof(fp)} 判别是否遇文件尾，{\tf feof(fp)==1}说明遇文件尾。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fgetc()}}
+  \begin{li}
+    从文本文件中顺序读入文件内容，并在屏幕上显示出来。
+  \end{li}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：{\tf fgetc()}}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {code/file2screen.c}
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fgetc()}}
+  从二进制文件中顺序读入文件内容，可以用：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+    while(!feof(fp))
+    {
+      ch = fgetc(fp);
+      ...
+    }  
+  \end{lstlisting}
+  \textcolor{acolor1}{这种方法也适用于文本文件。}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fputc()}和{\tf fgetc()}的应用举例}
+  \begin{li}
+    从键盘输入一些字符，逐个把它们送入磁盘文件，直到从键盘输入\#为止。    
+  \end{li}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：{\tf fputc()}和{\tf fgetc()}的应用举例}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {code/screen2file.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：{\tf fputc()}和{\tf fgetc()}的应用举例}
+  \begin{li}
+    将一个磁盘文件的内容复制到另一个磁盘文件。
+  \end{li}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：{\tf fputc()}和{\tf fgetc()}的应用举例}
+  \lstinputlisting
+  [language=c,frame=single,numbers=left]
+  {code/copy.c}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]\ft{\secname：{\tf fscanf()}和{\tf fprintf()}}
+  {\tf fprintf()}、{\tf fscanf()}与{\tf printf()、scanf()}的作用相仿，都是格式化读写函数。{\tf fprintf()}和{\tf fscanf()}的读写对象是磁盘文件，而{\tf printf()}和{\tf scanf()}的读写对象是终端。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fscanf()}和{\tf fprintf()}}
+  它们的函数原型为：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int fprintf(FILE * stream, const char *format, ...);
+int fscanf (FILE * stream, const char *format, ...);
+  \end{lstlisting}
+  除增加“文件指针”外，其他与{\tf printf()/scanf()}用法相同。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fscanf()}和{\tf fprintf()}}
+  例如：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+fprintf(fp, "%d, %6.2f", i, t);
+  \end{lstlisting}
+  它的作用是将整型变量{\tf i}和浮点型变量{\tf t}的值按{\tf \%d}和{\tf \%6.2f}的格式输出到{\tf fp}所指向的文件中。 \vspace{0.1in}
+
+
+  如果{\tf i=3, t=4.5}，则输出到磁盘文件上的是以下字符串：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+3, 4.50
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fscanf()}和{\tf fprintf()}}
+  同样，用{\tf fscanf()}可以从磁盘文件上读入{\tf ASCII}字符：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+fscanf(fp, "%d, %f", &i, &t);
+  \end{lstlisting}
+  磁盘文件上如果有以下字符：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+3, 4.5
+  \end{lstlisting}
+  则将磁盘文件的数据{\tf 3}送给变量{\tf i}，{\tf 4.5}送给变量{\tf t}。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fscanf()}和{\tf fprintf()}的应用举例}
+  \begin{li}
+    编制程序，向磁盘文件添加单词，并显示文件内容在屏幕上。
+  \end{li}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：{\tf fscanf()}和{\tf fprintf()}的应用举例}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {code/ex13_05.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：{\tf fscanf()}和{\tf fprintf()}}
+  用{\tf fprintf()}和{\tf fscanf()}对磁盘文件操作，由于在输入时要将{\tf ASCII}码转换为二进制形式，在输出时又要将二进制转换为字符，花费时间比较多，因此，在内存与磁盘频繁交换数据的情况下，最好不用{\tf fprintf()}和{\tf fscanf()}，而用{\tf fread()}和{\tf fwrite()}。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf putw()}和{\tf getw()}}
+  {\tf putw()}和{\tf getw()}用来对磁盘文件读写一个字(整数)。例如：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+putw(10, fp);    /* `整数10写入文件fp` */
+i = getw(fp);     /* `从文件fp读一个整数给变量i` */
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fgets()}和{\tf fputs()}}
+  {\tf fgets()}的作用是从指定文件读入一个字符串。例如：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+fgets(str, n, fp); // `从文件fp读n-1个字节到str`
+                   // `str最后一个字节加`'\0'
+  \end{lstlisting}
+  \vspace{0.1in}
+
+  {\tf fputs()}的作用是向指定的文件输出一个字符串。例如：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+fputs(str, fp);    // `把字符串str写入fp` 
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fread()}和{\tf fwrite()}}
+  以下代码将{\tf num}作为一个含{\tf 8}个字符的字符串{\tf 0.333333}存储
+  \begin{lstlisting}[language=c]
+double num = 1./3.;
+fprintf(fp,"%f", num);    
+\end{lstlisting}
+  \begin{itemize}
+  \item 使用{\tf \%.2}可以把它存储为含{\tf 4}个字符的字符串{\tf 0.33}；\\
+  \item 使用{\tf \%.12f}可把它存储为含{\tf 14}个字符的字符串{\tf 0.333333333333}。
+  \end{itemize}
+  改变占位符可以改变存储这一值所需的空间大小，也会导致存储不同的值。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fread()}和{\tf fwrite()}}
+
+  在{\tf num}的值存为{\tf 0.33}以后，读取文件时就没法恢复其精度。总之，\textcolor{acolor1}{{\tf fprintf()}以一种可能改变数字值的方式将其转换为字符串。}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fread()}和{\tf fwrite()}}
+  \begin{itemize}
+  \item 最精确的存储数字的方法就是使用与程序所使用的相同的位格式。故一个double值应该存储在一个double大小的单元中。\\[0.1in]
+  \item 如果把数据存储在一个使用与程序具有相同表示方法的文件中，就称数据以二进制形式存储。这中间没有从数字形式到字符串形式的转换。\\[0.1in]
+  \item \textcolor{acolor3}{{\tf fread()}和{\tf fwrite()}提供了这种二进制服务，用来读写一个数据块。  }
+
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fread()}和{\tf fwrite()}}
+  {\tf fwrite()}将二进制数据写入文件，其原型为
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+size_t fwrite(const void * ptr, size_t size, size_t nmemb, FILE * fp);
+  \end{lstlisting}
+  其中：
+  \begin{itemize}
+  \item 指针{\tf ptr}是要写入的数据块的地址。
+  \item {\tf size}表示要写入的数据块的大小（以字节为单位）。
+  \item {\tf nmemb}表示数据块的数目。
+  \item {\tf fp}指定要写入的文件
+  \item 返回成功写入的项目数。正常情况下，它与{\tf nmemb}相等，若有错，返回值会小于{\tf nmemb}。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fread()}和{\tf fwrite()}}
+  要保存一个{\tf 256}字节大小的数据对象（如一个数组），可以这么做
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+char buffer[256];
+fwrite(buffer, 256, 1, fp)
+  \end{lstlisting}
+  这一调用将一块{\tf 256}字节大小的数据块从缓冲区写入文件。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fread()}和{\tf fwrite()}}
+  要保存一个含{\tf 10}个{\tf double}值的数组，可以这么做
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+double arr[10];
+fwrite(arr, sizeof(double), 10, fp)
+  \end{lstlisting}
+  这一调用将{\tf arr}数组中的数据写入文件，数据分为{\tf 10}块，每块都是{\tf double}大小。
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：{\tf fread()}和{\tf fwrite()}}
+  {\tf fread()}从文件中读取二进制数据，其原型为
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+size_t fread(const void * ptr, size_t size, size_t nmemb, FILE * fp);
+  \end{lstlisting}
+  其中：
+  \begin{itemize}
+  \item 指针{\tf ptr}是读入文件数据的内存地址。
+  \item {\tf size}表示要读入的数据块的大小（以字节为单位）。
+  \item {\tf nmemb}表示数据块的数目。
+  \item {\tf fp}指定要读入的文件
+  \item 返回成功读入的项目数。正常情况下，它与{\tf nmemb}相等，若有错，返回值会小于{\tf nmemb}。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fread()}和{\tf fwrite()}}
+  要恢复前一例子中保存的含{\tf 10}个{\tf double}值的数组，可以这么做
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+double arr[10];
+fread(arr, sizeof(double), 10, fp)
+  \end{lstlisting}
+  这一调用将{\tf 10}个{\tf double}值复制到{\tf arr}数组中。
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：{\tf fread()}和{\tf fwrite()}}
+  如果有如下的结构体类型：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+struct student_type
+{
+  char name[10]; 
+  int num; 
+  int age; 
+  char addr[30];
+} stu[40];
+  \end{lstlisting}
+  结构体数组{\tf stu}有{\tf 40}个元素，每一个元素用来存放一个学生的数据。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fread()}和{\tf fwrite()}}
+  假设学生的数据已经存放在磁盘文件中，可以用下面的{\tf for}语句和{\tf fread()}读入{\tf 40}个学生的数据：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+for(i=0; i<40; i++)
+  fread(&stu[i], sizeof(struct student_type), 1, fp);
+  \end{lstlisting}
+  或：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+fread(stu, sizeof(struct student_type), 40, fp);
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fread()}和{\tf fwrite()}}
+  以下程序可以将内存中的学生数据输出到磁盘文件中去：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+for(i=0; i<40; i++) 
+ fwrite(&stu[i], sizeof(struct student_type), 1, fp);
+  \end{lstlisting}
+  或者只写一次
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+fwrite(stu, sizeof(struct student_type), 40, fp);　
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fread()}和{\tf fwrite()}的应用举例}
+  \begin{li}
+    从键盘上输入一批学生数据，然后存储到磁盘上。
+  \end{li}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：{\tf fread()}和{\tf fwrite()}的应用举例}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {code/ex13_03.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：{\tf fread()}和{\tf fwrite()}的应用举例}
+  \begin{li}
+    将一个浮点型数组读入磁盘文件，并从磁盘文件中读取数据显示在屏幕中。
+  \end{li}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：{\tf fread()}和{\tf fwrite()}的应用举例}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {code/ex13_04.c}
+\end{frame}
+

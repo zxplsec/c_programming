@@ -1,0 +1,4 @@
+\ft{\secname}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{Code/menu.c}

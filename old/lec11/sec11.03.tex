@@ -1,0 +1,152 @@
+\section{字符串输出}
+
+\begin{frame}[fragile]\ft{\secname：{\tf puts()}} 
+C有三个用于输出字符串的标准库函数：
+\begin{itemize}
+\item {\tf puts()}
+\item {\tf fputs()}
+\item {\tf printf()}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：{\tf puts()}} 
+\lstinputlisting
+[language=c,showstringspaces=true,numbers=left,frame=single]
+{Code/put_out.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：{\tf puts()}} 
+\begin{lstlisting}[basicstyle=\ttfamily]
+I'm an argument to puts().
+I am a #defined string.
+An array was initialized to me.
+A pointer was initialized to me.
+ray was initialized to me.
+inter was initialized to me.
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：{\tf puts()}} 
+\begin{itemize}
+\item
+使用{\tf puts()}，只需给出字符串参数的地址。 \\[0.1in]
+\item 
+与{\tf printf()}不同，{\tf puts()}显示字符串时会自动在其后添加一个换行符。\\[0.1in]
+\item
+{\tf puts()}遇到空字符时便会停止输出，故应确保有空字符存在。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf puts()}} 
+\begin{lstlisting}[language=c]
+char str1[80] = "An array was initialized to me.";
+...
+puts(&str1[5]);
+\end{lstlisting}
+输出结果为
+\begin{lstlisting}[basicstyle=\ttfamily]
+ray was initialized to me.
+\end{lstlisting}
+\pause \rule{\textwidth}{0.3mm} \vspace{0.1mm}
+
+因表达式{\tf \&str1[5]}是数组{\tf str1}第{\tf 6}个元素的地址，该元素为字符{\tf 'r'}，也正是{\tf puts()}输出字符串的起点。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf puts()}} 
+\begin{lstlisting}[basicstyle=\ttfamily]
+const char * str2 = "A pointer was initialized to me.";
+...
+puts(str2+4);
+\end{lstlisting}
+输出结果为
+\begin{lstlisting}[basicstyle=\ttfamily]
+inter was initialized to me.
+\end{lstlisting} 
+\pause \rule{\textwidth}{0.3mm} \vspace{0.1mm}
+
+{\tf str2+4}指向包含第一个{\tf 'i'}字符的内存单元，{\tf puts()}输出字符串从这里开始。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf puts()}} 
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{Code/nono.c}
+\pause 
+不要效仿该程序！
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf puts()}}
+输出结果为
+\begin{lstlisting}[basicstyle=\ttfamily]
+WOW!Side A
+\end{lstlisting} 
+\pause \rule{\textwidth}{0.3mm} \vspace{0.1mm}
+
+{\tf dont}缺少空字符，不是字符串，于是{\tf puts()}就不知道该在哪里停止。它会一直输出内存中{\tf dont}后面的字符，直到发现一个空字符。\vspace{0.1mm}
+
+从运行结果来看，在内存中{\tf side\_a}数组存储在{\tf dont}数组之后。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fputs()}} 
+{\tf fputs()}是{\tf puts()}的面向文件版本。两者的主要区别是：\vspace{0.1mm}
+
+\begin{itemize}
+\item
+{\tf fputs()}需要第二个参数来说明要写的文件。可用{\tf stdout}作为参数来进行输出显示，{\tf stdout}在{\tf stdio.h}中定义。 \\[0.1in]
+\item 
+与{\tf puts()}不同，{\tf fputs()}并不为输出自动添加换行符。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fputs()}}
+gets丢掉输入的换行符，而puts为输出添加换行符。\vspace{0.1in}
+
+假定写一个循环，读取一行并把它回显在下一行，可这么写：
+\begin{lstlisting}[language=c]
+char line[81];
+while (gets(line))
+  puts(line);
+\end{lstlisting} 
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fputs()}}
+{\tf fgets()}存储输入的换行符，而{\tf fputs()}不会为输出添加换行符。\vspace{0.1in}
+
+故以上程序也可写成
+\begin{lstlisting}[language=c]
+char line[81];
+while (fgets(line, 81, stdin))
+  fputs(line, stdout);
+\end{lstlisting} \vspace{0.1in}
+
+以上两段代码中，{\tf line}数组中的字符都被显示在单独的一行。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fputs()}}
+注意：{\tf puts()}是为和{\tf gets()}一起使用而设计的，而{\tf fputs()}是为和{\tf fgets()}一起使用而设计的。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf printf()}} 
+输出字符串时，{\tf printf()}不如{\tf puts()}使用方便，但其可以格式化多种数据类型，因而更通用。
+
+\begin{lstlisting}[basicstyle=\ttfamily]
+printf("%s\n", string);
+\end{lstlisting}
+等效于
+\begin{lstlisting}[basicstyle=\ttfamily]
+puts(string);
+\end{lstlisting}
+但前者更简洁。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf printf()}} 
+不过，想在一行上输出多个字符串时，{\tf printf()}更为简单。如
+\begin{lstlisting}[language=c]
+printf("Well, %s, %s\n", name, MSG);
+\end{lstlisting}
+\end{frame}
+

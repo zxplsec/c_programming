@@ -1,0 +1,12 @@
+\ft{\secname：cleanerr函数}
+  \begin{itemize}
+  \item 函数原型声明
+    \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int ferror(FILE * stream);
+    \end{lstlisting}
+  \item
+    功能：使文件错误标志和文件结束标志置为0。 \\[0.1in]
+\item
+  文件操作出现错误后，{\tf ferror(fp)}函数值为一个非{\tf 0}值，该错误信息将一直保留在系统中，在调用{\tf clearerr(fp)}函数后，{\tf ferror(fp)}函数值变成{\tf 0}。
+\end{itemize}
+

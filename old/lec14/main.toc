@@ -1,0 +1,6 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{文件类型}{3}{0}{1}
+\beamer@sectionintoc {2}{文件的打开与关闭}{13}{0}{2}
+\beamer@sectionintoc {3}{文件的读写}{29}{0}{3}
+\beamer@sectionintoc {4}{文件的定位}{75}{0}{4}
+\beamer@sectionintoc {5}{出错检测}{100}{0}{5}

@@ -1,0 +1,174 @@
+\section{字符串输入}
+
+\begin{frame}[fragile]\ft{\secname} 
+把一个字符串读到程序中，必须首先预留存储字符串的空间，然后通过输入函数来获取该字符串。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：创建存储空间} 
+在读入字符串之前，必须分配足够大的存储区来存放读入的字符串。\textcolor{acolor1}{不要指望计算机读的时候会计算字符串长度，然后为字符串分配空间。} 例如，如果你这么做
+\begin{lstlisting}[language=c,showstringspaces=true]
+char * name;
+scanf("%s", name);
+\end{lstlisting}
+虽然编译会通过，但后果可能会非常严重，因{\tf name}可能指向任何地方。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：创建存储空间} 
+创建存储空间，有两种方式：
+\begin{itemize}
+\item 
+最简单的方法就是在声明中明确指出数组大小：
+\begin{lstlisting}[language=c,showstringspaces=true]
+char name[81];
+\end{lstlisting}
+\vspace{0.05in}
+\item 
+另一种方式就是使用C库中分配存储空间的函数，如malloc函数。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：创建存储空间} 
+为字符串预留空间后，就可以读取字符串了。C库提供了三种读取字符串的函数：
+\begin{itemize}
+\item {\tf scanf()}
+\item {\tf gets()}
+\item {\tf fgets()}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf gets()}} 
+函数gets(代表get string)从键盘获取一个字符串。\vspace{0.2in}
+
+\textcolor{acolor1}{它读取换行符之前（不包括换行符）的所有字符，在这些字符后添加一个空字符，然后把这个字符串交给调用它的程序。}
+
+\vspace{0.2in}
+它将读取换行符并将其丢弃，这样下一次读取就会在新的一行开始。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf gets()}} 
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{Code/name1.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf gets()}} 
+\begin{lstlisting}[]
+Hi, what's your name?
+warning: this program uses gets(), which is unsafe.
+Xiaoping Zhang
+Nice name, Xiaoping Zhang.
+\end{lstlisting}
+
+\rule{\textwidth}{0.3mm} \pause \vspace{.1in}
+由于{\tf gets()}不检查目标数组是否能够容纳输入，故编译器会给出警告，提醒用户使用{\tf gets()}会不安全。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf gets()}} 
+\lstinputlisting
+[language=c,showstringspaces=true,numbers=left,frame=single]
+{Code/name2.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf gets()}} 
+\begin{lstlisting}[]
+Hi, what's your name?
+warning: this program uses gets(), which is unsafe.
+Xiaoping Zhang
+Xiaoping Zhang? Ah! Xiaoping Zhang!
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：{\tf fgets()}} 
+由于{\tf gets()}不检查目标数组是否能够容纳输入，多出来的字符简单溢出到相邻的内存区。{\tf fgets()}改进了该不足，它让用户指定最大读入字符数。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fgets()}} 
+{\tf gets()}与{\tf fgets()}的三个不同：
+\begin{enumerate}
+\item {\tf fgets()}用第二个参数来说明最大读入字符数。
+\item[] 若该参数值为{\tf n}，则{\tf fgets()}会读取最多{\tf n-1}个字符或读完第一个换行符为止。\\[0.1in]
+\item 若{\tf fgets()}读取到换行符，就会把它存到字符串中，而{\tf gets()}会丢弃它。\\[0.1in]
+\item {\tf fgets()}用第三个参数来说明读哪一个文件。从键盘输入时，可以使用{\tf stdin()}作为该参数。
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fgets()}} 
+\lstinputlisting
+[language=c,showstringspaces=true,numbers=left,frame=single]
+{Code/name3.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf gets()}} 
+\begin{lstlisting}[]
+Hi, what's your name?
+Xiaoping Zhang
+Xiaoping Zhang
+? Ah! Xiaoping Zhang
+!
+\end{lstlisting}
+\rule{\textwidth}{0.3mm} \pause \vspace{.1in}
+
+该显示表明了fgets的不足，原因在于fgets把换行符存储到字符串中，导致每次显示字符串时就会显示换行符。 
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf scanf()}} 
+
+可用带{\tf \%s}的{\tf scanf()}来读取一个字符串。 \vspace{.1in}
+
+{\tf scanf()}与{\tf gets()}的主要差别在于字符串何时结束。\vspace{.1in}
+
+{\tf scanf()}更基于获取单词而不是获取字符串，而{\tf gets()}会读取所有字符，直到遇到第一个换行符为止。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf scanf()}} 
+
+{\tf scanf()}使用两种方法决定输入结束，但无论哪种方法，字符串都以遇到的第一个非空白字符开始。
+
+\begin{enumerate}
+\item 若使用{\tf \%s}格式，字符串读到（但不包括）下一个空白字符。\\[0.1in]
+\item 若指定字段宽度，如{\tf \%10s}，则{\tf scanf()}会读入{\tf 10}个字符或直到遇到第一个空白字符。
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf scanf()}}
+  \begin{footnotesize}
+\begin{table}
+\centering
+\caption{以\_代表空格}
+\begin{tabular}{c|l|l|l}\hline
+输入语句&原始输入队列&name中的内容&剩余队列\\\hline
+{\tf scanf("\%s", name);}  & \tf Fleebert\_Hup & \tf Fleebert & \tf \_Hup \\\hline
+{\tf scanf("\%5s", name);} & \tf Fleebert\_Hup & \tf Fleeb    & \tf ert\_Hup\\\hline
+{\tf scanf("\%5s", name);} & \tf Ann\_Ular & \tf Ann & \tf \_Ular\\\hline
+\end{tabular}
+\end{table}
+  \end{footnotesize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf scanf()}} 
+\lstinputlisting
+[language=c,showstringspaces=true,numbers=left,frame=single]
+{Code/scan_str.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf scanf()}} 
+\begin{lstlisting}[backgroundcolor=\color{blue!20}]
+Please enter 2 names.
+Jesse Jukes
+I read the 2 names Jesse and Jukes.
+\end{lstlisting}
+
+\begin{lstlisting}[backgroundcolor=\color{blue!20}]
+Please enter 2 names.
+Liza Applebottham
+I read the 2 names Liza and Applebotth.
+\end{lstlisting}
+
+\begin{lstlisting}[backgroundcolor=\color{blue!20}]
+Please enter 2 names.
+Portensia Callowit
+I read the 2 names Porte and nsia.
+\end{lstlisting}
+
+\end{frame}

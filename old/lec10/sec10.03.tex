@@ -1,0 +1,102 @@
+\section{指针与数组}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{itemize}
+\item
+计算机的硬件指令很大程度上依赖于地址，而指针为你使用地址提供了一种方法。\\[0.1in]
+\item
+于是，使用指针使你能够以类似于计算机底层的方式来表达你的意愿，从而让程序能更高效地工作。\\[0.1in]
+\item 
+特别地，指针能很有效的处理数组，实际上数组是一种变相使用指针的形式。
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+请记住：\textcolor{acolor1}{数组名是数组首元素的地址。}
+\pause \vspace{0.2in}
+
+若{\tf array}为一个数组，则以下关系式为真：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+array == &array[0];
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {Code/pnt_add.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+                  short         double
+pointers + 0: 0x7fff5fbff7d0 0x7fff5fbff7b0
+pointers + 1: 0x7fff5fbff7d2 0x7fff5fbff7b8
+pointers + 2: 0x7fff5fbff7d4 0x7fff5fbff7c0
+pointers + 3: 0x7fff5fbff7d6 0x7fff5fbff7c8
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+在C中，对指针加1的结果是对该指针增加一个存储单元。对数组而言，地址会增加到下一个元素的地址，而不是下一个字节。
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{center}
+\textcolor{acolor1}{\Large 指针定义小结}
+\end{center}
+\begin{itemize}
+\item 
+指针的数值就是它所指向的对象的地址。地址的内部表达方式由硬件决定，很多计算机都是以字节编址的。 \\[0.1in]
+\item
+在指针前用运算符{\tf *}就可以得到该指针所指向的对象的值。\\[0.1in]
+\item
+对指针加1，等价于对指针的值加上它所指向的对象的字节大小。
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+dates + 2 == &dates[2];    // `相同的地址`
+*(dates + 2) == dates[2];  // `相同的值`
+\end{lstlisting}
+
+可以用指针标识数组的每个元素，并得到每个元素的值。从本质上讲，这是对同一对象采用了两种不同的符号表示方法。
+
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+在描述数组时，C确实借助了指针的概念。例如，定义{\tf array[n]}时，\vspace{0.1in}
+
+\begin{itemize}
+\item
+即：{\tf *(array + n)}， \\[0.1in]
+\item
+含义：“寻址到内存中的{\tf array}，然后移动{\tf n}个单元，再取出数值”。
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+请注意{\tf *(dates+2)}和{\tf *dates+2}的区别。\textcolor{acolor1}{取值运算符{\tf *}的优先级高于{\tf +}}，故后者等价于{\tf (*dates)+2}。\vspace{0.1in}
+
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+*(dates + 2)  // `dates的第三个元素的值`
+*dates + 2    // `dates的第一个元素与2相加`
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]  
+  {Code/day_mon3.c}
+\end{frame}
+

@@ -1,0 +1,8 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{一个统计字数的程序}{4}{0}{1}
+\beamer@sectionintoc {2}{getchar与putchar函数}{19}{0}{2}
+\beamer@sectionintoc {3}{缓冲区(Buffer)}{22}{0}{3}
+\beamer@sectionintoc {4}{终止键盘输入}{25}{0}{4}
+\beamer@sectionintoc {5}{创建一个更友好的用户界面}{33}{0}{5}
+\beamer@sectionintoc {6}{输入确认}{62}{0}{6}
+\beamer@sectionintoc {7}{菜单浏览}{85}{0}{7}

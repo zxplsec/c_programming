@@ -1,0 +1,172 @@
+% -*- coding: utf-8 -*-
+% !TEX program = xelatex
+
+\documentclass[10pt,notheorems]{beamer}
+
+\usetheme[style=beta]{epyt} % alpha, beta, delta, gamma, zeta
+
+\usepackage[UTF8,noindent]{ctex}
+\usepackage{extarrows}
+%\usepackage{courier}
+\usepackage{animate}
+\usepackage{dcolumn}
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows,snakes,backgrounds,shapes,patterns}
+\usetikzlibrary{matrix,fit,positioning,decorations.pathmorphing}
+\usepackage{listings}
+\lstset{
+        frame=no,
+        keywordstyle=\color{acolor1},  
+        basicstyle=\ttfamily\small,
+        commentstyle=\color{acolor5},
+        breakindent=0pt,
+        rulesepcolor=\color{red!20!green!20!blue!20},
+        rulecolor=\color{black},
+        tabsize=4,
+        numbersep=5pt,
+        numberstyle=\footnotesize,
+        breaklines=true,
+        %% backgroundcolor=\color{red!10},
+        showspaces=false,
+        showtabs=false,
+        showstringspaces=false,
+        extendedchars=false,
+        escapeinside=``
+}
+
+
+
+\newcommand{\mylead}[1]{\textcolor{acolor1}{#1}}
+\newcommand{\mybold}[1]{\textcolor{acolor2}{#1}}
+\newcommand{\mywarn}[1]{\textcolor{acolor3}{#1}}
+
+\input{Macro/newcommand}
+
+
+
+%\newtheorem{theorem}{定理}
+%\newtheorem{definition}[theorem]{定义}
+%\newtheorem{example}[theorem]{例子}
+%\newtheorem{dingli}[theorem]{定理}
+%\newtheorem{li}[theorem]{例}
+%
+%\newtheorem*{theorem*}{定理}
+%\newtheorem*{definition*}{定义}
+%\newtheorem*{example*}{例子}
+%\newtheorem*{dingli*}{定理}
+%\newtheorem*{li*}{例}
+
+\renewcommand{\proofname}{证明}
+\newtheorem*{jie}{解}
+\newtheorem*{zhu}{注}
+\newtheorem*{dingli}{定理} 
+\newtheorem*{dingyi}{定义} 
+\newtheorem*{xingzhi}{性质} 
+\newtheorem*{tuilun}{推论} 
+\newtheorem{li}{例} 
+\newtheorem*{jielun}{结论} 
+\newtheorem*{zhengming}{证明}
+\newtheorem*{wenti}{问题}
+\newtheorem*{jieshi}{解释}
+\newtheorem{biancheng}{编程}
+
+\renewcommand{\proofname}{证明}
+
+\begin{document}
+
+\title{第12次C上机}
+\subtitle{结构体}
+\author{张晓平}
+\institute{武汉大学数学与统计学院}
+
+
+\begin{frame}[plain]\transboxout
+\titlepage
+\end{frame}
+
+% \begin{frame}\transboxin
+% \begin{center}
+% \tableofcontents[]%hideallsubsections]
+% \end{center}
+% \end{frame}
+
+% \AtBeginSection[]{
+% \begin{frame}[allowframebreaks]
+% \tableofcontents[currentsection,sectionstyle=show/hide]
+% \end{frame}
+% }
+%\AtBeginSubsection[]{
+%\begin{frame}[allowframebreaks]
+%\tableofcontents[currentsection,currentsubsection,subsectionstyle=show/shaded/hide]
+%\end{frame}
+%}
+
+
+\begin{frame}[fragile]
+  \begin{li}
+    编写一个程序，由用户键入日、月和年。月份可以是月份号、月份名或月份简写。然后程序返回一年中到给定日子（包括这一天）的总天数。注，当以下情况之一满足时，这一年是闰年： 
+    \begin{enumerate}
+    	\item 年份是4的倍数而不是100的倍数； 
+    	\item 年份是400的倍数。
+    \end{enumerate}
+\end{li}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{Code_OP/ex12_01.c}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{li}
+    编写一个程序，按照以下要求，创建一个含有两个成员的结构模板：
+    \begin{enumerate}
+    \item 第一个成员是学号；
+    \item 第二个成员是一个包含两个成员的结构，其中
+      \begin{itemize}
+        \item 第一个成员是姓；
+        \item 第二个成员是名。
+      \end{itemize}
+    \end{enumerate}
+    创建并初始化一个包含5个此类型的数组。编写一个函数实现以下形式的输出，将结构数组传递给这个函数：
+      \begin{lstlisting}
+Li Ming - 20161101
+      \end{lstlisting}
+\end{li}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{Code_OP/ex12_02.c}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{li}
+	编写一个程序，满足以下条件：
+	\begin{enumerate}
+		\item 定义一个name结构模板，它含两个成员：一个字符串存放名字，另一个字符串存放姓氏；
+		\item 定义一个student结构模板，它含3个成员：一个name结构，一个存放3个浮点数分数的grade数组，以及一个存放这3个分数的平均分的变量；
+		\item 使用main()声明一个具有CSIZE(=4)个student结构的数组，并随意初始化这些结构的名字部分。使用函数4、5、6以及7部分所描述的任务。
+		\item 
+		请求用户输入学生姓名和分数，以交互地获取每个学生的成绩。将分数放到相应结构的grade数组成员中。
+		\item 为每个结构计算平均分，并将这个值赋给合适的成员。
+		\item 输出每个结构中的信息。
+		\item 输出结构的每个数值成员的班级平均分。
+	\end{enumerate}
+\end{li}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{Code_OP/ex12_02.c}
+\end{frame}
+
+\end{document}

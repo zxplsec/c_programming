@@ -1,0 +1,100 @@
+\section{文件类型}
+
+\begin{frame}[fragile]\ft{\secname}
+所谓“文件”是指一组相关数据的有序集合。 \vspace{.05in}
+
+\begin{itemize}
+\item 数据以文件的形式存放在外部介质(一般是磁盘、磁带、光盘等)上，在操作系统中是以文件为单位对数据进行管理的。\\[0.1in]
+\item 以文件名作为访问文件的标识。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+C语言把文件看作一个字节序列，即由一连串的字节组成。根据文件中的数据组织形式，数据文件可分为ASCII码文件和二进制文件。\vspace{.05in}
+
+  \begin{itemize}
+  \item ASCII码文件，也称“文本文件”，其每一个字节存放一个ASCII码。\\[0.1in]
+  \item 二进制文件，把内存中的数据按其在内存中的存储形式存放在磁盘上。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+例：十进制整数{\tf 10000}，在内存中占两个字节，其存放形式是：{\tf 00100111 00010000}。\vspace{.05in}
+
+  \begin{itemize}
+  \item 在二进制文件中也按这种方式存放。\\[0.1in]
+  \item 在{\tf ASCII}文件中，十进制整数{\tf 10000}存放为{\tf 31H、30H、30H、30H、30H}，占五个字节，它们分别是{\tf 1、0、0、0、0、0}字母的{\tf ASCII}码。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+按照操作系统对磁盘文件的读写方式，文件可以分为“缓冲文件系统”和“非缓冲文件系统”。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  \begin{dingyi}[缓冲文件系统]
+    操作系统在内存中为每一个正在使用的文件开辟一个读写缓冲区。
+  \end{dingyi}
+
+
+  \begin{itemize}
+  \item 从内存向磁盘输出数据必须先送到内存中的缓冲区，装满缓冲区后才一起送到磁盘上。\\[0.1in]
+  \item 如果从磁盘向内存读入数据，则一次从磁盘文件将一批数据输入到内存缓冲区，然后再从缓冲区逐个地将数据送到程序数据区。
+   \end{itemize} 
+  \begin{dingyi}[非缓冲文件系统]
+    操作系统不自动开辟确定大小的读写缓冲区，而由程序为每个文件设定缓冲区。
+  \end{dingyi}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+
+  \begin{itemize}
+  \item
+    在{\tf UNIX}系统下，用缓冲文件系统来处理文本文件，用非缓冲文件系统处理二进制文件。\\[0.1in]
+  \item
+    {\tf ANSI C}标准只采用缓冲文件系统。
+   \end{itemize}  
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+缓冲文件系统中，每一个使用的文件都在内存中开辟一个“文件信息区”，用来存放文件的相关信息（文件的名字、文件当前的读写位置、文件操作方式等）。这些信息保存在一个结构体变量中，该结构体是由系统定义的，取名为{\tf FILE}。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+在{\tf stdio.h}中，有以下文件类型的声明：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+typedef struct {
+  int level;            // 缓冲区“满”或“空”的程度
+  unsigned flags;       // 文件状态标志
+  char fd;              // 文件描述符
+  unsigned char hold;   // 如无缓冲区不读取字符
+  int bsize;            // 缓冲区的大小
+  unsigned char * buffer;// 数据缓冲区的位置
+  unsigned char * curp;  // 指针，当前的指向
+  unsigned istemp;      // 临时文件，指示器
+  short token;          // 用于有效性检查
+} FILE;  
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+定义文件指针变量的一般形式为：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+FILE *`文件结构指针变量名`  
+\end{lstlisting}
+
+
+例如：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+FILE * fp;
+\end{lstlisting}
+
+
+注意：只有通过文件指针，才能调用相应的文件。
+\end{frame}
+
+
+
+
+
+

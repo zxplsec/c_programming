@@ -1,0 +1,100 @@
+\section{枚举类型}
+
+\begin{frame}[fragile]\ft{\secname}
+可使用枚举类型{\tf (enumerated type)}声明代表整数常量的符号名称。用关键字{\tf enum}，可创建一个新“类型”并指定它可以具有的值。
+实际上，{\tf enum}常量是{\tf int}类型，故在使用{\tf int}类型的任何地方都可使用它。\vspace{0.1in}
+
+枚举类型的目的是为了提高程序可读性，其语法与结构相同。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  声明方式如下：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+enum spectrum {red, orange, yellow, green, blue};
+enum spectrum color;
+  \end{lstlisting}
+  \begin{itemize}
+  \item 第一个声明设置{\tf spectrum}为标记名，从而允许你把{\tf enum spectrum}作为一个类型名使用。\\[0.1in]
+  \item 第二个声明使得{\tf color}成为该类型的一个变量。花括号中的标识符枚举了{\tf spectrum}变量可能有的值。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+可以使用以下语句：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int c;
+color = blue;
+if (color == yellow)
+  ...
+for (color = red; color <= blue; color++)
+  ...
+  \end{lstlisting}
+实际上，为{\tf spectrum}枚举的常量在{\tf 0}到{\tf 5}之间。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+执行以下代码：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+printf("red = %d, orange = %d\n", red, orange);
+  \end{lstlisting}
+结果为
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+red = 0, orange = 1
+  \end{lstlisting}
+{\tf red}为一个代表整数{\tf 0}的命名常量，其他标识符分别是代表{\tf 1}到{\tf 5}的命名常量。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+默认时，枚举列表中的常量被指定为整数值{\tf 0、1、2}等。故，以下声明使得{\tf nina}具有值{\tf 3}：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+enum kids {nippy, slats, skippy, nina, liz};
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  \begin{itemize}
+  \item 
+也可指定常量具有特定的整数值：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+enum levels {low = 100, medium = 500, high = 2000};
+  \end{lstlisting}
+\item 若只对一个常量赋值，而没对后面的常量赋值，则后面的常量会被赋予后续的值：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+enum feline {cat, lynx = 10, puma, tiger};
+  \end{lstlisting}
+则{\tf cat}的默认值为{\tf 0}，{\tf lynx}、{\tf puma}、{\tf tiger}的默认值分别为{\tf 10、11、12}。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：enum的用法}
+枚举类型的目的是为了提高程序可读性。如果是处理颜色，采用{\tf red}和{\tf blue}要比使用{\tf 0}和{\tf 1}更显而易见。
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：enum的用法}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{code/enum.c}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：enum的用法}
+  \begin{lstlisting}[backgroundcolor=\color{blue!20}]
+Enter a color (empty line to quit):
+orange
+Poppies are orange.
+Next color, please (empty line to quit): 
+blue
+Bluebells are blue.
+Next color, please (empty line to quit): 
+red
+Roes are red.
+Next color, please (empty line to quit): 
+sdf
+I don't know about the color sdf.
+Next color, please (empty line to quit): 
+
+Goodbye!
+\end{lstlisting}
+\end{frame}
+

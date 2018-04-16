@@ -1,0 +1,17 @@
+\ft{\secname：{\tf sprintf()}}
+\begin{lstlisting}[backgroundcolor=\color{blue!20}]
+Enter your first name:
+warning: this program uses gets(), which is unsafe.
+Teddy
+Enter your last name:
+Bear
+Enter your prize money:
+2000
+Bear, Teddy              : $2000.00
+
+\end{lstlisting}
+
+\pause \rule{\textwidth}{0.3mm}\vspace{0.3mm}
+
+{\tf sprintf()}获取输入，并把输入格式化为标准形式后存放在字符串{\tf format}中。
+

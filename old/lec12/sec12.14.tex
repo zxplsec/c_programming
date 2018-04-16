@@ -1,0 +1,56 @@
+\section{指针函数与函数指针}
+
+\subsection{指针函数}
+\begin{frame}[fragile]\ft{\subsecname}
+先看下面的函数声明，注意，此函数有返回值，返回值为{\tf int *}，即返回值是指针类型的。
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int * f (int a, int b);    
+  \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]\ft{\subsecname}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{code/ptr_fun.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{lstlisting}[backgroundcolor=\color{blue!20}]
+The memeory address of p1 = (nil) 
+The memeory address of p = 0x12c0010 
+*p = 3 
+The memeory address of p1 = 0x12c0010 
+*p1 = 3     
+  \end{lstlisting}
+\end{frame}
+
+
+\subsection{函数指针}
+\begin{frame}[fragile]\ft{\subsecname}
+函数指针说的就是一个指针，但这个指针指向函数，不是普通的基本数据类型或者类对象。
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int (* f) (int a, int b);    
+  \end{lstlisting}
+  \begin{itemize}
+  \item
+    函数指针与指针函数的最大区别是函数指针的函数名是一个指针，即函数名前面有一个{\tf *}。 
+  \item
+    上面的函数指针定义为一个指向一个返回值为整型，有两个参数并且两个参数的类型都是整型的函数。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\subsecname}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{code/fun_ptr.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{lstlisting}[backgroundcolor=\color{blue!20}]
+The max value is 2 
+The min value is 1 
+  \end{lstlisting}
+\end{frame}

@@ -1,0 +1,272 @@
+\section{向函数传递结构信息}
+
+\begin{frame}[fragile]\ft{\secname}
+向函数传递结构信息，有三种方式：
+\begin{enumerate}
+\item 将结构作为参数传递
+\item 将指向结构的指针作为参数传递
+\item 将结构成员作为参数传递
+\end{enumerate}
+\end{frame}
+
+\subsection{传递结构成员}
+\begin{frame}[fragile]\ft{\subsecname}
+若结构成员为基本类型（即{\tf int, char, float, double}或指针），就可将结构成员作为参数传递给函数。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+\begin{li}
+  编制程序，把客户的银行账户加到他的储蓄与贷款账户中。
+\end{li}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\subsecname}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]  
+  {code/funds1.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{itemize}
+  \item {\tf sum()}既不知道也不关心实参是不是结构成员，它值要求参数是{\tf double}类型。
+  \item 若想让被调函数影响调用函数中的成员值，可以传递成员地址：
+    \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+modify(&stan.bankfund);
+    \end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+
+\subsection{使用结构地址}
+\begin{frame}[fragile,allowframebreaks]\ft{\subsecname}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]  
+  {code/funds2.c}
+\end{frame}
+
+
+\subsection{把结构作为参数传递}
+\begin{frame}[fragile,allowframebreaks]\ft{\subsecname}
+\lstinputlisting
+[language=c,numbers=left,frame=single]  
+{code/funds3.c}
+\end{frame}
+
+
+\subsection{其他结构特性}
+\begin{frame}[fragile]\ft{\subsecname}
+\textcolor{acolor1}{现在的C允许把一个结构赋值给另一个结构。} \vspace{0.1in}
+
+例如，如果{\tf n\_data}和{\tf o\_data}是同一类型的结构，可以这样做
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+o_data = n_data;
+\end{lstlisting}
+这使得{\tf o\_data}的每个成员都被赋成{\tf n\_data}相应成员的值，即便其中有成员是数组。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+\textcolor{acolor1}{也可以把一个结构初始化为另一个同样类型的结构。} \vspace{0.1in}
+
+例如， 
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+struct names right_field = {"Ruthie", 
+                            "George"};
+struct names captin = right_field;
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+\textcolor{acolor1}{现在的C中，结构不仅可作为参数传递给函数，也可以作为函数返回值返回。} \vspace{0.1in}
+
+把结构作为函数参数可以将结构信息传递给一个函数，使用函数返回结构可以将结构信息从被调用函数传递给调用函数。\vspace{0.1in}
+
+同时，结构指针也允许双向通信，因此可使用任一种方法解决编程问题。
+
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\subsecname}
+\lstinputlisting
+[language=c,numbers=left,frame=single]  
+{code/names1.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\subsecname}
+\begin{lstlisting}[backgroundcolor=\color{blue!20}]
+Enter your first name.
+Stepha
+Enter your last name.
+Prata
+Stephan Prata, your name contains 12 letters.
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  接下来看看如何使用\textcolor{acolor1}{结构参数和返回值}来完成这个任务。
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\subsecname}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]  
+  {code/names2.c}
+\end{frame}
+
+
+\subsection{结构，还是指向结构的指针}
+\begin{frame}[fragile]\ft{\subsecname}
+\begin{li}
+写一个有关结构的函数，使用结构指针作为参数，还是用结构作为参数和返回值呢？
+\end{li}  \vspace{0.1in}
+
+都可以，但每种方法各有优点和不足。           
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+将结构指针作为参数，有两个优点：\vspace{0.1in}
+
+\begin{enumerate}
+\item 在新老的C实现上均可工作，且执行速度快；\\[0.1in]
+\item 只需传递一个结构地址。\\[0.1in]
+\end{enumerate}
+缺点：缺少对数据的保护。但ANSI C的关键词{\tf const}可解决这一问题。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+把结构作为参数传递，有如下优点：\vspace{0.1in}
+
+\begin{enumerate}
+\item 函数处理的是原始数据的副本，这比直接处理原始数据安全；\\[0.1in]
+\item 编程风格更为清晰。
+\end{enumerate}\vspace{0.1in}
+
+缺点有两个：\vspace{0.1in}
+
+\begin{enumerate}
+\item 早起的C实现可能不能工作，且浪费时间和空间；\\[0.1in]
+\item 把一个大的结构传递给函数，而函数值使用其中一个或两个成员，尤其浪费时间和空间。这种情况下，传递指针或所需成员更为合理。
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+假设定义了如下结构类型（可表示平面上的向量）
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+struct vector { double x; double y; };
+\end{lstlisting}
+要求两个向量a和b的和，可编写一个传递和返回结构的函数，形如
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+struct vector ans, a, b;
+struct vector sum_vec(struct vector, struct vector);
+...
+ans = sum_vec(a, b);
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+指针形式如下
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+struct vector ans, a, b;
+struct vector sum_vec(const struct vector *, 
+             const struct vector *, struct vector *);
+...
+sum_vec(&a, &b, &ans);
+\end{lstlisting}
+在指针形式中，用户必须记住总和的地址出现在参量列表的哪个位置。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+\begin{itemize}
+\item
+通常，程序员为了追求效率，会使用结构指针作为函数参数；当需要保护数据、防止意外修改数据时，对指针使用{\tf const}限定词。\\[0.1in]
+\item
+而传递结构是处理小型结构最常用的办法。
+\end{itemize}
+\end{frame}
+
+\subsection{在结构中使用字符数组还是字符指针}
+\begin{frame}[fragile]\ft{\subsecname}
+\begin{wenti}
+能否将结构中的字符数组用指向字符的指针来代替？即如下结构声明
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+struct names {
+  char first[20];
+  char last [20];
+}
+\end{lstlisting}
+能否改写成
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+struct pnames {
+  char * first;
+  char * last;
+}
+\end{lstlisting}
+\end{wenti} \pause 
+{\Large 可以}，但可能会遇到麻烦。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+考虑如下代码
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+struct names name1 = {"Stephan", "Prata"};
+struct pnames name2 = {"Dennis", "Ritche"};
+printf("%s %s", name1.first, name2.last);
+\end{lstlisting}
+这是一段正确的代码，也能运行正常，但想想字符串存储在哪里。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+\begin{itemize}
+\item 对于{\tf struct names}变量{\tf name1}，字符串存储在结构内部；该结构分配了40个字节来存放两个字符串。\\[0.1in]
+\item 对于{\tf struct pnames}变量{\tf name2}，字符串存储在编译器存储字符串常量的任何地方。该结构存放的只是两个地址，总共栈16个字节。\textcolor{acolor1}{（注：所有类型的指针变量在32位系统上都是4字节， 64位系统上都是8字节。）}\\[0.1in]
+\item[]
+ {\tf pnames}结构不为字符串分配任何存储空间，其中的指针应该只管理那些已创建的而在程序其他地方已经分配过空间的字符串。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+考虑如下代码
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+struct names accountant;
+struct pnames attorney;
+puts("Enter the last name of you accountant");
+scanf("%s", accountant.last);
+puts("Enter the last name of you attorney");
+scanf("%s", attorney.last);   //`存在潜在危险`
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+\begin{itemize}
+\item 对于会计师，他的名字存储在{\tf accountant}的最后一个成员中。\\[0.1in]
+\item 对于律师，{\tf scanf()}把字符串放在由{\tf attorney.last}给出的地址中，而该地址未被初始化，可能为任意值，程序就可以把名字放在任何地方。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{itemize}
+  \item \textcolor{acolor1}{如果需要一个结构来存储字符串，请使用字符数组成员。} \\[0.1in]
+  \item 若想在结构中使用指针处理字符串，请与{\tf malloc()}搭配使用。
+  \end{itemize}
+\end{frame}
+
+\subsection{结构、指针和malloc()}
+\begin{frame}[fragile]\ft{\subsecname}
+在结构中使用指针处理字符串时，可用{\tf malloc()}分配内存。该方法的优点是可以请求{\tf malloc()}分配刚好满足字符串需要数量的空间。
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\subsecname}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]  
+  {code/names3.c}
+\end{frame}
+
+
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{itemize}
+  \item 必须理解两个字符串并没有存储在结构中，而是被保存在由{\tf malloc()}管理的内存块中。\\[0.1in]
+  \item 两个字符串的地址被存储在结构中，而这些地址正好是字符串函数所需要知道的。\\[0.1in]
+  \item 调用{\tf malloc()}后应该调用{\tf free()}，故程序添加了一个{\tf cleanup()}，在程序使用完内存后释放内存。
+  \end{itemize}
+\end{frame}

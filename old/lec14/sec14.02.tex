@@ -1,0 +1,125 @@
+\section{文件的打开与关闭}
+\begin{frame}[fragile]\ft{\secname}
+文件操作的过程：对磁盘文件的操作必须“先打开，后读写，最后关闭”。
+
+“打开”文件的含义：以某种方式从磁盘上查找指定的文件或创建一个新文件。
+
+{\tf ANSI C}规定了标准输入输出函数库，用{\tf fopen()}打开文件。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  {\tf fopen()}的函数原型声明为
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+FILE * fopen(const char * path,const char * mode);    
+\end{lstlisting}
+
+参数说明
+\begin{itemize}
+\item 参数{\tf path}字符串包含欲打开的文件路径及文件名；
+\item 参数{\tf mode}字符串则表示“文件打开方式”。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+
+例如，
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+FILE * fp;
+fp = fopen("file1", "r");
+\end{lstlisting}
+表示要打开名字为{\tf file1}的文件，使用文件方式为“只读”。
+\begin{itemize}
+\item 如果打开成功，返回一个指向{\tf file1}文件的指针；
+\item 如果打开失败，返回一个{\tf NULL}指针。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  \begin{table}
+    \caption{使用文件方式}
+    \begin{tabular}{|l|l|}\hline
+      {\tf "r"}（只读）   &   为输入打开一个文本文件    \\\hline
+      {\tf "w"}（只写）   &   为输出打开一个文本文件    \\\hline
+      {\tf "a"}（追加）   &   为追加打开一个文本文件    \\\hline
+      {\tf "rb"}（只读）  &   为输入打开一个二进制文件  \\\hline
+      {\tf "wb"}（只写）  &   为输出打开一个二进制文件  \\\hline
+      {\tf "ab"}（追加）  &   为追加打开一个二进制文件  \\\hline
+    \end{tabular}    
+  \end{table}
+\end{frame}
+      
+\begin{frame}[fragile]\ft{\secname：文件的打开(fopen)}
+  \begin{table}
+    \caption{使用文件方式}
+    \begin{tabular}{|l|l|}\hline
+      {\tf "r+"}（读写）  &   为读/写打开一个文本文件  \\\hline
+      {\tf "w+"}（读写）  &   为读/写创建一个文本文件  \\\hline
+      {\tf "a+"}（读写）  &   为读/写打开一个文本文件  \\\hline
+      {\tf "rb+"}（读写） &   为读/写打开一个二进制文件\\\hline
+      {\tf "wb+"}（读写） &   为读/写创建一个二进制文件\\\hline
+      {\tf "ab+"}（读写） &   为读/写打开一个二进制文件\\\hline
+    \end{tabular}    
+  \end{table}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  \begin{itemize}
+  \item 用{\tf "r"}方式打开的文件只能用于向计算机输入而不能用作向该文件输出数据，而且该文件应该已经存在。不能用{\tf "r"}方式打开一个不存在的文件（即输入文件），否则出错。\\[0.1in]
+
+  \item 用{\tf "w"}方式打开的文件只能用于向该文件写数据（即输出文件），而不能用来向计算机输入。如果原来不存在该文件，则在打开时新建一个文件；如果该文件存在，则先删除该文件，然后重新建立一个新文件。\\[0.1in]
+
+  
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  \begin{itemize}
+  \item 如果希望向文件尾添加新数据（不删除原有数据），则应该用{\tf "a"}方式打开。但要求此时文件必须存在，否则出错。\\[0.1in]
+  \item 用{\tf "r+"、"w+"、"a+"}方式打开的文件既可以用来输入数据，也可以用来输出数据。\\[0.1in]
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  \begin{itemize}
+  \item 如果不能实现打开文件的任务，{\tf fopen()}将带回一个出错信息。用带{\tf "r"}的方式{\tf （"r"、"rb"、"r+"、"rb+"）}打开文件时，若文件不存在，则返回{\tf NULL}指针。常用以下方式打开文件：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+FILE * fp;
+if ( (fp=fopen("file1", "r")) ==NULL )
+{
+  printf("cannot open this file\n");
+  exit(0);
+}
+\end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  \textcolor{acolor3}{ 在读取文本文件时，将回车换行符转换为一个换行符；在写入文本文件时把换行符转换为回车和换行两个字符。在用二进制文件时，不进行转换。}
+  
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：文件的关闭(fclose)}
+在使用完一个文件后应该关闭它，“关闭”文件就是使文件指针与文件脱离，此后不能再通过该指针对原来与其相联系的文件进行读写操作。\textcolor{acolor1}{应养成在程序终止前关闭所有文件的习惯。}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+可以用{\tf fclose()}关闭文件，其函数原型声明为
+
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int fclose( FILE * fp );
+\end{lstlisting}
+
+{\tf fclose()}也带回一个返回值。当顺利关闭文件时，返回{\tf 0}；否则返回{\tf EOF(-1)}。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{li}
+  编制程序，统计某文本文件中的字符数。
+\end{li}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {code/count.c}
+\end{frame}

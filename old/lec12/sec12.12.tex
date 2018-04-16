@@ -1,0 +1,103 @@
+\section{typedef简介}
+
+\begin{frame}[fragile]\ft{\secname}
+{\tf typedef}工具是一种高级数据特性，它使你能够为某一种类型创建自己的名字。它与{\tf \#define}相似，但有如下不同
+\begin{itemize}
+\item 与{\tf \#define}不同，{\tf typedef}给出的符号名称仅限于对类型，而不是对值。\\[0.1in]
+\item {\tf typedef}的解释由编译器，而不是预处理器执行。\\[0.1in]
+\item 虽然它的范围有限，但在其受限范围内，{\tf typedef}比{\tf \#define}更灵活。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+观察代码
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+typedef unsigned char BYTE;
+BYTE x, y[10], * z;
+  \end{lstlisting}
+  \begin{itemize}
+  \item 该代码为{\tf unsigned char}创建了一个名字{\tf BYTE}，接下来便可用{\tf BYTE}来定义变量。
+  \item 该定义的作用域取决于{\tf typedef}语句所在的位置。如果定义在一个函数内部，则其作用域是局部的，限定在该函数内。若定义在函数外部，则具有全局作用域。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+typedef char * STRING;
+  \end{lstlisting}
+使{\tf STRING}成为{\tf char}指针的标识符。因此
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+STRING name, sign;
+  \end{lstlisting}
+的意思是
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+char * name, * sign;
+  \end{lstlisting} 
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+若这样做：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+#define STRING char *;
+  \end{lstlisting}
+则
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+STRING name, sign;
+  \end{lstlisting}
+的意思是
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+char * name, sign;
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+也可对结构使用{\tf typedef}：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+typedef struct complex {
+  float real;
+  float imag;
+} COMPLEX;
+  \end{lstlisting}
+  这样你就可以使用{\tf COMPLEX}来代替{\tf struct complex}来表示复数。\vspace{0.1in}
+
+
+  \textcolor{acolor1}{使用{\tf typedef}的原因之一是为经常出现的类型创建一个方便的、可识别的名称。}
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+使用{\tf typedef}来命名一个结构类型时，可省去结构的标记
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+typedef struct  {
+  double x;
+  double y;
+} vector;
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  然后，以下代码
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+vector v1 = {3.0, 6.0};
+vector v2;
+v2 = v1;
+  \end{lstlisting}
+会被翻译成
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+struct { double x; double y; } v1 = {3.0, 6.0};
+struct { double x; double y; } v2;
+v2 = v1;
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+使用{\tf typedef}的另一个原因是{\tf typedef}的名称经常被用于复杂的类型。如
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+typedef char(* FRPTC()) [5];
+  \end{lstlisting}
+这把{\tf FRPTC}声明为一个函数类型，该类型的函数返回一个指向含5个元素的{\tf char}数组的指针。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+切记：\textcolor{acolor1}{使用{\tf typedef}并不创建新的类型，它只是创建了便于使用的标签。} 
+\end{frame}

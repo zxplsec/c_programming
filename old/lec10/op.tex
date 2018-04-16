@@ -1,0 +1,256 @@
+% -*- coding: utf-8 -*-
+% !TEX program = xelatex
+
+\documentclass[10pt,notheorems]{beamer}
+
+\usetheme[style=beta]{epyt} % alpha, beta, delta, gamma, zeta
+
+\usepackage[UTF8,noindent]{ctex}
+\usepackage{extarrows}
+%\usepackage{courier}
+\usepackage{animate}
+\usepackage{dcolumn}
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows,snakes,backgrounds,shapes,patterns}
+\usetikzlibrary{matrix,fit,positioning,decorations.pathmorphing}
+\usepackage{listings}
+\lstset{
+	frame=no,
+	keywordstyle=\color{acolor1},  
+	basicstyle=\ttfamily\small,
+	commentstyle=\color{acolor5},
+	breakindent=0pt,
+	rulesepcolor=\color{red!20!green!20!blue!20},
+	rulecolor=\color{black},
+	tabsize=4,
+	numbersep=5pt,
+	numberstyle=\footnotesize,
+	breaklines=true,
+	%% backgroundcolor=\color{red!10},
+	showspaces=false,
+	showtabs=false,
+	showstringspaces=false,
+	extendedchars=false,
+	escapeinside=``
+}
+
+
+
+\newcommand{\mylead}[1]{\textcolor{acolor1}{#1}}
+\newcommand{\mybold}[1]{\textcolor{acolor2}{#1}}
+\newcommand{\mywarn}[1]{\textcolor{acolor3}{#1}}
+
+\input{Macro/newcommand}
+
+
+
+%\newtheorem{theorem}{定理}
+%\newtheorem{definition}[theorem]{定义}
+%\newtheorem{example}[theorem]{例子}
+%\newtheorem{dingli}[theorem]{定理}
+%\newtheorem{li}[theorem]{例}
+%
+%\newtheorem*{theorem*}{定理}
+%\newtheorem*{definition*}{定义}
+%\newtheorem*{example*}{例子}
+%\newtheorem*{dingli*}{定理}
+%\newtheorem*{li*}{例}
+
+\renewcommand{\proofname}{证明}
+\newtheorem*{jie}{解}
+\newtheorem*{zhu}{注}
+\newtheorem*{dingli}{定理} 
+\newtheorem*{dingyi}{定义} 
+\newtheorem*{xingzhi}{性质} 
+\newtheorem*{tuilun}{推论} 
+\newtheorem{li}{例} 
+\newtheorem*{jielun}{结论} 
+\newtheorem*{zhengming}{证明}
+\newtheorem*{wenti}{问题}
+\newtheorem*{jieshi}{解释}
+\newtheorem{biancheng}{编程}
+
+\renewcommand{\proofname}{证明}
+
+\begin{document}
+
+\title{C语言}
+\subtitle{第10次上机\\ 数组与指针}
+\author{张晓平}
+\institute{武汉大学数学与统计学院}
+
+
+\begin{frame}[plain]\transboxout
+\titlepage
+\end{frame}
+
+% \begin{frame}\transboxin
+% \begin{center}
+% \tableofcontents[]%hideallsubsections]
+% \end{center}
+% \end{frame}
+
+% \AtBeginSection[]{
+% \begin{frame}[allowframebreaks]
+% \tableofcontents[currentsection,sectionstyle=show/hide]
+% \end{frame}
+% }
+%\AtBeginSubsection[]{
+%\begin{frame}[allowframebreaks]
+%\tableofcontents[currentsection,currentsubsection,subsectionstyle=show/shaded/hide]
+%\end{frame}
+%}
+
+
+\begin{frame}[fragile]
+\begin{li} 
+	编写一个函数，对数组按从小到大进行排序。简单排序算法原理：每次从左至右扫描序列，记下最小值的位置。
+\end{li}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{Code_OP/ex10_00.c}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\begin{li} 
+编写一个程序，初始化一个double数组，然后把数组内容复制到另外两个数组。制作第一份拷贝的函数使用数组符号。制作第二份拷贝的函数使用指针符号，并使用指针的增量操作。把目标数组名和要复制的元素个数作为参数传递给函数。
+\begin{lstlisting}
+double source[5] = {1.1, 2.2, 3.3, 4.4, 5.5};
+double target1[5], target2[5];
+copy_arr(source, target1, 5);
+copy_ptr(source, target2, 5);
+\end{lstlisting}
+\end{li}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{Code_OP/ex10_02.c}
+\end{frame}
+
+ 
+
+\begin{frame}[fragile]
+\begin{li} 
+利用以上函数，把一个包含7个元素的数组中第3到第5个元素复制到一个包含3个元素的数组中。
+\end{li}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{Code_OP/ex10_07.c}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\begin{li} 
+编写一个函数，求一个double数组的最大值及其索引，并写一个简单驱动程序测试它。
+\end{li}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{Code_OP/ex10_04.c}
+\end{frame}
+
+ 
+
+\begin{frame}[fragile]
+\begin{li} 
+编写一个函数，将两个长度相同的数组相加，结果存储到第三个数组中，并用一个简单的驱动程序测试它。
+\end{li}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{Code_OP/ex10_09.c}
+\end{frame}
+
+
+ 
+
+
+\begin{frame}[fragile]
+\begin{li} 
+编写一个函数，求两个三维向量的内积和外积，并用一个简单的驱动程序测试它。
+\end{li}
+设
+$$
+\vec u = (a_1,a_2,a_3)^T, ~~~ 
+\vec v = (b_1,b_2,b_3)^T
+$$
+则内积为
+$$
+\vec u \cdot \vec v = a_1b_1+a_2b_2+a_3b_3
+$$
+外积为
+$$
+\vec u \times \vec v = 
+\left|
+\begin{array}{ccc}
+\mathbf i & \mathbf j & \mathbf k \\
+a_1 & a_2 & a_3 \\
+b_1 & b_2 & b_3
+\end{array}
+\right| = (a_2b_3-a_3b_2, a_3b_1-a_1b_3, a_1b_2-a_2b_1)^T.
+$$
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\begin{li} 
+编写一个函数，提示用户输入三个数集，每个数集包括5个double值。程序应当实现以下功能：
+\begin{enumerate}
+\item 把输入信息存储到一个$3\times5$的数组中
+\item 计算出每个数集的平均值
+\item 计算所有数的平均值
+\item 找出这15个数中的最大值
+\item 打印出结果
+\end{enumerate}
+\end{li}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{Code_OP/ex10_12.h}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{Code_OP/ex10_12.c}
+\end{frame}
+
+  
+
+\begin{frame}[fragile]
+\begin{li} 
+用变长数组重写以上程序。
+\end{li}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{li} 
+用一维数组重写以上程序。
+\end{li}
+\end{frame}
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,110 @@
+\section{定义结构体变量}
+\begin{frame}[fragile]\ft{\secname}
+有了结构体声明，就可以创建一个结构体变量，如
+\begin{lstlisting}[basicstyle=\ttfamily]
+struct book library;  
+\end{lstlisting}
+这样，编译器会使用{\tf book}模板为该变量分配空间：
+\begin{itemize}
+  \item 一个长度为{\tf MAXTITL}的{\tf char}数组
+  \item 一个长度为{\tf MAXAUTL}的char数组
+  \item 一个{\tf float}变量
+\end{itemize}
+这些变量是以一个名字{\tf library}结合在一起的。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  \begin{itemize}
+  \item  在结构体变量的声明中，{\tf struct book}是一种新的数据类型，就如同{\tf int}或{\tf float}一样。\\[0.1in]
+  \item 你可以创建一个{\tf struct book}类型的变量，也可以创建一个指向该结构体的指针。如
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+struct book lib1, lib2, * ptbook;  
+\end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+
+就计算机而言，声明
+\begin{lstlisting}[language=c,numbers=left,frame=single]
+struct book library;  
+\end{lstlisting}
+是以下声明的简化
+\begin{lstlisting}[language=c,numbers=left,frame=single]
+struct book
+{
+  char title[MAXTITL];
+  char author[MAXAUTL];
+  float value;
+} library;  
+\end{lstlisting}
+也就是说，声明结构体的过程与定义结构体变量的过程可以被合并成一步。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+
+将结构体声明与结构体变量定义合并在一起，是不需要使用标记的一种情况
+\begin{lstlisting}[language=c,numbers=left,frame=single]
+struct 
+{
+  char title[MAXTITL];
+  char author[MAXAUTL];
+  float value;
+} library;  
+\end{lstlisting}
+然而，如果想多次使用一个结构体模板，就需要使用带标记的形式。
+\end{frame}
+
+
+\subsection{初始化结构体变量}
+
+\begin{frame}[fragile]\ft{\secname：\subsecname}
+要初始化一个结构体变量，可以这么做
+\begin{lstlisting}[language=c,numbers=left,frame=single]
+struct book library = {
+  "C primer plus",
+  "Stephan Prata",
+  80
+};  
+\end{lstlisting}
+即使用一个用花括号括起来的、用逗号隔开的初始化项目列表来进行初始化。
+\begin{itemize}
+\item 每个初始化项目必须与要初始化的结构体成员类型相匹配。
+\item 建议把每个成员的初始化项目写在单独的一行。
+\end{itemize}
+\end{frame}
+
+\subsection{访问结构体成员}
+
+\begin{frame}[fragile]\ft{\secname：\subsecname}
+  结构体像是一个“超级数组”，在这个超级数组内，一个元素可以是{\tf char}类型，下一个元素可以是{\tf float}类型，再下一个可以是{\tf int}数组。\vspace{0.1in}
+
+  数组可以通过下标来访问每一个元素，那又如何访问结构体中的各个成员呢？ \pause \vspace{0.1in}
+
+  \textcolor{acolor1}{\Large 用结构体成员运算符{\tf (.)}。}\vspace{0.1in}
+
+  {\tf library.value}指的是{\tf library}的value成员，可以像使用任何其他{\tf float}变量那样使用{\tf library.value}。\vspace{0.1in}
+
+  \textcolor{acolor1}{从本质上讲，{\tf .title}、{\tf .author}和{\tf .value}在{\tf book}结构中扮演了下标的角色。}
+\end{frame}
+
+\subsection{结构体的指定初始化项目}
+
+\begin{frame}[fragile]\ft{\secname：\subsecname}
+C99支持结构体的指定初始化项目，使用点运算符和成员名来标识具体的元素。
+\begin{itemize}
+\item 只初始化{\tf book}结构体的成员{\tf value}，可以这样做：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+struct book surprise = {.value = 20.50};    
+  \end{lstlisting}
+\item 可以按任意顺序使用指定初始化项目：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+struct book gift = {
+  .value = 40.50,
+  .author = "Dennis M. Ritchie",
+  .title = "The C programming language"
+};    
+  \end{lstlisting}
+
+\end{itemize}
+\end{frame}

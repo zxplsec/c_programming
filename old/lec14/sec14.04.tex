@@ -1,0 +1,150 @@
+\section{文件的定位}
+\begin{frame}[fragile]\ft{\secname}
+文件中有一个位置指针，指向当前读写的位置。每当进行一次读写后，该指针自动指向下一个字符的位置。可以用{\tf ftell()}获得当前的位置指针，也可以用{\tf rewind()/fseek()}改变位置指针，使其指向需要读写的位置。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf rewind()}}
+函数原型声明：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+void rewind(FILE * stream);
+\end{lstlisting}
+使文件{\tf fp}的位置指针指向文件开始。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf rewind()}}
+\begin{li}
+把一个文件的内容显示在屏幕上，并同时复制到另一个文件。
+\end{li}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：{\tf rewind()}}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {code/rewind.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf rewind()}}
+  假设有文件{\tf file.txt}，其中内容为
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+C primer plus
+C programming
+  \end{lstlisting}
+  则执行结果为
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+$ gcc rewind.c -o rewind
+$ ./rewind file.txt file1.txt
+C primer plus
+C programming
+  \end{lstlisting}
+  
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fseek()}}
+对流式文件可以进行顺序读写，也可以进行随机读写，关键在于控制文件的位置指针。
+用{\tf fseek()}可以实现改变文件的位置指针。
+\begin{itemize}
+\item 
+函数原型声明
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int fseek(FILE * stream, long offset, int fromwhere);
+\end{lstlisting}
+\item
+功能：把文件的位置指针从起始点开始，移动指定位移量的字节数。
+\item 
+若一切正常，{\tf fseek()}的返回值为{\tf 0}；若有错，如试图移动超出文件范围，则返回值为{\tf -1}。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fseek()}}
+\begin{table}
+\centering
+\begin{tabular}{|p{3cm}|p{3cm}|p{2cm}|}\hline\hline
+起始点&符号常量&值\\\hline
+文件开始位置&{\tf SEEK\_SET}&{\tf 0}\\\hline
+当前位置&{\tf SEEK\_CUR}&{\tf 1}\\\hline
+文件尾&{\tf SEEK\_END}&{\tf 2}\\\hline\hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fseek()}}
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+fseek(fp, 0L, SEEK_SET);  //`找到文件的开始处`
+fseek(fp, 10L, SEEK_SET); //`找到文件的第10个字节`
+fseek(fp, 2L, SEEK_CUR);  //`从文件的当前位置向前移动`
+                          //`2个字节`
+fseek(fp, 0L, SEEK_END);  //`到达文件结尾处`
+fseek(fp, -10L, SEEK_END);//`从文件结尾处退回10个字节`    
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf ftell()}}
+{\tf ftell()}通过距文件开始处的字节数来确定文件的当前位置。在{\tf ANSI C}下，该定义适用于以二进制模式打开的文件，但对以文本模式打开的文件来讲，不一定是这样。
+例如：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+i = ftell(fp);
+if(i == -1L) printf("error\n");
+\end{lstlisting}
+变量{\tf i}存放当前位置，如调用函数时出错(如不存在{\tf fp}文件)，则输出{\tf "error"}。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf fseek()}和{\tf ftell()}的应用举例}
+  \begin{li}
+    读取文件名，反序显示一个文件。
+  \end{li}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：{\tf fseek()}和{\tf ftell()}的应用举例}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {code/reverse.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：{\tf fseek()}和{\tf ftell()}的应用举例}
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+// file4    
+Hello World!
+I love WHU!    
+  \end{lstlisting}
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+Enter the name of the file to be processed: 
+file4
+!UHW evol I
+!dlroW olleH    
+  \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：{\tf fseek()}和{\tf ftell()}的应用举例}
+  \begin{li}
+    创建一个{\tf double}型数值的文件，然后允许你访问这些内容。
+  \end{li}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：{\tf fseek()}和{\tf ftell()}的应用举例}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {code/randbin.c}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：{\tf fseek()}和{\tf ftell()}的应用举例}
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+Enter an index in the range 0-999
+1
+The value there is 100.500000.
+Next index (out of range to quit):
+4
+The value there is 400.200000.
+Next index (out of range to quit):
+5
+The value there is 500.166667.
+Next index (out of range to quit):
+100
+The value there is 10000.009901.
+Next index (out of range to quit):
+-1
+Bye!    
+  \end{lstlisting}
+\end{frame}

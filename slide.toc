@@ -1,1 +1,8 @@
-\beamer@sectionintoc {2}{分支}{3}{0}{1}
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {2}{一个统计字数的程序}{3}{0}{1}
+\beamer@sectionintoc {3}{\lstinline | getchar() |与\lstinline | putchar() |}{17}{0}{2}
+\beamer@sectionintoc {4}{缓冲区(Buffer)}{19}{0}{3}
+\beamer@sectionintoc {5}{终止键盘输入}{21}{0}{4}
+\beamer@sectionintoc {6}{创建一个更友好的用户界面}{28}{0}{5}
+\beamer@sectionintoc {7}{输入确认}{58}{0}{6}
+\beamer@sectionintoc {8}{菜单浏览}{84}{0}{7}

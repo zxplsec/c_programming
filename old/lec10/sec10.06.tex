@@ -1,0 +1,223 @@
+\section{保护数组内容}
+\begin{frame}[fragile]\ft{\secname}
+在编写处理诸如int这样的基本类型的函数时，可以向函数传递int数值，也可以传递指向int的指针。\vspace{0.05in}
+
+\begin{itemize}
+\item 通常是直接传递数值；\\[0.1in]
+\item 只有需要在函数中修改该值时，才传递指针。
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+对于处理数组的函数，只能传递指针，原因是这样能使程序效率更高。\vspace{0.05in}
+
+\begin{itemize}
+\item 若通过值向函数传递数组，那么函数中必须分配足够存放一个原数组的拷贝的存储空间，然后把原数组的所有数据复制到这个新数组中；\\[0.1in]
+\item 若简单地把数组的地址传递给函数，然后让函数直接读写原数组，程序效率会更高。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+传值仅使用原始数据的一份拷贝，这可以保证原数组不会被意外修改；而传址使得函数可以直接操作原始数据，从而能修改原数组。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{center}
+需要修改原数组的例子
+\end{center}
+以下函数的功能是给数组的每个元素加上同一个数值。
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+void add_to(double arr[], int n, double val)
+{
+  int i;
+  for (i = 0; i < n; i++)
+    arr[i] += val;
+}
+\end{lstlisting} \pause 
+该函数改变了数组的内容。之所以可以改变数组内容，是因为函数使用了指针，从而能够直接使用原始数据。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{center}
+不希望修改数据的例子
+\end{center}
+以下函数的功能是计算数组中所有元素的和，故该函数不希望数组的内容。但由于{\tf ar}实际上是一个指针，故编程的错误可能导致原始数据遭到破坏。
+如表达式{\tf arr[i]++}会导致每个元素的值增加1。
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+void sum(int arr[], int n)
+{
+  int i;
+  int sum = 0;
+  for (i = 0; i < n; i++)
+    sum += arr[i]++;
+}
+\end{lstlisting}  
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：对形参使用const}
+在ANSI C中，若设计意图是函数不改变数组的内容，那么可以在函数原型和定义中的形参声明中使用关键字{\tf const}。如
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+void sum(const int arr[], int n); // `原型`
+
+void sum(const int arr[], int n)  // `定义`
+{
+  int i;
+  int sum = 0;
+  for (i = 0; i < n; i++)
+    sum += arr[i];
+}
+\end{lstlisting} 
+这将告知编译器：函数应该把{\tf arr}所指向的数组作为包含常量数据的数组看待。如果你意外的使用了诸如{\tf arr[i]++}之类的表达式，编译器将会发现这个错误并报告之，通知你函数试图修改常量。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：对形参使用const}
+\begin{itemize}
+\item 使用{\tf const}并不要求原始数组固定不变，只是说明函数在处理数组时，应把数组当做是常量数组。\\[0.1in]
+\item 使用{\tf const}可以对数组提供保护，可阻止函数修改调用函数中的数据。\\[0.1in]
+\item 如果函数想修改数组，那么在声明数组参量时就不要使用{\tf const}；如果函数不需要修改数组，那么在声明数组参量时最好使用{\tf const}。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：对形参使用const}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{Code/arf.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：对形参使用const}
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+The original dip array:
+  20.000   17.660    8.200   15.300   22.220 
+The dip array after calling mult_array():
+  50.000   44.150   20.500   38.250   55.550 
+\end{lstlisting}  
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：有关const的其它内容}
+\begin{enumerate}
+\item 使用{\tf const}创建符号常量：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+const double PI = 3.1415926; 
+\end{lstlisting}
+也可用{\tf \#define}指令实现：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+#define PI 3.1415926
+\end{lstlisting}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：有关const的其它内容}
+\begin{enumerate}\setcounter{enumi}{1}
+\item 使用{\tf const}还可创建数组常量、指针常量以及指向常量的指针。
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：有关const的其它内容}
+以下代码使用{\tf const}保护数组
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+#define MONTHS 12
+...
+const int days[MONTHS] = {31,28,31,30,31,30,
+                          31,31,30,31,30,31}; 
+...
+days[9] = 44;   //`编译错误`
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：有关const的其它内容}
+指向常量的指针不能用于修改数值。
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+double rates[4] = {8.9, 10.1, 9.4, 3.2};
+const double * pd = rates;  //`pd指向数组开始处`
+*pd = 29.89;                //`不允许`
+pd[2] = 222.22;             //`不允许`
+rates[0] = 99.99;           //`允许，因为rates不是常量`
+pd++;                       //`允许，让pd指向rates[1]`
+\end{lstlisting} 
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：有关const的其它内容}
+通常把指向常量的指针用作函数参量，以表明函数不会使用这个指针来修改数据。如
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+void show_array(const double * ar, int n);
+\end{lstlisting} 
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：有关const的其它内容}
+关于指针赋值和{\tf const}的一些规则
+\rule{\textwidth}{0.2mm} 
+\begin{enumerate}[(a)]\setcounter{enumi}{0}
+\item 允许将常量或非常量数据的地址赋给指向常量的指针。
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+double rates[4] = {8.9, 10.1, 9.4, 3.2};
+const double locked[4] = {0.8, 0.7, 0.2, 0.3};
+const double * pc = rates;  //`合法`
+pc = locked;                //`合法`
+pc = &rates[3];             //`合法`
+\end{lstlisting} 
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：有关const的其它内容}
+关于指针赋值和{\tf const}的一些规则
+\rule{\textwidth}{0.2mm} 
+
+\begin{enumerate}[(a)]\setcounter{enumi}{1}
+\item 只有非常量数据的地址才可以赋给普通指针。
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+double rates[4] = {8.9, 10.1, 9.4, 3.2};
+const double locked[4] = {0.8, 0.7, 0.2, 0.3};
+double * pnc = rates;       //`合法`
+pnc = locked;                //`非法`
+pnc = &rates[3];             //`合法`
+\end{lstlisting} 
+这个规则是合理的，否则你就可以使用指针来修改被认为是常量的数据。
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：有关const的其它内容}
+规则的应用
+\rule{\textwidth}{0.2mm} 
+像show\_array这样的函数，可以接受普通数组和常量数组的名称作为实参：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+show_array(rates, 4);    //`合法`
+show_array(locked, 4);    //`合法`
+\end{lstlisting} \vspace{0.1in}
+
+像mult\_array这样的函数，不能接受常量数组的名称作为参数：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+mult_array(rates, 4);    //`合法`
+mult_array(locked, 4);    //`不允许`
+\end{lstlisting}
+\vspace{0.1in}
+
+因此，\textcolor{acolor1}{在函数参量定义中使用{\tf const}，不仅可以保护数据，而且使函数可以使用声明为{\tf const}的数组。}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：有关const的其它内容}
+\begin{enumerate}\setcounter{enumi}{2}
+\item 使用{\tf const}来声明并初始化指针，以保证指针不会指向别处。
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+double rates[4] = {8.9, 10.1, 9.4, 3.2};
+double const * pc = rates;  //`pc指向数组的开始处`
+pc = &rates[3];             //`非法`
+*pc = 2.2;                  //`合法，允许修改rates[0]的值`
+\end{lstlisting}
+这样的指针可用于修改数据，但它所指向的地址不能改变。
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：有关const的其它内容}
+\begin{enumerate}\setcounter{enumi}{3}
+\item 可使用两个{\tf const}来创建指针，该指针既不可以更改所指向的地址，也不可以修改所指向的数据。
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+double rates[4] = {8.9, 10.1, 9.4, 3.2};
+const double const * pc = rates;   
+pc = &rates[3];                   //`非法`
+*pc = 2.2;                        //`非法`
+\end{lstlisting}
+\end{enumerate}
+\end{frame}

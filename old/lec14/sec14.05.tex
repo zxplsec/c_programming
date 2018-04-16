@@ -1,0 +1,33 @@
+\section{出错检测}
+\begin{frame}[fragile]\ft{\secname}
+C标准提供一些函数用来检查输入输出函数调用中的错误。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf ferror()}}
+  在文件操作时，如果出错，除了操作函数的返回值有所反应外（如{\tf fopen()}返回{\tf NULL}），还可以用{\tf ferror()}获得是否出错。
+\begin{itemize}
+\item 
+函数原型声明：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int ferror(FILE * stream);
+\end{lstlisting}
+\item
+功能：若上一次文件操作未出错，返回0；否则返回非0。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：cleanerr函数}
+  \begin{itemize}
+  \item 函数原型声明
+    \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int ferror(FILE * stream);
+    \end{lstlisting}
+  \item 
+    功能：使文件错误标志和文件结束标志置为0。 \\[0.1in]
+\item
+  文件操作出现错误后，{\tf ferror(fp)}函数值为一个非{\tf 0}值，该错误信息将一直保留在系统中，在调用{\tf clearerr(fp)}函数后，{\tf ferror(fp)}函数值变成{\tf 0}。
+\end{itemize}
+
+\end{frame}
+
+

@@ -1,0 +1,160 @@
+\documentclass[10pt,a4paper%,twoside,openright,titlepage,fleqn,%
+%headinclude,footinclude,BCOR5mm,%
+%numbers=noenddot,cleardoublepage=empty,%
+tablecaptionabove]{article}
+
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+\usepackage{amsmath,amssymb,amsthm}
+
+%% -----------------设置数学公式字体-------------------------
+%% Font style 1
+%% \newcommand\ibinom[2]{\genfrac\lbrace\rbrace{0pt}{}{#1}{#2}}
+%% \usepackage{bm}
+
+%% Font style 2
+%% \newcommand\ibinom[2]{\genfrac\lbrace\rbrace{0pt}{}{#1}{#2}} 
+%% \usepackage[boldsans]{ccfonts} 
+%% \usepackage{bm} 
+
+%% Font style 3
+\newcommand\ibinom[2]{\genfrac\lbrace\rbrace{0pt}{}{#1}{#2}}
+\usepackage[euler-digits]{eulervm}
+\usepackage{bm}
+
+%% Font style 4
+%% \usepackage{fourier}
+%% \newcommand\ibinom[2]{\genfrac\lbrace\rbrace{0pt}{}{#1}{#2}}
+%% \usepackage{bm}
+
+%% Font style 5
+%% \newcommand\ibinom[2]{\genfrac\lbrace\rbrace{0pt}{}{#1}{#2}}
+%% \usepackage{mathptmx}
+%% \usepackage{bm} 
+
+
+%% %% Font style 6
+%% \newcommand\ibinom[2]{\genfrac\lbrace\rbrace{0pt}{}{#1}{#2}}
+%% \usepackage{txfonts}
+%% \usepackage{bm}
+%% -----------------------------------------------------------
+
+\usepackage{titlesec} %设置标题
+\usepackage{titletoc}
+
+\usepackage{extarrows}
+\usepackage{verbatim,color,xcolor}
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows,snakes,backgrounds,shapes,patterns}
+\usetikzlibrary{matrix,fit,positioning,decorations.pathmorphing}
+%% \usepackage{classicthesis}
+\usepackage{CJK}
+\usepackage{mathdots}
+
+\usepackage{listings}
+\lstset{
+  keywordstyle=\color{blue!70},
+  frame=single,
+  basicstyle=\ttfamily\small,
+  commentstyle=\small\color{red},
+  breakindent=0pt,
+  rulesepcolor=\color{red!20!green!20!blue!20},
+  rulecolor=\color{black},
+  tabsize=4,
+  numbersep=5pt,
+  breaklines=true,
+  %% backgroundcolor=\color{red!10},
+  showspaces=false,
+  showtabs=false,
+  extendedchars=false,
+  escapeinside=``,
+  frame=no,
+}
+
+
+\newcommand{\blue}{\textcolor{blue}}
+\newcommand{\red}{\textcolor{red}}
+\newcommand{\purple}{\textcolor{electricpurple}}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\cd}{\cdots}
+\newcommand{\dd}{\ddots}
+\newcommand{\vd}{\vdots}
+\newcommand{\id}{\iddots}
+
+\newcommand{\R}{\mathbb R}
+\def\nn{{\boldsymbol{n}}}
+\def\xx{{\boldsymbol{x}}}
+\def\F{{\boldsymbol{F}}}
+\def\div{{\mathrm{div}}}
+\def\tf{\ttfamily}
+
+
+\begin{document}
+
+\begin{CJK}{UTF8}{gkai}
+ 
+
+\newtheorem{li}{例}
+\newtheorem{jielun}{结论}
+\newtheorem{dingli}{定理}
+\newtheorem{mingti}{{命题}} 
+\newtheorem{yinli}{{引理}} 
+\newtheorem{tuilun}{{推论}}
+\newtheorem{dingyi}{{定义}} 
+\newtheorem{example}{{例}}
+\newtheorem*{example*}{{例}}
+\newtheorem*{jie}{{解}}
+\newtheorem*{zhengming}{{证明}}
+\newtheorem{zhu}{{注}}
+\newtheorem*{zhu*}{{注}}
+\newtheorem{xingzhi}{{性质}}
+\newtheorem{wenti}{{问题}}
+\newtheorem{rem}{{Remark}}
+\newtheorem{lem}{{Lemma}}
+\pagenumbering{roman}
+\pagestyle{plain}
+
+\pagenumbering{arabic}
+
+\title{C与C++中的逗号}
+%\author{张晓平}
+%\date{}                                           % Activate to display a given date or no date
+\maketitle
+
+在C 与 C++中，逗号有两层含义：
+\begin{enumerate}
+\item 逗号充当运算符。
+\item[] 逗号运算符为一元运算符，先计算第一个操作数并舍弃之，然后计算第二个操作数并返回该值。逗号运算符具有最低优先级，并且是一个顺序点。
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!10}]
+/* comma as an operator */
+int i = (5, 10);  /* 10 is assigned to i*/
+int j = (f1(), f2());  /* f1() is called (evaluated) first followed by f2(). 
+                      The returned value of f2() is assigned to j */    
+  \end{lstlisting}
+\item 逗号充当分隔符
+\item[] 逗号作为分隔符，通常用于函数调用与定义，函数宏，变量声明，enum声明以及结构体中。
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!10}]
+/* comma as a separator */
+int a = 1, b = 2;
+void fun(x, y);    
+  \end{lstlisting}
+\end{enumerate}
+
+
+%% The use of comma as a separator should not be confused with the use as an operator. For example, in below statement, f1() and f2() can be called in any order.
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!10}]
+/* Comma acts as a separator here and doesn't enforce any sequence. 
+    Therefore, either f1() or f2() can be called first */
+void fun(f1(), f2());  
+\end{lstlisting}
+
+%% You can try below programs to check your understanding of comma in C.
+\lstinputlisting[language=c,backgroundcolor=\color{red!10}]{Code/comma1.c}
+\lstinputlisting[language=c,backgroundcolor=\color{red!10}]{Code/comma2.c}
+\lstinputlisting[language=c,backgroundcolor=\color{red!10}]{Code/comma3.c}
+
+\end{CJK}
+\end{document}

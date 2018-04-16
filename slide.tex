@@ -17,7 +17,7 @@
 
 \begin{document}
 
-\newcommand{\num}{o7}
+\newcommand{\num}{s8}
 
 \newcommand{\choosetitle}[1]
 {
@@ -35,6 +35,7 @@
   \ifthenelse{\equal{#1}{s5}}{\title{运算符、表达式和语句}}{}
   \ifthenelse{\equal{#1}{s6}}{\title{循环}}{}
   \ifthenelse{\equal{#1}{s7}}{\title{分支}}{}
+  \ifthenelse{\equal{#1}{s8}}{\title{字符输入输出与输入确认}}{}
 }
 
 \newcommand{\inputslide}[1]
@@ -123,6 +124,16 @@
     \input{ch07/slide07_06.tex}
     \input{ch07/slide07_07.tex}
     \input{ch07/slide07_08.tex}
+  }{}
+  \ifthenelse{\equal{#1}{s8}}{
+  	\input{ch08/slide08_00.tex}
+    \input{ch08/slide08_01.tex}
+    \input{ch08/slide08_02.tex}
+    \input{ch08/slide08_03.tex}
+%    \input{ch08/slide08_04.tex}
+    \input{ch08/slide08_05.tex}
+    \input{ch08/slide08_06.tex}
+    \input{ch08/slide08_07.tex}
   }{}
 }
 \choosetitle{\num}

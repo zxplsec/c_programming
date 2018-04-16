@@ -1,0 +1,142 @@
+\section{位操作介绍}
+\begin{frame}
+C语言的设计具备了汇编语言的运算能力，它支持全部的位操作符。位操作符是对字节或字中的位进行测试、置位或移位处理，在对微处理器的编程中，特别适合对寄存器、I/O端口进行操作。
+\end{frame}
+
+\begin{frame}
+  C语言提供了六种位操作运算符：
+  \begin{itemize}
+  \item 位与
+  \item 位或
+  \item 位异或
+  \item 取反
+  \item 左移
+  \item 右移
+  \end{itemize}
+  这些运算符只能用于整型操作数，即只能用于带符号或无符号的{\tf char, short, int}与{\tf long}类型。
+\end{frame}
+
+\begin{frame}
+  \begin{table}
+    \centering
+    \begin{tabular}{p{0.5cm}|p{1.5cm}|p{8cm}}\hline
+      {\tf \&} & 位与 & 如果两个相应的二进制位都为1，则该位的结果值为1，否则为0\\\hline
+      {\tf |}  & 位或 & 两个相应的二进制位中只要有一个为1，该位的结果值为1\\\hline
+      {\tf $\hat{}$}  & 位异或 & 若参加运算的两个二进制位值相同则为0，否则为1\\\hline
+      {\tf $\tilde{}$} & 取反 & 一元运算符，用来对一个二进制数按位取反，即将0变1，将1变0\\\hline
+      {\tf <<} & 左移 & 用来将一个数的各二进制位全部左移N位，右补0\\\hline
+      {\tf >>} & 右移 & 将一个数的各二进制位右移N位，移到右端的低位被舍弃，对于无符号数，高位补0\\\hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+
+\begin{frame}
+  \begin{dingyi}[位与运算]
+    参加运算的两个数据，按二进制位进行“与”运算。   如果两个相应的二进制位都为１，则该位的结果值为1；否则为0。
+  \end{dingyi}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \begin{li}
+    计算{\tf 3 \& 5}
+  \end{li}
+  \begin{jie}
+    因{\tf 3 = 00000011(2)}，{\tf 5 = 00000101(2)}，而位与运算为
+    \begin{lstlisting}
+         00000011
+      &  00000101
+      -------------
+         00000001
+    \end{lstlisting}
+    故{\tf 3 \& 5 = 1}。
+  \end{jie}
+\end{frame}
+
+
+\begin{frame}
+  \lstinputlisting
+  [language=c,frame=single,numbers=left]
+  {code/and1.c}
+\end{frame}
+
+
+\begin{frame}
+  位与的用途：
+
+  \begin{itemize}
+  \item \blue{清零}
+  \item[]  若想对一个存储单元清零，即使其全部二进制位为{\tf 0}，只要找一个二进制数，其中各位符合以下条件： 原来的数中为{\tf 1}的位，新数中相应位为{\tf 0}。然后使二者进行{\tf \&}运算，即可达到清零目的。
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \begin{li}
+    设原数为{\tf 43 = 00101011(2)}，另找一个数{\tf 148 = {10010100(2)}}，将两者做位与运算：
+    \begin{lstlisting}
+         00101011
+      &  10010100
+      -------------
+         00000000
+    \end{lstlisting}
+  \end{li}
+\end{frame}
+
+\begin{frame}
+  \lstinputlisting
+  [language=c,frame=single,numbers=left]
+  {code/and2.c}
+\end{frame}
+
+
+\begin{frame}
+
+  \begin{itemize}
+  \item \blue{取一个数中某些指定位}
+  \item[]  若有一个整数{\tf a (2 byte)}，想要取其中的低字节，只需要将{\tf a}与{\tf 8}个{\tf 1}做位与运算即可。
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \begin{li}
+    \begin{lstlisting}
+         00101100 10101100
+      &  00000000 11111111
+      ---------------------
+         00000000 10101100
+    \end{lstlisting}
+  \end{li}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+  \begin{itemize}
+  \item \blue{保留指定位}
+  \end{itemize}
+  
+  \begin{li}
+    有一个数{\tf 84 = 01010100(2)}， 想把其中从左边算起的第{\tf 3, 4, 5, 7, 8}位保留下来，可做以下运算：
+    \begin{lstlisting}
+         01010100
+      &  00111011
+      ---------------------
+         00010000
+    \end{lstlisting}
+  \end{li}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  一元运算符 {\tf \~{}} 将每个1变为0，将每个0变为1。
+  \begin{li}
+    \begin{lstlisting}
+      ~  00111011
+      ---------------------
+         11000100
+    \end{lstlisting}
+  \end{li}
+\end{frame}

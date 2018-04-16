@@ -1,0 +1,7 @@
+\ft{\secname}
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+   0    1    2    3    4
+   1    2    3    4    5
+   2    3    4    5    6
+   3    4    5    6    7
+  \end{lstlisting}

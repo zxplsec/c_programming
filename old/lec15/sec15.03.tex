@@ -1,0 +1,449 @@
+\section{C的位运算符}
+\begin{frame}
+
+  C提供位的逻辑运算符和移位运算符。
+\end{frame}
+\subsection{位逻辑运算符}
+\begin{frame}
+  C语言提供了六种位逻辑运算符：
+  \begin{itemize}
+  \item 位与
+  \item 位或
+  \item 位异或
+  \item 取反
+  \end{itemize}
+  这些运算符只能用于整型数据，即只能用于带符号或无符号的{\tf char, short, int}与{\tf long}类型。将这些运算符称为位{\tf (bitwise)}的原因是它们对每个位进行操作，而不影响左右两侧的位。
+\end{frame}
+
+\begin{frame}
+  \begin{zhu}
+    请不要将这些运算符与常规的逻辑运算符相混淆{\tf (\&\&, ||, !)}，常规的逻辑运算符对整个值进行操作。
+  \end{zhu}
+\end{frame}
+
+\begin{frame}[fragile]
+  \blue{ 一、二进制反码或按位取反：{\tf \~{}}}
+  
+  一元运算符 {\tf \~{}} 将每个1变为0，将每个0变为1。
+  \begin{li}
+    \begin{lstlisting}[backgroundcolor=\color{red!20}]
+      ~  00111011
+      ---------------------
+         11000100
+    \end{lstlisting}
+  \end{li}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  设{\tf val}是一个{\tf unsigned char}，已赋值为{\tf 2}。因{\tf 2 = 00000010(2）}，故{\tf \~{}val}的值为{\tf 11111101}，即{\tf 253}。
+
+  \pause \vspace{.1in}
+  
+  \begin{zhu}
+    该运算符不改变{\tf val}的值。
+
+    若想将{\tf val}的值变为{\tf \~{}val}，可以这样做：
+    \begin{lstlisting}[backgroundcolor=\color{red!20}]
+      val = ~val;
+    \end{lstlisting}
+  \end{zhu}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \blue{二、位与：{\tf \&}}
+
+  {\tf \&}运算符通过对两个操作数逐位进行比较产生一个新值。对于每个位，只有两个操作数的对应位都为{\tf 1}，结果才为{\tf 1}。
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+       00000011
+    &  00000101
+    -------------
+       00000001
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+
+  \begin{zhu}
+    C也有一个位与-赋值运算符：{\tf \&=}。
+  \end{zhu}
+  以下两条语句等效：
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+    val &= 0377;
+    val = val & 0377;
+  \end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+  \blue{三、位或：{\tf |}}
+
+  {\tf |}运算符通过对两个操作数逐位进行比较产生一个新值。对于每个位，如果任意操作数中对应的位为{\tf 1}，那么结果位就为{\tf 1}。
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+       10010011
+    |  00111101
+    -------------
+       10111111
+  \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+  \begin{zhu}
+    C也有一个位或-赋值运算符：{\tf |=}。
+  \end{zhu}
+  以下两条语句等效：
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+    val |= 0377;
+    val = val | 0377;
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \blue{四、位异或：{\tf \^{}}}
+
+  {\tf \^{}}运算符通过对两个操作数逐位进行比较产生一个新值。对于每个位，如果任意操作数中对应的位有一个为{\tf 1}，但不都为{\tf 1}，那么结果位就为{\tf 1}。
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+       10010011
+    ^  00111101
+    -------------
+       10101110
+  \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+  \begin{zhu}
+    C也有一个位异或-赋值运算符：{\tf \^{}=}。
+  \end{zhu}
+  以下两条语句等效：
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+    val ^= 0377;
+    val = val ^ 0377;
+  \end{lstlisting}
+\end{frame}
+
+
+\subsection{用法：掩码}
+\begin{frame}
+  位与运算符通常跟掩码一起使用。掩码是某些位设为开{\tf (1)}而某些位设为关{\tf (0)}的位组合。
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{li}
+    设已经定义符号常量{\tf MASK}为{\tf 2}，即二进制的{00000010}，只有位{\tf 1}是非零。则以下语句
+    \begin{lstlisting}[backgroundcolor=\color{red!20}]
+      flags = falgs & MASK;
+    \end{lstlisting}
+    将导致{\tf flags}除位{\tf 1}外的所有位都设置为{\tf 0}。因掩码中的{\tf 0}覆盖了{\tf flags}中相应的位，故该过程称为\blue{“使用掩码”}。
+  \end{li}
+\end{frame}
+
+\begin{frame}[fragile]
+  以此类推，可将掩码中的{\tf 0}看做不透明，将{\tf 1}看做透明。表达式{\tf flags \& MASK}就好像使用掩码覆盖{\tf flags}：{\tf flags}中的位只有在{\tf MASK}中的对应位是{\tf 1}时才可见。
+\end{frame}
+
+\begin{frame}[fragile]
+  可使用\blue{“位与-赋值”运算符}来简化代码，如
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+    flag &= MASK;
+  \end{lstlisting}
+  \pause \vspace{.1in}
+
+  一种常见的C用法如下
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+    ch &= 0xff;
+  \end{lstlisting}
+  因{\tf 0xff}的二进制形式为{\tf 11111111}，该掩码留下{\tf ch}的低{\tf 8}位，将其余位设为{\tf 0}。
+\end{frame}
+
+
+\subsection{用法：打开位}
+\begin{frame}
+  有时，可能需要打开一个值中特定的位，同事保持其他位不变。例如，一台PC通过将知发送到端口来控制硬件。如要打开扬声器，可能需要打开某一位，同时保持其他位不变。\blue{可以使用“位或”运算符来实现。}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{li}
+    设{\tf MASK}为{\tf 00000010}，以下语句
+    \begin{lstlisting}[backgroundcolor=\color{red!20}]
+      flags = flags | MASK;
+    \end{lstlisting}
+    将{\tf flags}中的位{\tf 1}设为{\tf 1}，并保留其他所有位不变。
+
+    \pause \vspace{.1in}
+
+    作为缩写，可使用\blue{位或-赋值}运算符：
+    \begin{lstlisting}[backgroundcolor=\color{red!20}]
+      flags |= MASK;
+    \end{lstlisting}
+  \end{li}
+\end{frame}
+
+\subsection{用法：关闭位}
+\begin{frame}[fragile]
+  关闭特定位与打开特定位是同样有用的。假设想关闭{\tf flags}中的位{\tf 1}。设{\tf MASK}为{\tf 00000010}，则以下语句
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+    flags = flags & ~MASK;
+  \end{lstlisting}
+  将关闭位{\tf 1}，而其他所有位不变。 其缩写形式为
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+    flags &= ~MASK;
+  \end{lstlisting}
+\end{frame}
+
+\subsection{用法：转置位}
+\begin{frame}
+  \blue{转置一个位}表示如果该位打开，则关闭该位；如果该位关闭，则打开该位。
+  \blue{可使用“位异或”运算符来转置一个位。}
+\end{frame}
+
+\begin{frame}
+  其思想为：  设{\tf b}是一个位（{\tf 1}或{\tf 0}），则
+  \begin{itemize}
+  \item 若{\tf b}为{\tf 1}，则{\tf 1\^{}b}为{\tf 0}；
+  \item 若{\tf b}为{\tf 0}，则{\tf 1\^{}b}为{\tf 1}；
+  \item 无论{\tf b}是{\tf 0}还是{\tf 1}，{\tf 0\^{}b}总是为{\tf b}。
+  \end{itemize}
+  因此，若使用{\tf \^{}}将一个值与掩码组合，则该值中对应掩码位为{\tf 1}的位被转置，对应掩码位为{\tf 0}的位不改变。
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{li}
+    要转置{\tf flag}中的位{\tf 1}，可使用以下任一语句：
+    \begin{lstlisting}[backgroundcolor=\color{red!20}]
+      flag = flag ^ MASK;
+      flag ^= MASK;
+    \end{lstlisting}
+  \end{li}
+\end{frame}
+
+\subsection{用法：查看某一位的值}
+\begin{frame}
+  \begin{wenti}
+    我们已经知道了改变一位的值的方法，那么如何来查看某一位的值呢？
+  \end{wenti}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{li}
+    查看{\tf flag}的位{\tf 1}的值。
+  \end{li}
+  \pause \vspace{.1in}
+
+  不能简单的比较{\tf flag}与{\tf MASK (00000010)}：
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+    if (flag == MASK)
+      puts("Wow!");
+  \end{lstlisting}
+  \pause \vspace{0.1in}
+  
+  必须屏蔽{\tf flag}中的其他位，以便只把{\tf flag}中的位{\tf 1}和{\tf MASK}做比较：
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+    if ( (flag & MASK) == MASK)
+      puts("Wow!");
+  \end{lstlisting}
+  因位运算符的优先级低于{\tf ==}，故需在{\tf flag \& MASK}的两侧加圆括号。
+\end{frame}
+
+\subsection{移位操作符}
+\begin{frame}
+  移位运算符将位向左或向右移。
+\end{frame}
+
+\begin{frame}
+  \blue{一、左移：{\tf <<}} \vspace{.1in}
+
+  左移运算符{\tf <<}将其左侧操作数的值的每位向左移动，移动的位数由其右侧操作数指定。
+  空出的位用{\tf 0}填充，并且丢弃移出左侧操作数末端的位。
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+    10001010 << 2
+    -------------
+    00101000
+  \end{lstlisting}
+  该操作产生一个新值，但不改变其操作数。如，设{\tf a}为{\tf 1}，
+  则{\tf a << 2}为{\tf 4}，但{\tf a}仍为{\tf 1}。
+
+  \vspace{.1in}
+  \blue{可使用“左移-赋值”运算符{\tf (<<=)}来实际改变一个变量的值。}
+
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+    int a = 1;
+    int b;
+    b = a << 2; // assign 4 to b
+    a <<= 2;    // change a to 4
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}
+  \blue{二、右移：{\tf >>}} \vspace{.1in}
+
+  左移运算符{\tf >>}将其左侧操作数的值的每位向右移动，移动的位数由其右侧操作数指定。
+  丢弃移出左侧操作数右端的位。对于{\tf unsigned}类型，使用{\tf 0}填充左端空出的位；对于有符号类型，结果依赖于机器：空出的位可能用{\tf 0}填充，或使用符号（最左端的）位的副本来填充。
+\end{frame}
+
+\begin{frame}[fragile]
+  对有符号值，
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+    10001010 >> 2  // signed
+    -------------
+    00100010       // some os
+
+    10001010 >> 2  // signed
+    -------------
+    11100010       // the other os
+  \end{lstlisting}
+  对无符号值，
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+    10001010 >> 2  // signed
+    -------------
+    00100010       // any os
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \blue{可使用“右移-赋值”运算符{\tf (>>=)}来实际改变一个变量的值。}
+
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+    int a = 16;
+    int b;
+    b = a >> 2; // b = 2, a = 16
+    a >>= 2;    // a = 2
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}
+  \blue{三、用法：移位运算符} \vspace{.1in}
+
+  移位运算符能够提供快捷、高效的（依赖于硬件）对{\tf 2}的幂的乘法和除法。
+
+  \begin{table}
+    \centering
+    \begin{tabular}{p{3cm}|p{6cm}}\hline
+      {\tf number << n} & {\tf number}乘以{\tf 2}的{\tf n}次幂\\\hline
+      {\tf number >> n} & 如果{\tf number}非负，则用{\tf number}除以{\tf 2}的{\tf n}次幂\\\hline
+    \end{tabular}
+  \end{table}
+  这些移位运算符类似于在十进制中移动小数点来乘以或除以{\tf 10}。
+\end{frame}
+
+\begin{frame}
+  移位运算符也用于从较大的单位中提取多组比特位。
+
+  \begin{li}
+    假设使用一个{\tf unsigned long}值代表颜色值，其中低位字节存放红色亮度，下一字节存放绿色亮度，第三个字节存放蓝色亮度。如何将每种颜色的亮度存储在各自的{\tf unsigned char}变量中。
+  \end{li}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+#define MASK 0xff
+unsigned long color = 0x002a162f;
+unsigned char blue, green, red;
+red = color & MASK;
+green = (color >> 8)  & MASK;
+blue  = (color >> 16) & MASK;
+\end{lstlisting}
+这段代码使用右移运算符将{\tf 8}位颜色值移动到低字节，然后使用掩码技术将低位字节赋给相应的变量。
+\end{frame}
+
+\subsection{编程实例}
+
+\begin{frame}[fragile]
+  \begin{li}
+    使用移位运算符实现一个十进制整数的二进制转码。要求编写一个{\tf itobs()}函数，它接受两个参数，第一个是该整数，另一个是字符串地址。
+  \end{li}
+
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \lstinputlisting
+  [language=c,frame=single,numbers=left]
+  {code/binbit.c}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+Enter integers and see them in binary.
+Non-numeric input terminates program.
+7 [enter]
+7 is 0000 0000 0000 0000 0000 0000 0000 0111
+2017 [enter]
+2017 is 0000 0000 0000 0000 0000 0111 1110 0001
+-1 [enter]
+-1 is 1111 1111 1111 1111 1111 1111 1111 1111
+-2017 [enter]
+-2017 is 1111 1111 1111 1111 1111 1000 0001 1111
+q [enter]
+Bye!
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{li}
+    编写一个函数，反转一个值中的最后{\tf n}位，参数为{\tf n}和要反转的值。
+  \end{li}
+
+\end{frame}
+
+\begin{frame}[fragile]  
+  取反运算符{\tf \~{}}可以反转位，但它反转一个值中的所有位，而不是选定的少数位。
+  然而，异或运算符{\tf \^{}}可以用与转置单个位。
+
+  \pause \vspace{.1in}
+  创建一个掩码，它的最后{\tf n}位设为{\tf 1}，其他位设为{\tf 0}。
+  然后对该掩码和一个值使用异或运算符{\tf \^{}}就可以反转这个值的最后{\tf n}位，
+  同事保留该值的其他位不变。
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int invert_end(int num, int bits)
+{
+  int mask = 0;
+  int bitva}l = 1;
+  while (bits-- > 0) {
+    mask |= bitval;
+    bitval <<= 1;
+  }
+  return num ^ mask;
+}
+\end{lstlisting}
+该代码中，{\tf while}循环创建该掩码。最初，{\tf mask}的所有位都被设为{\tf 0}。
+第一次执行该循环将位{\tf 0}设为{\tf 1}，然后将{\tf bitval}增加到{\tf 2}；
+也就是将{\tf bitval}的位{\tf 0}设为{\tf 0}，位{\tf 1}设为{\tf 1}。
+下次循环时，将{\tf mask}的位{\tf 1}设为{\tf 1}，以此类推。
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \lstinputlisting
+  [language=c,frame=single,numbers=left]
+  {code/invert4.c}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+Enter integers and see them in binary.
+Non-numeric input terminates program.
+7
+7 is
+0000 0000 0000 0000 0000 0000 0000 0111
+Inverting the last 4 bits gives
+0000 0000 0000 0000 0000 0000 0000 1000
+1234
+1234 is
+0000 0000 0000 0000 0000 0100 1101 0010
+Inverting the last 4 bits gives
+0000 0000 0000 0000 0000 0100 1101 1101
+q
+Bye!
+  \end{lstlisting}
+\end{frame}

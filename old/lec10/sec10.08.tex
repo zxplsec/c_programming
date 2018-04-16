@@ -1,0 +1,147 @@
+\section{变长数组}
+\begin{frame}[fragile]\ft{\secname}
+对于处理二维数组的函数，数组的行可以在函数调用时传递，但数组的列却只能预置在函数内部。例如函数定义为
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+#define COLS 4
+int sum2d(int ar[][COLS], int rows)
+{
+  int r;
+  int c;
+  int tot = 0;
+  for (r = 0; r < rows; r++)
+    for (c = 0; c < COLS; c++)
+      tot += ar[r][c];
+  return tot;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+假设定义了如下数组
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int ar1[5][4];
+int ar2[100][4];
+int ar3[2][4];
+\end{lstlisting}
+可以使用以下函数调用
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+tot = sum2d(ar1, 5);
+tot = sum2d(ar2, 100);
+tot = sum2d(ar3, 2);
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+如果要处理6行5列的数组，则需要新创建一个函数，其COLS定义为5。这是因为数组的列数必须是常量：不能用一个变量来代替COLS。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+创建一个处理任意二维数组的函数，也是有可能的，但比较繁琐（这样的函数需要把数组当做一维数组来传递，然后由函数计算每行的起始地址）。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+值得一提的是\textcolor{acolor1}{FORTRAN语言允许在函数调用时指定二维的大小}。虽然FORTRAN是很古老的编程语言，但多年来，数值计算专家们编制出了很多有用的FORTRAN计算库。C正在逐渐代替FORTRAN，因此如何能够简单地转换现有的FORTRAN库将是大有益处的。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+出于以上原因，C99标准引入了变长数组(VLA)，它允许使用变量定义数组各维数。\pause
+
+\rule{\textwidth}{.2mm}
+ \vspace{.1mm}
+
+你可以使用以下声明
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int m = 4;
+int n = 5;
+double array[m][n];
+\end{lstlisting}
+但变长数组有一些限制，如变长数组必须是自动存储类的，这意味着它们必须在函数内部或作为函数参量声明，而且声明时不可以进行初始化。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+编写一个函数，用于计算任意二维int数组的和。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{enumerate}
+\item[1] 以下代码示范如何声明一个带有二维变长数组参数的函数：
+\begin{lstlisting} [language=c,backgroundcolor=\color{red!20}]
+int sum2d(int rows, int cols, int ar[rows][cols]);
+\end{lstlisting}
+请注意
+%前面两个参量rows和cols用作数组参量ar的维数，而ar的声明中使用了rows和cols，故
+在参量列表中，{\tf rows}和{\tf cols}的声明需要早于{\tf ar}。\\[0.1in]
+
+\item[] 以下原型是错误的（顺序不对）：
+\begin{lstlisting} [language=c,backgroundcolor=\color{red!20}]
+int sum2d(int ar[rows][cols], int rows, int cols);
+\end{lstlisting}\vspace{0.05in}
+
+\item[] 可简写为
+\begin{lstlisting} [language=c,backgroundcolor=\color{red!20}]
+int sum2d(int, int,int ar[*][*]);
+\end{lstlisting}
+若省略名称，则需用星号代替方括号中省略的维数。
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{enumerate}
+\item[2] 函数定义为
+\begin{lstlisting} [language=c,backgroundcolor=\color{red!20}]
+int sum2d(int rows, int cols, int ar[rows][cols])
+{
+  int r;
+  int c;
+  int tot = 0;
+  for (r = 0; r < rows; r++)
+    for (c = 0; c < cols; c++)
+      tot += ar[r][c];
+  return tot;
+}
+\end{lstlisting}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{Code/vararr2d.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+3x5 array
+Sum of all elements = 80
+2x6 array
+Sum of all elements = 315
+3x10 VLA
+Sum of all elements = 270
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+注意，函数定义参量列表中的变长数组声明实际上并没有创建数组。和老语法一样，变长数组名实际上也是指针，也就是说带变长数组参量的函数实际上直接使用原数组，因此它有能力修改原数组。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+以下程序段指出了指针和实际数组是如何声明的。
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+{
+  int thing[10][6];
+  twoset(10, 6, thing);
+  ...
+}
+
+void twoset(int n, int m, int ar[n][m])
+//`ar是一个指针，它指向由m个int组成的数组`
+{
+  int temp[n][m]; //`temp是一个nxm的int数组`
+  temp[0][0] = 2; //`把temp的第一个元素设置为2`
+  ar[0][0] = 2;   //`把thing[0][0]设置为2`
+}
+  
+\end{lstlisting}
+
+\end{frame}

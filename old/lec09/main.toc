@@ -1,0 +1,6 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{函数概述}{3}{0}{1}
+\beamer@sectionintoc {2}{递归}{60}{0}{2}
+\beamer@subsectionintoc {2}{1}{重定向与文件}{95}{0}{2}
+\beamer@sectionintoc {3}{改变调用函数中的变量}{97}{0}{3}
+\beamer@sectionintoc {4}{指针}{118}{0}{4}

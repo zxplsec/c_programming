@@ -1,0 +1,6 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{字符串表示}{3}{0}{1}
+\beamer@sectionintoc {2}{字符串输入}{24}{0}{2}
+\beamer@sectionintoc {3}{字符串输出}{45}{0}{3}
+\beamer@sectionintoc {4}{自定义字符串输入/输出函数}{65}{0}{4}
+\beamer@sectionintoc {5}{字符串函数}{71}{0}{5}
