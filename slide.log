@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.31)  16 APR 2018 23:08
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.31)  27 APR 2018 22:14
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2786,7 +2786,7 @@ Package: inputenc 2015/03/17 v1.2c Input encoding file
 ) (./slide.nav)
 
 Package hyperref Warning: Option `pdfauthor' has already been used,
-(hyperref)                setting the option has no effect on input line 140.
+(hyperref)                setting the option has no effect on input line 153.
 
 *************************************************
 * fontspec warning: "script-not-exist"
@@ -2794,7 +2794,7 @@ Package hyperref Warning: Option `pdfauthor' has already been used,
 * Font 'FandolFang-Regular' does not contain script 'CJK'.
 *************************************************
 \g__fontspec_family_FandolFang-Regular_int=\count311
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 147.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 160.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -2823,46 +2823,46 @@ File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 . and font adjustment code:
 . 
 .................................................
-LaTeX Font Info:    Try loading font information for FML+futmi on input line 14
-7.
+LaTeX Font Info:    Try loading font information for FML+futmi on input line 16
+0.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/fourier/fmlfutmi.fd
 File: fmlfutmi.fd 2004/10/30 Fontinst v1.926 font definitions for FML/futmi.
 )
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 7.35999pt on input line 147.
+(Font)              scaled to size 7.35999pt on input line 160.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 6.25598pt on input line 147.
+(Font)              scaled to size 6.25598pt on input line 160.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 5.51999pt on input line 147.
-LaTeX Font Info:    Try loading font information for U+msa on input line 147.
+(Font)              scaled to size 5.51999pt on input line 160.
+LaTeX Font Info:    Try loading font information for U+msa on input line 160.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 147.
+LaTeX Font Info:    Try loading font information for U+msb on input line 160.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 7.35999pt on input line 147.
+(Font)              scaled to size 7.35999pt on input line 160.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 6.25598pt on input line 147.
+(Font)              scaled to size 6.25598pt on input line 160.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 5.51999pt on input line 147.
+(Font)              scaled to size 5.51999pt on input line 160.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 147.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 160.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6.8> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 147.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 160.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 147.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 160.
  [1
 
 ]
 (./slide.toc) [2
 
-] (./ch08/slide08_00.tex
+] (./ch08/op08.tex
 \openout4 = `slide.vrb'.
 
  (./slide.vrb) [3
@@ -2870,446 +2870,28 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
 ]
 \openout4 = `slide.vrb'.
 
- (./slide.vrb)
-[4
+ (./slide.vrb) [4
 
 ]
 \openout4 = `slide.vrb'.
 
- (./slide.vrb) [5
 
-] (./slide.vrb) [6
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [7
+(./slide.vrb) [5
 
 ]
 \openout4 = `slide.vrb'.
 
- (./slide.vrb)
-[8
-
-] (./slide.vrb) [9
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [10
+ (./slide.vrb) [6
 
 ]
 \openout4 = `slide.vrb'.
 
  (./slide.vrb)
-Overfull \vbox (57.75133pt too high) detected at line 88
+Overfull \vbox (59.5912pt too high) detected at line 69
  []
 
-[11
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb (./ch08/code/wordcnt.c)) [12
-
-] [13
-
-
-] [14
-
-
-] [15
-
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb)
-[16
-
-]) (./ch08/slide08_01.tex
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\lstinline' on input line 1.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\lstinline' on input line 1.
-
-\openout4 = `slide.vrb'.
-
-(./slide.vrb (./ch08/code/echo.c)
-LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 10.07397pt on input line 6.
-LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 7.63599pt on input line 6.
-LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 10.07397pt on input line 6.
-LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 7.63599pt on input line 6.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.95> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 6.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8.3> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 6.
-) [17
-
-] (./slide.vrb (./ch08/code/echo.c))
-[18
-
-]) (./ch08/slide08_02.tex
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [19
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [20
-
-])
-(./ch08/slide08_03.tex
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [21
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [22
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb)
-[23
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb (./ch08/code/echo_eof.c)) [24
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [25
-
-]
-\openout4 = `slide.vrb'.
-
-
-(./slide.vrb) [26
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [27
-
-]) (./ch08/slide08_05.tex
-\openout4 = `slide.vrb'.
-
- (./slide.vrb)
-[28
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb (./ch08/code/guess.c)) [29
-
-] [30
-
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb)
-Overfull \vbox (41.91118pt too high) detected at line 28
- []
-
-[31
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [32
-
-] (./slide.vrb) [33
-
-] (./slide.vrb) [34
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb)
-[35
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb)
-Overfull \vbox (77.27122pt too high) detected at line 78
- []
-
-[36
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb)
-Overfull \vbox (59.59123pt too high) detected at line 97
- []
-
-[37
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb)
-Overfull \vbox (112.63127pt too high) detected at line 119
- []
-
-[38
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [39
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [40
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [41
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb
-(./ch08/code/showchar1.c)) [42
-
-] [43
-
-
-] [44
-
-
-] [45
-
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [46
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [47
-
-] (./slide.vrb) [48
-
-] (./slide.vrb) [49
-
-] (./slide.vrb) [50
-
-] (./slide.vrb)
-[51
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [52
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb (./ch08/code/showchar2.c)) [53
-
-] [54
-
-
-]
-[55
-
-
-] [56
-
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb)
-Overfull \vbox (24.23116pt too high) detected at line 201
- []
-
-[57
-
-]) (./ch08/slide08_06.tex
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [58
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [59
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [60
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [61
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [62
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [63
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb
-(./ch08/code/checking.c)) [64
-
-] [65
-
-
-] [66
-
-
-] [67
-
-
-] [68
-
-
-] [69
-
-
-] [70
-
-
-] [71
-
-
-] [72
-
-
-]
-\openout4 = `slide.vrb'.
-
-
-(./slide.vrb) [73
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [74
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [75
-
-] [76
-
-
-] [77
-
-
-] [78
-
-
-]
-\openout4 = `slide.vrb'.
-
-
-(./slide.vrb) [79
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [80
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [81
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [82
-
-]
-\openout4 = `slide.vrb'.
-
-
-(./slide.vrb) [83
-
-]) (./ch08/slide08_07.tex
-\openout4 = `slide.vrb'.
-
- (./slide.vrb) [84
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb)
-[85
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb)
-Overfull \vbox (77.27122pt too high) detected at line 39
- []
-
-[86
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb)
-Overfull \vbox (6.55113pt too high) detected at line 56
- []
-
-[87
-
-]
-\openout4 = `slide.vrb'.
-
- (./slide.vrb (./ch08/code/menu.c)) [88
-
-] [89
-
-
-] [90
-
-
-] [91
-
-
-] [92
-
-
-] [93
-
-
-] [94
-
+Package atenddvi Info: Last page = 7.
+[7
 
 ])
 \tf@nav=\write8
@@ -3321,29 +2903,20 @@ Overfull \vbox (6.55113pt too high) detected at line 56
 \tf@snm=\write10
 \openout10 = `slide.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 157.
-Package atveryend Info: Executing hook `AfterLastShipout' on input line 157.
-
-(./slide.aux
-
-Package atenddvi Warning: Rerun LaTeX, last page not yet found.
-
-)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 157.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 157.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 157.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 170.
+Package atveryend Info: Executing hook `AfterLastShipout' on input line 170.
+ (./slide.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 170.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 170.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 170.
  ) 
 Here is how much of TeX's memory you used:
- 50622 strings out of 493706
- 1078292 string characters out of 6145769
- 1488272 words of memory out of 5000000
- 52883 multiletter control sequences out of 15000+600000
- 61112 words of font info for 95 fonts, out of 8000000 for 9000
+ 49879 strings out of 493706
+ 1066216 string characters out of 6145769
+ 1320681 words of memory out of 5000000
+ 52309 multiletter control sequences out of 15000+600000
+ 44700 words of font info for 73 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
- 71i,19n,106p,10442b,1165s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 71i,16n,106p,10442b,713s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on slide.pdf (94 pages).
+Output written on slide.pdf (7 pages).
