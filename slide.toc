@@ -1,2 +1,1 @@
-\beamer@endinputifotherversion {3.36pt}
-\beamer@sectionintoc {2}{上机操作}{3}{0}{1}
+\beamer@sectionintoc {2}{函数}{3}{0}{1}
