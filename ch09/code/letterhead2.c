@@ -10,25 +10,32 @@ void show_n_char(char ch, int num);
 
 int main(void)
 {
-  int spaces;  
+  int spaces;
+  
   show_n_char('*', WIDTH);
-  putchar('\n');  
-  show_n_char(SPACE, 12);     /* use a constant as arguments */
+  putchar('\n');
+
+  spaces = (WIDTH - strlen(NAME))/2;
+  show_n_char(SPACE, 12);  
   printf("%s\n", NAME);  
+
   spaces = (WIDTH - strlen(ADDRESS))/2;
-  show_n_char(SPACE, spaces); /* use a variable as argument */
-  printf("%s\n", ADDRESS);  
-  show_n_char(SPACE, (WIDTH - strlen(PLACE))/2); /* use an expression as argument */
+  show_n_char(SPACE, spaces);
+  printf("%s\n", ADDRESS);
+
+  spaces = (WIDTH - strlen(PLACE))/2;
+  show_n_char(SPACE, spaces); 
   printf("%s\n", PLACE);  
+
   show_n_char('*', WIDTH);
   putchar('\n');  
+
   return 0;
 }
 
-/* show_n_char() definition */
 void show_n_char(char ch, int num)
 {
-  int count;
-  for (count = 1; count <= num; count++)
+  int i;
+  for (i = 1; i <= num; ++i)
     putchar(ch);
 }

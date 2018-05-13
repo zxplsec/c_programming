@@ -3,11 +3,10 @@
 int imin(int, int);
 int main(void)
 {
-  int n1, n2;
+  int a, b;
   printf("Enter two integers (q to quit):\n");
-  while (scanf("%d %d", &n1, &n2) == 2) {
-    printf("The lesser of %d and %d is %d.\n",
-           n1, n2, imin(n1,n2));
+  while (scanf("%d %d", &a, &b) == 2) {
+    printf("The lesser of %d and %d is %d.\n", a, b, imin(a, b));
     printf("Enter two integers (q to quit):\n");
   }
   printf("Bye.\n");
@@ -16,7 +15,5 @@ int main(void)
 
 int imin(int n,int m)
 {
-  int min;
-  min = (n < m) ? n : m;
-  return min;
+  return (n < m) ? n : m;
 }

@@ -1,16 +1,18 @@
-/* swap1.c -- first attempt at a swapping function */
+// swap1.c 
 #include <stdio.h>
-void interchange(int u, int v);
+void swap(int u, int v);
 int main(void)
 {
   int x = 5, y = 10;
-  printf("Originally: x = %2d, y = %2d.\n", x , y);
-  interchange(x, y);
-  printf("Now       : x = %2d, y = %2d.\n", x, y);
+  
+  printf("Before: x = %2d, y = %2d.\n", x , y);
+  swap(x, y);
+  printf("After : x = %2d, y = %2d.\n", x, y);
+  
   return 0;
 }
 
-void interchange(int u, int v)
+void swap(int u, int v)
 {
   int temp;
   temp = u;

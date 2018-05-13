@@ -1,19 +1,17 @@
 // swap3.c -- using pointers to make swapping work
 #include <stdio.h>
-void interchange(int *, int *);
+void swap(int *, int *);
 
 int main(void)
 {
   int x = 5, y = 10;  
-  printf("Originally: x = %2d, y = %2d.\n",
-         x, y);
-  interchange(&x, &y); 
-  printf("Now       : x = %2d, y = %2d.\n",
-         x, y);  
+  printf("Before: x = %2d, y = %2d.\n", x, y);
+  swap(&x, &y); 
+  printf("After : x = %2d, y = %2d.\n", x, y);  
   return 0;
 }
 
-void interchange(int * u, int * v)
+void swap(int * u, int * v)
 {
   int temp;  
   temp = *u;

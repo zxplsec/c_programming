@@ -38,6 +38,7 @@
   \ifthenelse{\equal{#1}{s6}}{\title{循环}}{}
   \ifthenelse{\equal{#1}{s7}}{\title{分支}}{}
   \ifthenelse{\equal{#1}{s8}}{\title{字符输入输出与输入确认}}{}
+  \ifthenelse{\equal{#1}{s9}}{\title{函数}}{}
 }
 
 \newcommand{\inputslide}[1]
@@ -145,12 +146,12 @@
   }{}
   \ifthenelse{\equal{#1}{s9}}{
     \input{ch09/slide09_01.tex}
-%    \input{ch09/slide09_02.tex}
+    % \input{ch09/slide09_02.tex}
     \input{ch09/slide09_03.tex}
-%    \input{ch09/slide09_04.tex}
-%    \input{ch09/slide09_05.tex}
-%    \input{ch09/slide09_06.tex}
-%    \input{ch09/slide09_07.tex}
+    % \input{ch09/slide09_04.tex}
+    \input{ch09/slide09_05.tex}
+    \input{ch09/slide09_06.tex}
+    \input{ch09/slide09_07.tex}
   }{}
 }
 \choosetitle{\num}

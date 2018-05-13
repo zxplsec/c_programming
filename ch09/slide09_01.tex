@@ -78,10 +78,10 @@ Wuhan, PR China 430072
 
 
 \begin{frame}[fragile]\ft{程序分析}
-\lstinline| starbar |在不同位置出现了三次：\vspace{0.1in}
+\lstinline| starbar() |在不同位置出现了三次：\vspace{0.1in}
 
 \begin{itemize}
-\item 函数原型{ (function prototype)}：告知编译器starbar的函数类型\\[0.1in]
+\item 函数原型{ (function prototype)}：告知编译器\lstinline| starbar() |的函数类型\\[0.1in]
 \item 函数调用{ (function call)}：使函数执行\\[0.1in]
 \item 函数定义{ (function definition)}：实现函数的具体功能
 \end{itemize}
@@ -316,7 +316,7 @@ show_n_char(SPACE, 12);
 
 \begin{frame}[fragile]\ft{使用return从函数中返回一个值}
   \begin{wenti}
-    编写函数，比较两个整数的大小，并返回较小值。同时编制一个驱动程序来测试该函数。
+    编写函数，求两个整数中的较小值，并测试之。
   \end{wenti}
 \end{frame}
 
@@ -360,7 +360,7 @@ lesser = imin(m, n);
 imin(m, n);
 lesser = min;
 \end{lstlisting} \pause
-{\Huge 当然不行的啦！！！}
+{\Huge NO！！！}
 \end{itemize}
 \end{frame}
 
@@ -373,16 +373,16 @@ printf("%d\n", imin(answer+2, LIMIT));
 
 \end{frame}
 
-\begin{frame}[fragile]\ft{使用return从函数中返回一个值}
-返回值可以由任何表达式计算而得到，而不仅仅来自于一个变量。如imin函数可以改写为
-\begin{lstlisting}[language=c,backgroundcolor=\color{red!10}]
-int imin(int n,int m)
-{  
-  return ((n < m) ? n : m);
-}
-\end{lstlisting}
-这里并不要求使用圆括号，但如果想让程序更清晰，可以把添上一个圆括号。
-\end{frame}
+% \begin{frame}[fragile]\ft{使用return从函数中返回一个值}
+% 返回值可以由任何表达式计算而得到，而不仅仅来自于一个变量。如imin函数可以改写为
+% \begin{lstlisting}[language=c,backgroundcolor=\color{red!10}]
+% int imin(int n,int m)
+% {  
+%   return ((n < m) ? n : m);
+% }
+% \end{lstlisting}
+% 这里并不要求使用圆括号，但如果想让程序更清晰，可以把添上一个圆括号。
+% \end{frame}
 
 \begin{frame}[fragile]\ft{使用return从函数中返回一个值}
 观察以下代码：
@@ -393,16 +393,20 @@ int what_if(int n)
   return z;
 }
 \end{lstlisting}
-这里，返回值的类型和声明的类型不一致，{\Large What will happen?}
+这里，返回值的类型和声明的类型不一致，\vspace{0.1in}
+
+{\Large What will happen?}
 \pause 
 \vspace{0.1in}
 
-\cyan{将把{\tf doule}型变量\lstinline| z |的值强制转换为\lstinline| int |型。}
+\red{将把{\tf doule}型变量\lstinline| z |的值强制转换为\lstinline| int |型。}
 
 \end{frame}
 
 \begin{frame}[fragile]\ft{使用return从函数中返回一个值}
-\lstinline| return |的另一个作用是终止函数的执行，并把控制返回给调用函数的下一条语句，即使\lstinline| return |语句不在函数尾部。如\lstinline| imin() |可以写成
+\lstinline| return |的另一个作用是终止函数的执行，并把控制返回给调用函数的下一条语句，即使\lstinline| return |语句不在函数尾部。 \pause \vspace{.1in}
+
+
 \begin{lstlisting}[language=c,backgroundcolor=\color{red!10}]
 int imin(int n, int m)
 {  
@@ -421,7 +425,10 @@ int imin(int n, int m)
 \begin{lstlisting}[language=c,backgroundcolor=\color{red!10}]
 return;
 \end{lstlisting}
-该语句会终止执行函数，并把控制返回给调用函数。此时，\lstinline| return |后没有任何表达式，故没有返回值，该形式只能用于\lstinline| void |类型的函数。
+该语句会终止执行函数，并把控制返回给调用函数。 \vspace{.1in}
+
+
+此时，\lstinline| return |后没有任何表达式，故没有返回值，该形式只能用于\lstinline| void |类型的函数。
 \end{frame}
 
 \begin{frame}[fragile]\ft{函数类型}
