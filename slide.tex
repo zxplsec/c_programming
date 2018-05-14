@@ -17,7 +17,7 @@
 
 \begin{document}
 
-\newcommand{\num}{o9}
+\newcommand{\num}{s10}
 
 \newcommand{\choosetitle}[1]
 {
@@ -39,6 +39,7 @@
   \ifthenelse{\equal{#1}{s7}}{\title{分支}}{}
   \ifthenelse{\equal{#1}{s8}}{\title{字符输入输出与输入确认}}{}
   \ifthenelse{\equal{#1}{s9}}{\title{函数}}{}
+  \ifthenelse{\equal{#1}{s10}}{\title{数组与指针}}{}
 }
 
 \newcommand{\inputslide}[1]
@@ -152,6 +153,18 @@
     \input{ch09/slide09_05.tex}
     \input{ch09/slide09_06.tex}
     \input{ch09/slide09_07.tex}
+  }{}
+  \ifthenelse{\equal{#1}{s10}}{
+    \input{ch10/slide10_01.tex}
+    \input{ch10/slide10_02.tex}
+    \input{ch10/slide10_03.tex}
+    \input{ch10/slide10_04.tex}
+    \input{ch10/slide10_05.tex}
+    \input{ch10/slide10_06.tex}
+    \input{ch10/slide10_07.tex}
+    \input{ch10/slide10_08.tex}
+    %\input{ch10/slide10_09.tex}
+    \input{ch10/slide10_10.tex}
   }{}
 }
 \choosetitle{\num}

@@ -1,0 +1,148 @@
+\section{指针操作}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int urn[5] = {100,200,300,400,500};
+int * ptr, * ptr1, * ptr2;
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+
+\begin{itemize}
+\item[1] 赋值(\lstinline| assignment |)：可以把一个地址赋给指针。通常使用数组名或地址运算符\lstinline| & |来进行地址赋值。如
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+ptr1 = urn;
+ptr2 = &urn[2];
+\end{lstlisting}
+\red{注意：地址应该与指针类型兼容，不能把一个\lstinline| double |类型的地址赋给一个指向\lstinline| int |的指针。}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{itemize}
+\item[2] 取值(\lstinline| dereferencing |)：运算符\lstinline| * | 可取出指针所指向的地址中存储的数据。\\[0.2in]
+\item[3] 取指针地址：指针变量也有地址和数值，使用\lstinline| & |运算符可以得到存储指针本身的地址。\\[0.2in]
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{itemize}
+\item[4] 指针加上一个整数：该整数会和指针所指类型的字节数相乘，然后所得结果会加到初始地址上。\\[0.1in]
+\item[] 例如，若\lstinline| ptr = urn | ，则\lstinline| ptr + 4 |的结果等同于\lstinline| &urn[4] |。
+\\[0.1in]
+\item[]
+\red{若相加结果越界，则结果不确定，除非超出数组最后一个元素的地址能确保有效。}\\[0.2in]
+
+\item[5] 增加指针的值：指针可以自增。\\[0.1in]
+\item[] 例如，若\lstinline| ptr = &urn[2] |，则执行\lstinline| ptr++ |后，\lstinline| ptr |指向{\tf urn[3]}。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{itemize}
+\item[6] 指针减去一个整数：该整数会和指针所指类型的字节数相乘，然后所得结果会从初始地址中减掉。\\[0.1in]
+\item[] 例如，若{\tf ptr = \&urn[4]}，则{\tf ptr - 2}的结果等同于{\tf \&urn[2]}。
+\\[0.2in]
+
+\item[7] 减小指针的值：指针可以自减。\\[0.1in]
+\item[] 例如，若{\tf ptr = \&urn[4]}，则执行{\tf ptr- -}后，\lstinline| ptr |指向\lstinline| urn[3] |。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{itemize}
+\item[8] 求差值：可求出两个指针间的差值。通常对分别指向同一个数组内两个元素的指针求差值，以求出元素之间的距离。\\[0.1in]
+\item[] 例如，若\lstinline| ptr1 = &urn[2], ptr2 = &urn[4]|，则\lstinline| ptr2 - ptr1 |的的值为2。\\[0.1in]
+\item[]
+\red{有效指针差值运算的前提是参与运算的两个指针必须指向同一个数组}
+\\[0.2in]
+
+\item[9] 比较：可以使用关系运算符来比较两个指针的值，前提是两个指针具有相同的类型。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch10/code/ptr_ops.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+pointer value, dereferenced pointer, pointer address:
+ptr1 = 0x7fff5fbff7c0, *ptr1 =100, &ptr1 = 0x7fff5fbff7b0
+
+adding an int to a pointer:
+ptr1 + 4 = 0x7fff5fbff7d0, *(ptr4 + 3) = 400
+
+values after ptr1++:
+ptr1 = 0x7fff5fbff7c4, *ptr1 =200, &ptr1 = 0x7fff5fbff7b0
+
+values after --ptr2:
+ptr2 = 0x7fff5fbff7c4, *ptr2 = 200, &ptr2 = 0x7fff5fbff7a8
+
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+Pointers reset to original values:
+ptr1 = 0x7fff5fbff7c0, ptr2 = 0x7fff5fbff7c8
+
+subtracting one pointer from another:
+ptr2 = 0x7fff5fbff7c8, ptr1 = 0x7fff5fbff7c0, ptr2 - ptr1 = 2
+
+subtracting an int from a pointer:
+ptr3 = 0x7fff5fbff7d0, ptr3 - 2 = 0x7fff5fbff7c8
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：小结}
+\begin{itemize}
+\item 关于指针，有两种形式的减法：可以用一个指针减去另一个指针得到一个整数，也可以从一个指针中减去一个整数得到一个指针。\\[0.1in]
+\item 当指针做自增和自减运算时，计算机并不检查指针是否仍然指向某个数组元素。\red{C保证指向数组元素的指针和指向数组后的第一个地址的指针是有效的。}\\[0.1in]
+\item 可以对指向一个数组元素的指针进行取值运算，但不能对指向数组后的第一个地址的指针进行取值运算，尽管这样的指针是合法的。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：小结}
+使用指针时，不能对未初始化的指针取值。如
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int *pt;   //`未初始化的指针`
+*pt = 5;   //`可怕的错误`
+\end{lstlisting}
+\rule{\textwidth}{0.3mm} \vspace{0.05in}\pause 
+
+\lstinline| *pt = 5 |把数值5存储在\lstinline| pt |所指向的地址，但由于\lstinline| pt |未被初始化，它的值是随机的，这意味着不确定5会被存储到什么位置。这个位置也许对系统危害不大，但也许会覆盖程序数据或代码，甚至导致程序的崩溃。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：小结}
+切记：当创建一个指针时，系统只分配了用来存储指针本身的内存空间，并不分配用来存储数据的内存空间。因此在使用指针之前，必须给它赋予一个已分配的内存地址。
+
+\rule{\textwidth}{0.3mm} \pause 
+
+\begin{itemize}
+\item 可以把一个已存在的变量地址赋给指针；
+\item 使用\lstinline| malloc() |来首先分配内存。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：小结}
+给定如下声明
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int urn[3];
+int * ptr1, * ptr2;
+\end{lstlisting}
+下标列出了一些合法的和非法的语句
+\begin{table}
+\centering
+\begin{tabular}{p{4cm}|p{6cm}}\hline
+合法& 非法 \\ \hline
+\lstinline| ptr1++ | & \lstinline| urn++ |; \\[0.1cm]
+\lstinline| ptr2 = ptr1 + 2 | &\lstinline| ptr2 = ptr2 + ptr1; | \\[0.1cm]
+\lstinline| ptr2 = urn + 1 | & \lstinline| ptr2 = urn * ptr1 | \\ \hline
+\end{tabular}
+\end{table}
+\end{frame}

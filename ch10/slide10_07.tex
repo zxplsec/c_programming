@@ -1,0 +1,343 @@
+\section{指针与多维数组}
+\begin{frame}[fragile]\ft{\secname}
+本节主要介绍指针与多维数组的关系，以及为什么要知道它们之间的关系。
+\vspace{0.1in}
+
+\red{必须知道，函数通过指针来处理多维数组。}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int zippo[4][2];   // an array of arrays of ints
+\end{lstlisting}
+\lstinline| zippo |是数组首元素的地址，而\lstinline| zippo |的首元素本身又是包含两个\lstinline| int |的子数组，故\lstinline| zippo |也是这个子数组（包含两个\lstinline| int |）的地址。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+ \lstinline| zippo |是数组首元素的地址，故\lstinline| zippo == &zippo[0] |。\vspace{0.1in}
+ 
+ \lstinline| zippo[0] |为包含两个\lstinline| int |的数组，故\lstinline| zippo[0] == &zippo[0][0] |。\vspace{0.1in}
+ 
+ \lstinline| zippo |与\lstinline| zippo[0] |开始于同一个地址，故\lstinline| zippo == zippo[0] |。
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\red{对一个指针加1，是加上一个对应类型大小的数值。}从这方面来看，\lstinline| zippo |和\lstinline| zippo[0] |不同：\vspace{0.15in}
+ 
+\lstinline| zippo |所指向的对象是两个\lstinline| int |，而\lstinline| zippo[0] |所指向的对象是一个\lstinline| int |。
+\vspace{0.15in}
+ 
+故\lstinline| zippo+1 |和\lstinline| zippo[0]+1 |的结果不同。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\red{对一个指针取值，得到的是该指针所指向对象的数值。}\vspace{0.15in}
+ 
+\lstinline| zippo[0] |是其首元素\lstinline|zippo[0][0]|的地址，故 \vspace{.1in}
+
+\begin{lstlisting}
+*(zippo[0]) == zippo[0][0]
+\end{lstlisting} \vspace{.1in}
+
+即一个\lstinline| int |值。 
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\lstinline| zippo |为其首元素\lstinline| zippo[0] |的地址，故
+\vspace{.03in}
+\begin{lstlisting}
+*zippo == zippo[0]
+\end{lstlisting}
+\vspace{.03in}
+而
+\vspace{.03in}
+\begin{lstlisting}
+zippo[0] == &zippo[0][0]
+\end{lstlisting}
+\vspace{.03in}
+故
+\vspace{.03in}
+\begin{lstlisting}
+*zippo == &zippo[0][0]
+\end{lstlisting}
+\vspace{.03in}
+又因为
+\vspace{.03in}
+\begin{lstlisting}
+&zippo[0][0] == zippo[0][0]
+\end{lstlisting}
+\vspace{.03in}
+从而有
+\vspace{.03in}
+\begin{lstlisting}
+**zippo == zippo[0][0]
+\end{lstlisting}
+\vspace{.03in}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+简而言之，\lstinline| zippo |是地址的地址，需要两次取值才可以得到通常的数值。地址的地址或指针的指针是双重间接的典型例子。\vspace{0.15in}
+
+显然，增加数组维数会增加指针的复杂度。
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch10/code/zippo1.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+zippo = 0x7ffd0c785200, zippo+1 = 0x7ffd0c785208
+zippo[0] = 0x7ffd0c785200, zippo[0]+1 = 0x7ffd0c785204
+ *zippo = 0x7ffd0c785200, *zippo+1 = 0x7ffd0c785204
+  zippo[0][0] = 2
+ *zippo[0]    = 2
+**zippo       = 2
+  zippo[2][1] = 3
+*(*(zippo+2) + 1) = 3
+\end{lstlisting}
+对\lstinline| zippo |加1导致其值加8，而对\lstinline| zippo[0] |加1导致其值加4。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{table}
+\centering
+\caption{分析\lstinline| *(*(zippo+2)+1) |}
+\begin{tabular}{p{3.5cm}|p{6cm}}\hline
+\lstinline| zippo | & \lstinline| zippo[0] |的地址\\[0.05in]
+\lstinline| zippo+2 | & \lstinline| zippo[2] |的地址\\[0.05in]
+\lstinline| *(zippo+2) | & \lstinline| zippo[2] |，也是\lstinline| zippo[2] |首元素的地址\\[0.05in]
+\lstinline| *(zippo+2)+1 | & 数组\lstinline| zippo[2] |的第2个元素的地址\\[0.05in]
+\lstinline| *(*(zippo+2)+1) | & 数组\lstinline| zippo[2] |的第2个元素\\\hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+
+这里使用指针符号显示数据的意图并不是为了说明可以用它替代更简单的\lstinline| zippo[2][1] |，而是要说明当使用一个指向二维数组的指针进行取值时，\red{最好不要使用指针符号，而应使用形式更简单的数组符号。}
+\end{frame}
+
+\begin{frame}[fragile]\ft{指向多维数组的指针}
+本小节着重回答：如何声明指向二维数组的指针\lstinline| pz |？
+\end{frame}
+
+\begin{frame}[fragile]\ft{指向多维数组的指针}
+正确的声明方式为
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int (* pz) [2]; 
+\end{lstlisting}
+该语句表明\lstinline| pz |是指向包含两个\lstinline| int |的数组的指针。\red{圆括号必不可少。}
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{指向多维数组的指针}
+若没有圆括号，
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int * pax[2]; 
+\end{lstlisting}
+则
+\begin{itemize}
+\item
+首先，方括号与\lstinline| pax |结合，表示\lstinline| pax |是包含两个某种元素的数组。
+\item
+然后，和\lstinline| * |结合，表示\lstinline| pax |是两个指针组成的数组。
+\item
+最后，用\lstinline| int |来定义，表示\lstinline| pax |是两个指向\lstinline| int |的指针构成的数组。
+\end{itemize}
+这种声明会创建两个指向单个\lstinline| int |的指针。
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{指向多维数组的指针}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch10/code/zippo2.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{指向多维数组的指针}
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+  pz    = 5fbff7b0,  pz    + 1 = 5fbff7b8
+  pz[0] = 5fbff7b0,  pz[0] + 1 = 5fbff7b4
+ *pz    = 5fbff7b0, *pz    + 1 = 5fbff7b4
+  pz[0][0] = 2
+ *pz[0]    = 2
+**pz       = 2
+  pz[2][1] = 3
+*(*(pz+2) + 1) = 3
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{指向多维数组的指针}
+尽管\lstinline| pz |是一个指针，不是数组名，但仍可用\lstinline| pz[2][1] |之类的数组符号。\vspace{.05in}
+
+要表示单个元素，可以使用数组符号或指针符号，并且在这两种表示中既可用数组名，也可用指针：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+zippo[m][n] == *(*(zippo+m)+n)
+pz[m][n] == *(*(pz+m)+n)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{指针兼容性}
+指针之间的赋值规则比数值类型的赋值更严格。例如，可以不进行类型转换就直接把一个\lstinline| int |数值赋给一个\lstinline| double |变量。但对指针来说，这样的赋值绝不允许：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int n = 5;
+double x;
+int * pi = &n;
+double * pd = &x;
+x = n;            // `隐藏的类型转换`
+pd = pi;          // `编译时错误`
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{指针兼容性}
+假设有如下声明：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int * pt;
+int (* pa)[3];
+int ar1[2][3];
+int ar2[3][2];
+int ** p2;          // `指向指针的指针`
+\end{lstlisting}
+则有如下结论：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+ pt = &ar1[0][0];  // `都指向int`
+ pt = ar1[0];      // `都指向int`
+ pa = ar1;         // `都指向int[3]`
+ p2 = &pt;         // `都指向int *`
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{指针兼容性}
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+ pt = ar1;         // `非法`
+ pa = ar2;         // `非法`
+*p2 = ar2[0];      // `都指向int` 
+ p2 = ar2;         // `非法`
+\end{lstlisting}
+\begin{itemize}
+\item
+\lstinline| pt |指向\lstinline| int |，但\lstinline| ar1 |指向由3个\lstinline| int |构成的数组；
+\item
+\lstinline| pa |指向由3个\lstinline| int |构成的数组，而\lstinline| ar2 |指向由2个\lstinline| int |构成的数组；
+\item
+\lstinline| p2 |是指向\lstinline| int |的指针的指针，而\lstinline| ar2 |是指向由2个\lstinline| int |构成的数组的指针，两种类型不一致；
+\item
+\lstinline| *p2 |为指向\lstinline| int |的指针，它与\lstinline| ar2[0] |是兼容的，因为\lstinline| ar2[0] |指向\lstinline| ar2[0][0] |，而\lstinline| ar2[0][0] |为\lstinline| int |数值。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{指针兼容性}
+考虑如下代码
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int * p1;
+const int * p2;
+const int ** pp2;
+p1  = p2;   // `非法：把const指针赋给非const指针`
+p2  = p1;   // `合法：把非const指针赋给const指针`
+pp2 = &p1;  // `非法：把非const指针赋给const指针`
+\end{lstlisting}
+\begin{itemize}
+\item
+前面提过，把\lstinline| const |指针赋给非\lstinline| const |指针是错误的，因为可能会使用新指针来改变\lstinline| const |数据。
+\item
+但把非\lstinline| const |指针赋给\lstinline| const |指针是允许的，\red{但前提是只进行一层间接运算。}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{指针兼容性}
+在进行两层间接运算时，这样的赋值不再安全。如果允许这样赋值，可能会产生如下问题：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int * p1;
+const int ** pp2;
+const int n = 13;
+pp2 = &p1;  // `不允许，但我们假设允许`
+*pp2 = &n;  // `合法，两者都是const，但这同时会使p1指向n`
+*p1 = 10;   // `合法，但这将改变const n的值`
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{函数与多维数组}
+本小节主要介绍如何来编写处理二维数组的函数。\vspace{.05in}
+
+\begin{itemize}
+\item 需要很好地理解指针，以便正确地声明函数的参数；\\[0.05in]
+\item 在函数体内，使用数组符号来避免使用指针。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{函数与多维数组}
+编程三个函数，分别求一个二维数组的行和、列和与总和，并写一个驱动程序测试它。
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{函数与多维数组}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch10/code/array2d.c}
+\end{frame}
+
+
+
+\begin{frame}[fragile]\ft{函数与多维数组}
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+row 0: sum = 20
+row 1: sum = 24
+row 2: sum = 36
+col 0: sum = 17
+col 1: sum = 19
+col 2: sum = 21
+col 3: sum = 23
+Sum of all elements = 80
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{函数与多维数组}
+这些函数把数组名和行数作为参数传递给函数，都把ar看做是指向由4个\lstinline| int |值构成的数组的指针。其中，列数在函数体内定义，而行数通过函数传递而得到。\vspace{0.05in}
+
+\red{这样的函数能处理列数为4的二维数组。}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{函数与多维数组}
+错误的声明方式
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int sum2(int ar[][], int rows);
+\end{lstlisting}
+\red{编译器会把数组符号转换为指针符号。}这意味着，\lstinline| ar[1] |会被转换为\lstinline| ar+1 |，此时编译器需要知道\lstinline| ar |所指向对象的数据大小。\pause \vspace{0.15in}
+
+以下声明
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int sum2(int ar[][4], int rows);
+\end{lstlisting}
+就表示\lstinline| ar |指向由4个\lstinline| int |值构成的数组，\lstinline| ar+1 |表示“在这个地址上加16个字节大小”。
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{函数与多维数组}
+也可用如下声明方式
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int sum2(int ar[3][4], int rows);
+\end{lstlisting}
+但第一个方括号中的内容（3）会被忽略。
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{函数与多维数组}
+一般地，声明$n$维数组的指针时，除了第一个方括号可以留空外，其它都需要填写数值。如
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int sum4d(int ar[][4][5][6], int rows);
+\end{lstlisting}
+这是因为第一个方括号表示这是一个指针，其它方括号描述的是所指对象的数据类型。
+\pause \vspace{0.15in}
+
+其等效原型为
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int sum4d(int (* ar)[4][5][6], int rows);
+\end{lstlisting}
+这里\lstinline| ar |指向一个$4\times5\times6$的\lstinline| int |数组。
+\end{frame}

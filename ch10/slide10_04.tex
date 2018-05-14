@@ -1,0 +1,204 @@
+\section{函数、数组与指针}
+
+\begin{frame}[fragile]\ft{\secname}
+编写函数，求一个数组的各元素之和。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+方式一：在函数中给定固定的数组大小。
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int sum(int * ar)
+{
+  int i;
+  int total = 0;
+  
+  for (i = 0; i < 10; i++)
+    total += ar[i];
+    
+  return total;  
+}
+\end{lstlisting} \pause 
+但该函数仅在数组长度为10时可工作。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+方式二：将数组大小作为参数传递给函数。
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int sum(int * ar, int n)
+{
+  int i;
+  int total = 0;
+  
+  for (i = 0; i < n; i++)
+    total += ar[i];
+    
+  return total;  
+}
+\end{lstlisting} \pause 
+该方式更为灵活，第一个参数把数组地址和数组类型的信息传递给函数，第二个参数把数组的元素个数传递给函数。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+在做函数声明时，以下四种函数原型是等价的：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int sum(int * ar, int n);
+int sum(int *, int);
+
+int sum(int ar[], int n);
+int sum(int [], int);
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+在定义函数时，名称不可以省略。故在定义时以下两种形式是等价的：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int sum(int * ar, int n)
+{
+  ...
+}
+
+int sum(int ar[], int n)
+{
+  ...
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+观察以下程序，其功能是同时打印原数组的大小和代表数组的函数参量的大小。
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch10/code/sum_arr1.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+The size of ar is 8 bytes.
+The total number of marbles is 190.
+The size of marbles is 40 bytes.
+\end{lstlisting}
+\rule{\textwidth}{0.2mm} \pause 
+
+\begin{itemize}
+\item \lstinline| marbles |的大小为40字节，因\lstinline| marbles |包含10个\lstinline| int |数，每个数占4个字节。
+\item \lstinline| ar |的大小为8个字节，因\lstinline| ar |本身并不是一个数组，而是一个指向\lstinline| marbles |首元素的指针。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：使用指针参数}
+以上程序中，\lstinline| sum() |使用一个指针参量来确定数组的开始，使用一个整数参量来指明数组的元素个数。但这并不是向函数传递数组信息的唯一办法。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：使用指针参数}
+另一种办法是传递两个指针，第一个指针指明数组的起始地址，第二个指针指明数组的结束地址。
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：使用指针参数}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch10/code/sum_arr2.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：使用指针参数}
+\begin{itemize}
+\item 指针\lstinline| start |最初指向\lstinline| marbles |的首元素，执行赋值表达式\lstinline|total += *start|时，把首元素的值加到\lstinline| total |上。\\[0.1in]
+\item 然后表达式\lstinline| start++ |使指针变量\lstinline| start |加1，\red{指向数组的下一个元素}。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：使用指针参数}
+函数\lstinline| sump |使用第二个指针来控制循环次数：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+while (start < end)
+\end{lstlisting}
+因这是对一个不相等关系的判断，故处理的最后一个元素将是\lstinline| end |所指向的位置之前的元素。
+这就意味着\lstinline| end |实际指向的元素是在数组最后一个元素之后。\vspace{0.1in}\pause
+
+\red{C保证在为数组分配存储空间时，指向数组之后的第一个位置的指针也是合法的。}
+\vspace{0.1in}\pause
+
+使用这种“越界”指针可使函数调用的形式更为整洁：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+answer = sump(marbles, marbles + SIZE);
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：使用指针参数}
+如果让\lstinline| end |指向最后一个元素，函数调用的形式则为
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+answer = sump(marbles, marbles + SIZE - 1);
+\end{lstlisting}
+这种写法不仅看起来不整洁，也不容易被记住，从而容易导致编程错误。
+\vspace{0.1in}\pause
+
+\red{请记住：虽然C保证指针\lstinline| marbles+SIZE |是合法的，但对该地址存储的内容\lstinline| marbles[SIZE] |不作任何保证。}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：使用指针参数}
+\begin{minipage}{0.4\textwidth}
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+total += *start;
+start++;
+\end{lstlisting}
+\end{minipage}
+~~$\Longleftrightarrow$~~
+\begin{minipage}{0.4\textwidth}
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+total += *start++;
+\end{lstlisting}
+\end{minipage}
+\begin{itemize}
+\item
+\lstinline| * |和\lstinline| ++ |优先级相同，从右往左结合。故\lstinline| ++ |应用于\lstinline| start |，而不是应用于\lstinline| *start |。也就是说，是指针自增1，而不是指针所指向的数据自增1。 \\[0.1in]\pause 
+\item
+后缀形式\lstinline| total += *start++ |表示先把指针指向的数据加到\lstinline| total |上，然后指针再自增1。\\[0.1in]\pause
+\item
+前缀形式\lstinline| total += *++start |表示指针先自增1，然后再把其指向的数据加到\lstinline| total |上。\\[0.1in]\pause
+\item
+若使用\lstinline| (*start)++ |，则会使用\lstinline| start |指向的数据，然后再使该数据自增1，而不是使指针自增1。此时，指针所指向的地址不变，但其中的元素会更新。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：关于优先级}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch10/code/order.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：关于优先级}
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+*p1 = 100, *p2 = 100, *p3 = 300
+*p1++ = 100, *++p2 = 200, (*p3)++ = 300
+*p1 = 200, *p2 = 200, *p3 = 301
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：小结}
+\begin{itemize}
+\item 处理数组的函数实际上使用指针作为参数，不过在编写此类函数时，数组符号与指针符号都可以使用。若使用数组符号，则函数处理数组这一事实更加明显。\\[0.1in]
+  
+\item 在C中，以下两个表达式等价
+
+\begin{minipage}{0.35\textwidth}
+\begin{lstlisting}
+       ar[i]
+\end{lstlisting}
+\end{minipage}
+~~$\Longleftrightarrow$~~
+\begin{minipage}{0.35\textwidth}
+\begin{lstlisting}
+*(ar+i)
+\end{lstlisting}
+\end{minipage}
+
+不管\lstinline| ar |是一个数组名还是一个指针变量，这两个表达式都可以工作。然而只有当\lstinline| ar |是一个指针变量时，才可以使用\lstinline| ar++ |这样的表达式。
+\\[0.1in]
+\item
+指针符号更接近机器语言，并且某些编译器在编译时能生成效率更高的代码。
+\end{itemize}
+\end{frame}

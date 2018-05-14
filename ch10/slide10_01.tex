@@ -1,0 +1,246 @@
+\section{数组}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{itemize}
+\item 数组由一系列类型相同的元素构成。\\[0.2in]
+\item 数组声明必须包括元素的个数与类型。
+\end{itemize}
+
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+float candy[365];
+char code[12];
+int states[50]; 
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：数组初始化}
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int array[6] = {1, 2, 4, 6, 8, 10};
+\end{lstlisting}
+可用初始化列表（花括号括起来的一系列数值，用逗号隔开）对数组进行初始化。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：数组初始化}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {ch10/code/day_mon1.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：数组初始化}
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+Month  1 has 31 days.
+Month  2 has 28 days.
+Month  3 has 31 days.
+Month  4 has 30 days.
+Month  5 has 31 days.
+Month  6 has 30 days.
+Month  7 has 31 days.
+Month  8 has 31 days.
+Month  9 has 30 days.
+Month 10 has 31 days.
+Month 11 has 30 days.
+Month 12 has 31 days.
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：用const初始化数组}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch10/code/day_mon1_const.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：用const初始化数组}
+若用关键字\lstinline| const |初始化数组，则该数组为只读数组，其元素均为常量，不允许修改。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：如果数组没有初始化，...}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch10/code/no_data.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：如果数组没有初始化，...}
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+ i    no_data[i]
+ 0             0
+ 1             0
+ 2             0
+ 3             0
+ 4    1606416376
+ 5         32767
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：如果数组没有初始化，...}
+同普通变量一样，数组元素的值在初始化之前是不确定的，编译器将使用存储单元中原有的数值。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：如果初始化列表的元素个数与数组大小不一致，...}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch10/code/some_data.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：如果初始化列表的元素个数与数组大小不一致，...}
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+ i    no_data[i]
+ 0            11
+ 1            12
+ 2             0
+ 3             0
+ 4             0
+ 5             0
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：如果初始化列表的元素个数与数组大小不一致，...}
+\begin{itemize}
+\item
+若不初始化数组，则数组元素存储的是无用的数值；\\[0.1in]
+\item
+若部分初始化数组，则未初始化的元素会被设置为0；\\[0.1in]
+\item
+若初始化列表中元素的个数大于数组大小，则编译器会警告或报错。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：如果初始化列表的元素个数与数组大小不一致，...}
+可以省略括号中的数字，让编译器自动匹配数组大小与初始化列表中的项目个数。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：如果初始化列表的元素个数与数组大小不一致，...}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch10/code/day_mon2.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：如果初始化列表的元素个数与数组大小不一致，...}
+  数组中元素个数等于整个数组的大小除以单个元素的大小，其中\lstinline| sizeof days |用于计算整个数组的大小，
+  \lstinline| sizeof days[0] |用于计算一个元素的大小，均以字节为单位。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：指定初始化项目（C99）}
+若想对数组的最后一个元素初始化，\vspace{0.1in}
+
+\begin{itemize}
+\item 
+对于传统C，需要对每一个元素都初始化之后，才能对某个元素进行初始化。
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+  int arr[6] = {0, 0, 0, 0, 0, 212};
+\end{lstlisting}
+\pause\vspace{0.1in}
+
+\item 
+而对C99，在初始化列表中使用带方括号的元素下标可指定某个特定的元素：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int arr[6] = {[5] = 212}; //set arr[5] to 212
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：指定初始化项目（C99）}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch10/code/designate.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：指定初始化项目（C99）}
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+Month  1 has 31 days.
+Month  2 has 29 days.
+Month  3 has  0 days.
+Month  4 has  0 days.
+Month  5 has 31 days.
+Month  6 has 30 days.
+Month  7 has 31 days.
+Month  8 has  0 days.
+Month  9 has  0 days.
+Month 10 has  0 days.
+Month 11 has  0 days.
+Month 12 has  0 days.
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：指定初始化项目（C99）}
+\begin{itemize}
+\item 
+对于普通初始化，在初始化一个或多个元素后，未初始化元素都将被设置为0。\\[0.1in]
+\item 
+若在一个指定初始化项目后有不止一个值，则这些值将对后续的数组元素初始化。\\[0.1in]
+\item
+若多次对一个元素进行初始化，则最后一次有效。
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：为数组赋值}
+\begin{itemize}
+\item 
+声明完数组后，可用下标对数组成员赋值。\\[0.1in]
+\item
+C不支持把数组当做一个整体来进行赋值，也不支持用花括号括起来的列表形式进行赋值（初始化时除外）。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：为数组赋值}
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int main(void)
+{
+  int arr1[5] = {1, 2, 3, 4};
+  int arr2[5];
+  
+  arr2 = arr1;            // invalid
+  arr2[5] = arr1[5];      // OK
+  arr2[5] = {1, 2, 3, 4}; // invalid
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：数组边界}
+使用数组时，下标不能超过数组的边界。例如，假设你有这样的声明：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int arr[20];
+\end{lstlisting}
+那么你在使用下标时，要确保其范围在0到19之间，编译器不会检查这种错误。
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：数组边界}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch10/code/bounds.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：数组边界}
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+value1 = 14, value2 = 88
+-1 -1
+ 0 1
+ 1 3
+ 2 5
+ 3 7
+ 4 9
+ 5 32767
+ 6 424094912
+value1 = -1, value2 = 9
+\end{lstlisting}
+使用超过数组边界的下标可能会改变其他变量的值。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：指定数组大小}
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int n = 5;                     
+int m = 8;                     
+float a1[5];              //OK
+float a2[5*2 + 1];        //OK
+float a3[sizeof(int) + 1];//OK
+float a4[-1];             //Invalid
+float a5[0];              //Invalid
+float a6[2.5];            //Invalid
+float a7[(int) 2.5];      //OK, float to int
+float a8[n];              //C99 OK
+float a9[m];              //C99 OK
+\end{lstlisting}
+\end{frame}
+
+

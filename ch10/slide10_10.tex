@@ -1,0 +1,29 @@
+\section{关键概念}
+\begin{frame}[fragile]\ft{\secname}
+\begin{itemize}
+\item
+数组是一种派生类型，因它建立在其他类型之上。\\[0.1in]
+\item
+也就是说，你不是仅仅声明一个数组，而是声明了一个int数组、float数组或其他类型的数组。\\[0.1in]
+\item
+所谓的其他类型本身就可以是一种数组类型，此时便可得到数组的数组，即二维数组。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{itemize}
+\item
+编写处理数组的函数是有好处的，因为使用特定的函数执行特定的功能有助于程序的模块化。\\[0.1in]
+\item
+\red{使用数组名作为实参时，要知道并不是把整个数组传递给函数，而是传递它的地址；因此对应的形参是一个指针。}\\[0.1in]
+\item
+处理数组时，函数必须知道数组的地址和元素的个数。数组地址直接传递给函数，数组元素的个数可在函数内部设置，也可当做参数传递给函数。但后者更为通用，这样可以处理不同大小的数组。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{itemize}
+\item 数组与指针之间联系紧密，指针符号和数组符号的运算往往可以互换使用。\\[0.1in]
+\item 正是这个原因，才允许处理数组的函数使用指针（而不是数组）作为形参，同时在函数中使用数组符号处理数组。
+\end{itemize}
+\end{frame}

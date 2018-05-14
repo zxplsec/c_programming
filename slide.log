@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017) (preloaded format=xelatex 2017.7.8)  13 MAY 2018 22:32
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017) (preloaded format=xelatex 2017.7.8)  14 MAY 2018 23:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2763,7 +2763,7 @@ Package: inputenc 2015/03/17 v1.2c Input encoding file
 ) (./slide.nav)
 
 Package hyperref Warning: Option `pdfauthor' has already been used,
-(hyperref)                setting the option has no effect on input line 158.
+(hyperref)                setting the option has no effect on input line 171.
 
 *************************************************
 * fontspec warning: "script-not-exist"
@@ -2771,7 +2771,7 @@ Package hyperref Warning: Option `pdfauthor' has already been used,
 * Font 'FandolFang-Regular' does not contain script 'CJK'.
 *************************************************
 \g__fontspec_family_FandolFang-Regular_int=\count354
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 165.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 178.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -2787,131 +2787,960 @@ File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 . - 'normal' (m/n) with NFSS spec.: <->"[FandolFang-Regular.otf]/OT"
 . - 'small caps'  (m/sc) with NFSS spec.: 
 .................................................
-LaTeX Font Info:    Try loading font information for FML+futmi on input line 16
-5.
+LaTeX Font Info:    Try loading font information for FML+futmi on input line 17
+8.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/fourier/fmlfutmi.fd
 File: fmlfutmi.fd 2004/10/30 Fontinst v1.926 font definitions for FML/futmi.
 )
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 7.35999pt on input line 165.
+(Font)              scaled to size 7.35999pt on input line 178.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 6.25598pt on input line 165.
+(Font)              scaled to size 6.25598pt on input line 178.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 5.51999pt on input line 165.
-LaTeX Font Info:    Try loading font information for U+msa on input line 165.
+(Font)              scaled to size 5.51999pt on input line 178.
+LaTeX Font Info:    Try loading font information for U+msa on input line 178.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 165.
+LaTeX Font Info:    Try loading font information for U+msb on input line 178.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 7.35999pt on input line 165.
+(Font)              scaled to size 7.35999pt on input line 178.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 6.25598pt on input line 165.
+(Font)              scaled to size 6.25598pt on input line 178.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 5.51999pt on input line 165.
+(Font)              scaled to size 5.51999pt on input line 178.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 165.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 178.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6.8> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 165.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 178.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 165.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 178.
  [1
 
 ]
 (./slide.toc) [2
 
-] (./ch09/op09.tex
+] (./ch10/slide10_01.tex
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [3
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb)
+[4
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb (./ch10/code/day_mon1.c)) [5
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [6
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb
+(./ch10/code/day_mon1_const.c)) [7
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [8
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb
+(./ch10/code/no_data.c)) [9
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [10
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [11
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb (./ch10/code/some_data.c)) [12
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [13
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [14
+
+]
+\openout4 = `slide.vrb'.
+
+
+(./slide.vrb) [15
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb (./ch10/code/day_mon2.c)) [16
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb)
+[17
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [18
+
+] (./slide.vrb) [19
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb
+(./ch10/code/designate.c)) [20
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [21
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [22
+
+]
+\openout4 = `slide.vrb'.
+
+
+(./slide.vrb) [23
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [24
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [25
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb
+(./ch10/code/bounds.c)) [26
+
+] [27
+
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [28
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [29
+
+])
+(./ch10/slide10_02.tex
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [30
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb (./ch10/code/rain.c))
+[31
+
+] [32
+
+
+] [33
+
+
+] [34
+
+
+] [35
+
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [36
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [37
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb)
+[38
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb
+Overfull \hbox (4.09966pt too wide) in paragraph at lines 5--6
+[][][][] 
+ []
+
+
+Overfull \hbox (4.09966pt too wide) in paragraph at lines 6--7
+[][][][] 
+ []
+
+
+Overfull \hbox (4.09966pt too wide) in paragraph at lines 7--8
+[][][][] 
+ []
+
+
+Overfull \hbox (4.09966pt too wide) in paragraph at lines 8--9
+[][][][] 
+ []
+
+) [39
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [40
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [41
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [42
+
+])
+(./ch10/slide10_03.tex
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [43
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [44
+
+] (./slide.vrb)
+[45
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb (./ch10/code/pnt_add.c)) [46
+
+] [47
+
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [48
+
+]
+\openout4 = `slide.vrb'.
+
+
+(./slide.vrb) [49
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [50
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [51
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [52
+
+]
+\openout4 = `slide.vrb'.
+
+
+(./slide.vrb) [53
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb (./ch10/code/day_mon3.c)) [54
+
+])
+(./ch10/slide10_04.tex
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [55
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [56
+
+] (./slide.vrb)
+[57
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [58
+
+] (./slide.vrb) [59
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [60
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb)
+[61
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [62
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb (./ch10/code/sum_arr1.c)) [63
+
+] [64
+
+
+]
+[65
+
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [66
+
+] (./slide.vrb) [67
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [68
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb)
+[69
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb (./ch10/code/sum_arr2.c)) [70
+
+] [71
+
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [72
+
+]
+\openout4 = `slide.vrb'.
+
+
+(./slide.vrb) [73
+
+] (./slide.vrb) [74
+
+] (./slide.vrb) [75
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [76
+
+]
+(./slide.vrb) [77
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 10.07397pt on input line 7.
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 7.63599pt on input line 7.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 10.07397pt on input line 7.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 7.63599pt on input line 7.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.95> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 7.
-
-
-LaTeX Font Warning: Font shape `TU/FandolHei-Regular(0)/m/it' undefined
-(Font)              using `TU/FandolHei-Regular(0)/m/n' instead on input line 7
-.
-
-[3
-
-] [4
-
-] [5
-
-]
-LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 10.07397pt on input line 43.
-LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 7.63599pt on input line 43.
-LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 10.07397pt on input line 43.
-LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 7.63599pt on input line 43.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8.3> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 43.
- [6
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 7.
+) [78
 
-] [7
+] (./slide.vrb) [79
 
-] [8
-
-] [9
-
-] [10
+] (./slide.vrb) [80
 
 ]
+(./slide.vrb) [81
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb (./ch10/code/order.c)) [82
+
+] [83
+
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb)
+[84
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [85
+
+]) (./ch10/slide10_05.tex
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [86
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [87
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [88
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [89
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [90
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb)
+[91
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb (./ch10/code/ptr_ops.c)) [92
+
+] [93
+
+
+] [94
+
+
+] [95
+
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb)
+Overfull \vbox (11.9907pt too high) detected at line 87
+ []
+
+[96
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [97
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [98
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [99
+
+] (./slide.vrb)
+[100
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [101
+
+] (./slide.vrb) [102
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb
+Overfull \hbox (18.1849pt too wide) in paragraph at lines 10--16
+ [] 
+ []
+
+) [103
+
+]) (./ch10/slide10_06.tex
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [104
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [105
+
+]
+\openout4 = `slide.vrb'.
+
+
+(./slide.vrb) [106
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [107
+
+] (./slide.vrb) [108
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb)
+[109
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb)
+Overfull \vbox (24.03038pt too high) detected at line 72
+ []
+
+[110
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [111
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb (./ch10/code/arf.c)) [112
+
+] [113
+
+
+]
+[114
+
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [115
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [116
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [117
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [118
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [119
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [120
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [121
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [122
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [123
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [124
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [125
+
+])
+(./ch10/slide10_07.tex
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [126
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [127
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb)
+[128
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [129
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [130
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb)
+Overfull \vbox (1.6708pt too high) detected at line 77
+ []
+
+[131
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [132
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb (./ch10/code/zippo1.c)) [133
+
+] [134
+
+
+]
+\openout4 = `slide.vrb'.
+
+
+(./slide.vrb) [135
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 9.19998pt on input line 88.
+(Font)              scaled to size 9.19998pt on input line 4.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 6.99199pt on input line 88.
+(Font)              scaled to size 6.99199pt on input line 4.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 9.19998pt on input line 88.
+(Font)              scaled to size 9.19998pt on input line 4.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 6.99199pt on input line 88.
+(Font)              scaled to size 6.99199pt on input line 4.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 88.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 4.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7.6> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 88.
- [11
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 4.
+
+Overfull \hbox (3.95853pt too wide) in paragraph at lines 5--12
+ [] 
+ []
+
+) [136
 
 ]
-File: ch09/images/ht0.pdf Graphic file (type QTm)
- <use  "ch09/images/ht0.pdf" > [12
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [137
 
 ]
-File: ch09/images/ht1.pdf Graphic file (type QTm)
+\openout4 = `slide.vrb'.
 
-<use  "ch09/images/ht1.pdf" > [13
-
-]
-File: ch09/images/ht2.pdf Graphic file (type QTm)
- <use  "ch09/images/ht2.pdf" > [14
+ (./slide.vrb) [138
 
 ]
-File: ch09/images/ht3.pdf Graphic file (type QTm)
+\openout4 = `slide.vrb'.
 
-<use  "ch09/images/ht3.pdf" > [15
-
-]
-File: ch09/images/ht4.pdf Graphic file (type QTm)
- <use  "ch09/images/ht4.pdf" > [16
+ (./slide.vrb) [139
 
 ]
-File: ch09/images/ht5.pdf Graphic file (type QTm)
+\openout4 = `slide.vrb'.
 
-<use  "ch09/images/ht5.pdf" > [17
 
-]
-File: ch09/images/ht6.pdf Graphic file (type QTm)
- <use  "ch09/images/ht6.pdf" > [18
+(./slide.vrb) [140
 
 ]
-File: ch09/images/ht7.pdf Graphic file (type QTm)
+\openout4 = `slide.vrb'.
 
-<use  "ch09/images/ht7.pdf" > [19
+ (./slide.vrb (./ch10/code/zippo2.c)) [141
+
+] [142
+
+
+]
+\openout4 = `slide.vrb'.
+
+
+(./slide.vrb) [143
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [144
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [145
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb)
+[146
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [147
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [148
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [149
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [150
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [151
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb (./ch10/code/array2d.c)) [152
+
+] [153
+
+
+]
+[154
+
+
+] [155
+
+
+] [156
+
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [157
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [158
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb)
+[159
+
+] (./slide.vrb) [160
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [161
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [162
+
+] (./slide.vrb) [163
+
+]) (./ch10/slide10_08.tex
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [164
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [165
+
+]
+\openout4 = `slide.vrb'.
+
+
+(./slide.vrb) [166
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [167
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [168
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb)
+[169
+
+] (./slide.vrb) [170
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [171
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [172
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [173
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb (./ch10/code/vararr2d.c)) [174
+
+] [175
+
+
+] [176
+
+
+] [177
+
+
+]
+\openout4 = `slide.vrb'.
+
+
+(./slide.vrb) [178
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [179
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [180
+
+])
+(./ch10/slide10_10.tex
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [181
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb) [182
+
+]
+\openout4 = `slide.vrb'.
+
+ (./slide.vrb)
+[183
 
 ])
 \tf@nav=\write8
@@ -2923,23 +3752,19 @@ File: ch09/images/ht7.pdf Graphic file (type QTm)
 \tf@snm=\write10
 \openout10 = `slide.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 175.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 175.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 188.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 188.
  (./slide.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 175.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 175.
-
-
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 188.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 188.
  ) 
 Here is how much of TeX's memory you used:
- 51096 strings out of 493005
- 1090463 string characters out of 6134597
- 1308832 words of memory out of 5000000
- 54139 multiletter control sequences out of 15000+600000
- 78366 words of font info for 107 fonts, out of 8000000 for 9000
+ 52233 strings out of 493005
+ 1107067 string characters out of 6134597
+ 1497870 words of memory out of 5000000
+ 54887 multiletter control sequences out of 15000+600000
+ 78693 words of font info for 109 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 71i,16n,106p,10442b,1043s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 71i,16n,106p,10442b,916s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on slide.pdf (19 pages).
+Output written on slide.pdf (183 pages).
