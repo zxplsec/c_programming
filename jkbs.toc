@@ -1,0 +1,4 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{数组回顾}{2}{0}{1}
+\beamer@sectionintoc {2}{指针}{7}{0}{2}
+\beamer@sectionintoc {3}{数组、指针与函数}{18}{0}{3}

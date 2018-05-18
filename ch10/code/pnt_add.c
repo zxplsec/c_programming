@@ -1,4 +1,3 @@
-// pnt_add.c -- pointer addition
 #include <stdio.h>
 #define SIZE 4
 int main(void)
@@ -9,13 +8,11 @@ int main(void)
   double bills[SIZE];
   double *ptf;
   
-  pti = dates; // assign address of array to pointer
+  pti = dates; 
   ptf = bills;
-  printf("%23s %14s\n", "short", "double");
-  
+  printf("%20s %6s\n", "short", "double"); 
   for (index = 0; index < SIZE; index ++)
-    printf("pointers + %d: %14p %14p\n",
-           index, pti + index, ptf + index);
+    printf("pointers + %d: %p %p\n",index, pti + index, ptf + index);
   
   return 0;
 }

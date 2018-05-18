@@ -1,0 +1,13 @@
+\ft{\secname}
+在定义函数时，名称不可以省略。故在定义时以下两种形式是等价的：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int sum(int * ar, int n)
+{
+  ...
+}
+
+int sum(int ar[], int n)
+{
+  ...
+}
+\end{lstlisting}

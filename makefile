@@ -1,4 +1,4 @@
-file=slide
+file=jkbs
 
 all: pdf out 
 	make pdf
