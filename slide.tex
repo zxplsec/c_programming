@@ -17,7 +17,8 @@
 
 \begin{document}
 
-\newcommand{\num}{s10}
+\newcommand{\num}{o9}
+
 
 \newcommand{\choosetitle}[1]
 {
@@ -30,6 +31,8 @@
   \ifthenelse{\equal{#1}{o7}}{\title{C上机}\subtitle{分支}}{}
   \ifthenelse{\equal{#1}{o8}}{\title{C上机}\subtitle{字符输入输出与输入确认}}{}
   \ifthenelse{\equal{#1}{o9}}{\title{C上机}\subtitle{函数}}{}
+  \ifthenelse{\equal{#1}{o10}}{\title{C上机}\subtitle{数组与指针}}{}
+  \ifthenelse{\equal{#1}{o11}}{\title{C上机}\subtitle{字符串及字符串函数}}{}
   \ifthenelse{\equal{#1}{s1}}{\title{C语言介绍}}{}
   \ifthenelse{\equal{#1}{s2}}{\title{简单C程序的说明}}{}
   \ifthenelse{\equal{#1}{s3}}{\title{C数据}}{}
@@ -40,6 +43,7 @@
   \ifthenelse{\equal{#1}{s8}}{\title{字符输入输出与输入确认}}{}
   \ifthenelse{\equal{#1}{s9}}{\title{函数}}{}
   \ifthenelse{\equal{#1}{s10}}{\title{数组与指针}}{}
+  \ifthenelse{\equal{#1}{s11}}{\title{字符串与字符串函数}}{}
 }
 
 \newcommand{\inputslide}[1]
@@ -70,6 +74,12 @@
   }{}
   \ifthenelse{\equal{#1}{o9}}{
     \input{ch09/op09.tex}
+  }{}
+  \ifthenelse{\equal{#1}{o10}}{
+    \input{ch10/op10.tex}
+  }{}
+  \ifthenelse{\equal{#1}{o11}}{
+    \input{ch11/op11.tex}
   }{}
   \ifthenelse{\equal{#1}{s1}}{
     \input{ch01/slide01_0.tex}
@@ -165,6 +175,13 @@
     \input{ch10/slide10_08.tex}
     %\input{ch10/slide10_09.tex}
     \input{ch10/slide10_10.tex}
+  }{}
+  \ifthenelse{\equal{#1}{s11}}{
+    \input{ch11/slide11_01.tex}
+    \input{ch11/slide11_02.tex}
+    \input{ch11/slide11_03.tex}
+    \input{ch11/slide11_04.tex}
+    \input{ch11/slide11_05.tex}
   }{}
 }
 \choosetitle{\num}

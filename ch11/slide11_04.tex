@@ -1,0 +1,44 @@
+\section{自定义字符串输入/输出函数}
+
+\begin{frame}[fragile]\ft{\secname} 
+不一定非要使用标准C库的函数进行输入输出。如果你不喜欢用它们，可以自行定义，在\lstinline|getchar() |和\lstinline| putchar() |的基础上设计自己的函数。
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]\ft{\secname} 
+假定你想设计一个类似\lstinline| puts() |但并不自动添加换行符的函数，可以这么做
+\lstinputlisting
+[
+ language=c,
+ linerange={14-18}]
+{ch11/code/puts1.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname} 
+假定你想设计一个类似\lstinline| puts() |的函数，并且还可以统计输出的字符个数，可以这么做
+\lstinputlisting
+[
+ language=c,
+ linerange={20-31}]
+{ch11/code/puts1.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname} 
+\lstinputlisting
+[
+ language=c,
+ linerange={1-12}]
+{ch11/code/puts1.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{lstlisting}[backgroundcolor=\color{blue!20}]
+If I'd as much money as I could spend,
+I never would cry old chairs to mend.
+I count 37 characters.
+\end{lstlisting}
+
+\end{frame}
+

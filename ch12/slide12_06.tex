@@ -1,0 +1,57 @@
+\section{指向结构的指针}
+\begin{frame}[fragile]\ft{\secname}
+为什么要使用指向结构的指针，有以下三个原因：
+
+\begin{enumerate}
+\item 如同指向数组的指针比数组本身更容易操作一样，指向结构的指针通常比结构本身更容易操作；
+\item 在一些早期的C实现中，结构不能作为参数被传递给函数，但指向结构的指针可以；
+\item 许多奇妙的数据表示都使用了包含指向其他结构的指针的结构。
+\end{enumerate}
+\end{frame}
+
+\subsection{声明和初始化结构指针}
+\begin{frame}[fragile]\ft{\subsecname}
+  声明如下：
+    \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+struct guy * him;
+    \end{lstlisting}
+该声明意味着指针\verb|him|现在可以指向任意\verb|guy|类型的结构。如果\verb|barney|是一个\verb|guy|类型的结构，可以这样做
+    \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+him = &barney;
+    \end{lstlisting}
+    请注意：{和数组不同，一个结构的名字不是该结构的地址，必须使用\verb|&|运算符。}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \verb|fellow|是一个结构数组，亦即\verb|fellow[0]|是一个结构，以下代码让\verb|him|指向\verb|fellow[0]|：
+    \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+him = &fellow[0];
+    \end{lstlisting}
+
+\end{frame}
+
+\subsection{使用指针访问结构成员}
+\begin{frame}[fragile]\ft{\subsecname}
+假设\verb|him|现在指向\verb|fellow[0]|，有两种方式来访问它的成员：
+\begin{enumerate}
+\item 使用运算符：\verb|->|。
+    \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+him->income is fellow[0].income 
+if him == &fellow[0]
+    \end{lstlisting}
+务必注意\verb|him|是个指针，而\verb|him->income|是\verb|him|所指向结构的一个成员。
+\item 使用点运算符。
+      \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+fellow[0].income  == (*him).income
+    \end{lstlisting}
+必须使用圆括号，因点运算符的优先级比\verb|*|更高。
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+假设\verb|him|现在指向\verb|fellow[0]|，则以下表达式等价
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+fellow[0].income  == (*him).income 
+                  == him->income
+\end{lstlisting}
+\end{frame}

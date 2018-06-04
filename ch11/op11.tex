@@ -1,0 +1,74 @@
+\section{字符串与字符串函数}
+\begin{frame}[fragile]
+\begin{li} 
+设计并测试一个函数\lstinline| my_strchr()|，其功能是搜索第一个参数指定的字符串，在其中查找由第二个参数指定的字符首次出现的位置。
+\begin{itemize}
+\item 若找到，返回指向这个字符的指针；
+\item 若没有找到，返回\lstinline| NULL|。
+\end{itemize}
+\end{li}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch11/code/my_strchr.c}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\begin{li} 
+编写一个函数\lstinline| is_within()|，判断指定字符是否在指定字符串中。
+\begin{itemize}
+\item 若在其中，则返回\lstinline|true|；
+\item 否则返回\lstinline|false|。
+\end{itemize}
+\end{li}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch11/code/is_within.c}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{li} 
+函数\lstinline|strncpy(s1, s2, n)|从\lstinline| s2 |复制\lstinline| n |个字符给\lstinline| s1 |。
+\begin{itemize}
+\item 若\lstinline| s2 |的长度大于或等于\lstinline| n |，则目标字符串没有标识结束的空字符。
+\item 函数返回{\tf s1}。
+\end{itemize}
+请自行编写该函数，取名为\lstinline| my_strncpy() |。
+\end{li}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch11/code/my_strncpy.c}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+\begin{li} 
+编写函数\lstinline| my_strstr() |，它接受两个字符串指针参数。
+\begin{itemize}
+\item 若第二个字符串被包含在第一个字符串中，则返回被包含的字符串开始的地址。
+\item 如，\lstinline| my_strstr("hats","at") |返回\lstinline|"hats"|中\lstinline|'a'|的地址，否则返回\lstinline| NULL |。
+\end{itemize}
+\end{li}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch11/code/my_strstr.c}
+\end{frame}
+

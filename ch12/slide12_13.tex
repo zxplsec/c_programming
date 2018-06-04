@@ -1,0 +1,47 @@
+\section{奇特的声明}
+
+\begin{frame}[fragile]\ft{\secname}
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int board[8][8];     //`int数组的数组`
+int ** ptr;          //`指向int的指针的指针`
+int * risk[10];      
+    //`具有10个元素的数组，每个元素是一个指向int的指针`
+int (* rusk) [10];   
+    //`一个指针，指向具有10个元素的int数组`
+int * oof[3][4];
+    //`一个3x4的数组，每个元素是一个指向int的指针`
+int (* uuf) [3][4];
+    //`一个指针，指向3X4的int数组`
+int (* uof [3]) [4];
+    //`一个具有3个元素的数组，每个元素是一个指向`
+    //`具有4个元素的int数组的指针`
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+char * fump();    
+   //`返回指向char的指针的函数`
+char (* frump) ();     
+   //`指向返回类型为char的函数的指针`
+char (* flump[3]) (); 
+   //`由3个指针组成的数组，每个指针指向返回值为char的函数`
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+typedef int arr5[5]
+typedef arr5 * p_arr5;
+typedef p_arr5 arrp10[10];
+arr5 togs;
+  //`togs为含5个元素的int数组`
+p_arr5 p2;   
+  //`p2为一个指针，指向具有5个元素的int数组`
+arrp10 ap;
+  //`ap是具有10个元素的指针数组，`
+  //`每个指针指向具有5个元素的int数组`
+  \end{lstlisting}
+
+\end{frame}

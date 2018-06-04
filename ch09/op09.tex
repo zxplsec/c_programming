@@ -6,6 +6,10 @@
   \end{biancheng}
 \end{frame}
 
+\begin{frame}[fragile,allowframebreaks]
+  \lstinputlisting[]{ch09/code/min.c}
+\end{frame}
+
 \begin{frame}
   \begin{biancheng}
     编写一个函数，打印一个字符矩阵，需要三个参数，即一个字符和两个整数，其中
@@ -17,6 +21,22 @@
   \end{biancheng}
 \end{frame}
 
+\begin{frame}[fragile,allowframebreaks]
+  \lstinputlisting[]{ch09/code/print_char_mat.c}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+\begin{lstlisting}
+$ gcc print_char_mat.c -o print_char_mat
+$ ./print_char_mat 4 5 d
+ddddd
+ddddd
+ddddd
+ddddd
+\end{lstlisting}
+\end{frame}
+
+
 \begin{frame}
   \begin{biancheng}
     编写一个函数，判断某一年是否为闰年。闰年的判断条件为:
@@ -27,11 +47,24 @@
   \end{biancheng}
 \end{frame}
 
+\begin{frame}[fragile,allowframebreaks]
+  \lstinputlisting[]{ch09/code/is_leap.c}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+\begin{lstlisting}
+$ gcc is_leap.c -o is_leap
+$ ./is_leap 2018
+2018 is NOT a leap year.
+\end{lstlisting}
+\end{frame}
+
+
 \begin{frame}
   \begin{biancheng}
     已知三角形的三个顶点为$(x_1,y_1), (x_2, y_2), (x_3, y_3)$，编写一个函数求三角形的面积，其中面积公式为
     $$
-    S = \left|
+    S = \frac12 \left|
       \begin{array}{ccc}
         1&1&1\\
         x_1&x_2&x_3\\
@@ -41,6 +74,19 @@
     $$
   \end{biancheng}
 \end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \lstinputlisting[]{ch09/code/is_leap.c}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+\begin{lstlisting}
+$ gcc find_triangle_area.c -o find_triangle_area
+$ ./find_triangle_area 0 0 1 0 0 1
+Area =    0.500
+\end{lstlisting}
+\end{frame}
+
 
 \begin{frame}
   \begin{biancheng}
@@ -58,10 +104,34 @@
   $$
 \end{frame}
 
+\begin{frame}[fragile,allowframebreaks]
+  \lstinputlisting[]{ch09/code/power.c}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+\begin{lstlisting}
+$ gcc power.c -o power
+$ ./power 2 3
+2.00 ^  3 = 8.00
+\end{lstlisting}
+\end{frame}
+
 \begin{frame}
   \begin{biancheng}
     回顾十进制转二进制的函数\lstinline| to_binary() |，然后思考一下如何对其进行推广，将某个十进制数转换为任意进制，即构造一个新的函数\lstinline| dec2base() |。如\lstinline|dec2base(129, 16)|的输出为\lstinline|7F|，即\lstinline|129|的十六进制数。
   \end{biancheng}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \lstinputlisting[]{ch09/code/dec2base.c}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+\begin{lstlisting}
+$ gcc dec2base.c -o dec2base
+$ ./dec2base 32 16
+(10) 32 = (16) 20
+\end{lstlisting}
 \end{frame}
 
 \begin{frame}
@@ -141,4 +211,9 @@
     \centering
     \includegraphics[width=4in]{ch09/images/ht7.pdf}
   \end{figure}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]
+  \lstinputlisting[]{ch09/code/hanoi.c}
 \end{frame}

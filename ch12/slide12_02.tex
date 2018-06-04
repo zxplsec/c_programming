@@ -1,0 +1,37 @@
+\section{建立结构体声明}
+\begin{frame}[fragile]\ft{\secname}
+  结构体声明(structure declaration)是描述结构如何组合的主要方法，形如
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+struct book
+{
+  char title[MAXTITL];
+  char author[MAXAUTL];
+  float value;
+};    
+  \end{lstlisting}
+该声明描述了一个结构体，它由两个\verb|char|数组和一个\verb|float|变量组成。该声明并没有创建一个实际的数据对象，而是描述了组成这类对象的元素。  
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  \begin{itemize}
+  \item 关键字\verb|struct|后是一个可选的标记\verb|book|，是用于引用该结构体的快速标记。以下声明
+  \begin{lstlisting}[basicstyle=\ttfamily]
+struct book library;
+  \end{lstlisting}
+把\verb|library|声明为一个使用\verb|book|结构体的结构体变量。 \\[0.1in]
+\item 接下来是用一对花括号扩起来的结构体成员列表。每个成员变量都用它自己的声明来描述，用一个分号来结束描述。每个成员可以是任意C类型，甚至可以是其他结构体。 \\[0.1in]
+\item 结束花括号后的分号表示结构体声明的结束。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  结构体声明可以放在任何函数的外面，也可以放在一个函数内部。\vspace{.1in}
+
+  \begin{itemize}
+  \item 
+    如果是内部声明，则该结构体只能在该函数内部使用。\\[0.1in]
+  \item
+    如果是外部声明，则它可以被本文件该声明后的所有函数使用。
+  \end{itemize}
+\end{frame}
+

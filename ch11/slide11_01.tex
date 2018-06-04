@@ -1,0 +1,207 @@
+\section{字符串表示}
+
+\begin{frame}[fragile]\ft{\secname}
+\begin{itemize}
+\item
+字符串是以空字符结尾的\lstinline| char |数组，故关于数组与指针的知识也适用于字符串。
+\\[0.15in]
+\item
+由于字符串的使用非常广泛，C提供了很多专为字符串设计的函数。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：字符串常量}
+
+字符串常量是指被一对双引号括起来的任何字符。\vspace{0.1in}
+
+\begin{lstlisting}[basicstyle=\ttfamily,showstringspaces=true]
+char greeting[50] = "How" " are" " you?";
+\end{lstlisting}
+等价于
+\begin{lstlisting}[basicstyle=\ttfamily,showstringspaces=true]
+char greeting[50] = "How are you?";
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：字符串常量}
+若想在字符串中使用双引号，可在双引号前加反斜杠\lstinline| \ |。\vspace{0.1in}
+
+\begin{lstlisting}[basicstyle=\ttfamily,showstringspaces=true]
+printf("\"Ready, go!\" exclaimed John.");
+\end{lstlisting}\vspace{0.1in}
+
+输出结果为
+\begin{lstlisting}[basicstyle=\ttfamily,showstringspaces=true]
+"Ready, go!" exclaimed John.
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：字符串常量}
+字符串常量属于静态存储(static storage)类。\vspace{0.1in}
+
+\red{所谓静态存储是指如果在一个函数中使用字符串常量，即使多次调用了这个函数，该字符串在程序的运行过程中只存储一份。}\vspace{0.1in}
+
+整个引号中的内容作为指向该字符存储位置的指针。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：字符串常量}
+\lstinputlisting
+[language=c,numbers=left,frame=single,showstringspaces=true]
+{ch11/code/quotes.c}
+\pause \vspace{0.1in}
+
+输出结果为
+\begin{lstlisting}[basicstyle=\ttfamily,showspaces=true]
+We, 0x100000f81, s
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：字符串数组及其初始化}
+初始化方式一：指定一个足够大的数组来容纳字符串。
+\begin{lstlisting}[language=c]
+char s[40] = "Hello world!"
+\end{lstlisting} \pause \vspace{0.1in}
+
+这相比于标准的数组初始化要简洁很多：
+\begin{lstlisting}[language=c]
+char s[] = {'H', 'e', 'l', 'l', 'o', ' ', 
+            'w', 'o', 'r', 'l', 'd', '!', 
+            '\0'};
+\end{lstlisting}
+如果没有空字符，则得到的是一个字符数组而不是一个字符串。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：字符串数组及其初始化}
+\red{指定数组大小时，要确保数组长度比字符串长度至少多1，未被初始化的元素均被自动设置为空字符。}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：字符串数组及其初始化}
+初始化方式二：省略数组大小，让编译器决定。
+\begin{lstlisting}[language=c,showstringspaces=true]
+char s[] = "Hello world!"
+\end{lstlisting} \pause \vspace{0.1in}
+
+初始化方式三：使用指针符号建立字符串。
+\begin{lstlisting}[language=c,showstringspaces=true]
+char * s = "Hello world!"
+\end{lstlisting} \pause \vspace{0.1in}
+
+这两种方式都声明\lstinline| s |是一个指向给定字符串的指针。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：数组与指针的差别}
+考虑如下两个声明：
+\begin{lstlisting}[language=c,showstringspaces=true]
+char heart[] = "I love C!";
+char * head = "I love math!";
+\end{lstlisting}
+\vspace{0.1in}
+
+主要的差别在于数组名\lstinline| heart |是个常量，而指针\lstinline| head |则是个变量。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：数组与指针的差别}
+(1)、两者都可以使用数组符号。
+\begin{lstlisting}[language=c,showstringspaces=true]
+for (i = 0; i < 6; i++)
+  putchar(heart[i]);
+putchar('\n');
+for (i = 0; i < 6; i++)
+  putchar(head[i]);
+putchar('\n');
+\end{lstlisting}
+\vspace{0.1in}
+
+输出结果为
+\begin{lstlisting}[basicstyle=\ttfamily,showstringspaces=true]
+I love
+I love
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：数组与指针的差别}
+(2)、两者都可以使用指针加法。
+\begin{lstlisting}[language=c,showstringspaces=true]
+for (i = 0; i < 6; i++)
+  putchar(*(heart + i));
+putchar('\n');
+for (i = 0; i < 6; i++)
+  putchar(*(head + i));
+putchar('\n');
+\end{lstlisting}
+\vspace{0.1in}
+
+输出结果仍为
+\begin{lstlisting}[basicstyle=\ttfamily,showstringspaces=true]
+I love
+I love
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：数组与指针的差别}
+(3)、但只有指针可以使用增量运算符。
+\begin{lstlisting}[language=c,showstringspaces=true]
+while (*head != '\0')
+  putchar(*(head++));
+\end{lstlisting}
+\vspace{0.1in}
+
+输出结果
+\begin{lstlisting}[basicstyle=\ttfamily,showstringspaces=true]
+I love math!
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：数组与指针的差别}
+(4)、可让head指针指向heart数组的首元素，即
+\begin{lstlisting}[language=c,showstringspaces=true]
+head = heart;
+\end{lstlisting}
+\vspace{0.05in}
+
+但不能这么做：
+\begin{lstlisting}[basicstyle=\ttfamily,showstringspaces=true]
+heart = head;
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：数组与指针的差别}
+(5)、可改变heart数组中的信息。
+\begin{lstlisting}[language=c,showstringspaces=true]
+heart[7] = 'R';  OR  *(heart + 7) = 'R';
+\end{lstlisting}
+\vspace{0.05in}
+
+因数组元素是变量，但数组名是常量。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：数组与指针的差别}
+(5)、可改变heart数组中的信息。
+\begin{lstlisting}[basicstyle=\ttfamily,showstringspaces=true]
+heart[7] = 'R';  OR  *(heart + 7) = 'R';
+\end{lstlisting}
+\vspace{0.05in}
+
+因数组元素是变量，但数组名是常量。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：字符串数组}
+\begin{lstlisting}[language=c,showstringspaces=true]
+const char * fruit[4] = {
+  "Apple",
+  "Pear",
+  "Orange",
+  "Peach"
+};
+\end{lstlisting}
+\vspace{0.05in}
+
+该语句声明了一个长度为4的数组\lstinline| fruit |，每个元素都是指向\lstinline| char |的指针。
+\vspace{0.05in}
+
+\begin{itemize}
+\item 第一个指针是\lstinline| fruit[0] |，它指向第一个字符串的第一个字符；
+\item 第二个指针是\lstinline| fruit[1] |，它指向第二个字符串的第一个字符；
+\item ...
+\end{itemize}
+\end{frame}

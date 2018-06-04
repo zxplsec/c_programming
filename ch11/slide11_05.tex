@@ -1,0 +1,377 @@
+\section{字符串函数}
+
+\begin{frame}[fragile]\ft{\secname} 
+C库提供了许多处理字符串的函数，在\lstinline| string.h |中给出其函数原型。
+\begin{enumerate}
+\item \lstinline| strlen() |
+\item \lstinline| strcat() |
+\item \lstinline| strncat() |
+\item \lstinline| strcmp() |
+\item \lstinline| strncmp()| 
+\item \lstinline| strcpy() |
+\item \lstinline| strncpy()|
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strlen() |}
+  \begin{itemize}
+  \item \red{函数原型}
+    \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int * strlen(const char * s);
+    \end{lstlisting}
+  \item    \red{功能}
+  \item[] 返回字符串\lstinline| s |的长度，即\lstinline| s |中的字符数（不包含空字符）。
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：\lstinline| strlen() |}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch11/code/test_fit.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strlen() |}
+\begin{lstlisting}[backgroundcolor=\color{blue!20}]
+Hold on to your hats, hackers.
+Hold on
+Let's look at some more of the string.
+to your hats, hackers.
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf strcat()}}
+  \begin{itemize}
+    \item \red{函数原型}
+      \begin{lstlisting}[backgroundcolor=\color{red!20}]
+char * strcat(char * s1, 
+        const char * s2);
+      \end{lstlisting}
+    \item \red{功能}
+    \item[] 把字符串\lstinline| s2 |（包括空字符）追加到字符串\lstinline| s1 |的结尾，字符串\lstinline| s2 |的第一个字符覆盖字符串\lstinline| s1 |中的空字符。
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strcat() |} 
+  \begin{itemize}
+    \item
+      \lstinline| s1 |成为一个新的字符串，\lstinline| s2 |没有改变。\\[0.1in]
+    \item 
+      \lstinline| strcat() |为\lstinline| char * |类型，返回\lstinline| s1 |。
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：\lstinline| strcat() |}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch11/code/str_cat.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strcat() |}
+\begin{lstlisting}[backgroundcolor=\color{blue!20}]
+What is your favorite flower?
+Rose
+Roses smell like old shoes.
+s smell like old shoes.
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{\tf strcat()}} 
+\lstinline| strcat() |并不检查第一个数组是否能够容纳第二个字符串。如果没有为第一个数组分配足够大的空间，多出的字符溢出到相邻单元时就会出现问题。\vspace{.1in}
+
+该问题可通过使用\lstinline| strncat() |加以解决，该函数需要另一个参数来指明最多允许添加的字符数目。
+
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strncat() |}
+  \begin{itemize}
+  \item \red{函数原型}
+    \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+char * strcat(char * s1, 
+        const char * s2, 
+              size_t n);
+    \end{lstlisting}
+  \item 
+    \red{功能}
+  \item[]
+    把字符串\lstinline| s2 |的前\lstinline| n |个字符或直到空字符为止的字符追加到字符串\lstinline| s1 |的结尾，\lstinline| s2 |的第一个字符覆盖\lstinline| s1 |中的空字符，总在最后添加一个空字符。\\[0.1in]
+  \item
+    \lstinline| strncat() |为\lstinline| char * |类型，返回\lstinline| s1 |。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：\lstinline| strncat() |}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {ch11/code/join_chk.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strncat() |}
+\begin{lstlisting}[language=c]
+What is your favorite flower?
+Rose
+Roses smell like old shoes.
+What is your favorite bug?
+Aphid
+Aphids smell
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strcmp() |} 
+  \begin{itemize}
+  \item \red{函数原型}
+    \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int strcmp(const char * s1, 
+           const char * s2);
+    \end{lstlisting}
+  \item
+    \red{功能}
+  \item[]
+    比较字符串\lstinline| s1 |和\lstinline| s2 |。若字符串相同，则返回\lstinline| 0 |；否则就比较两个字符串的第一个不匹配的字符对（使用ASCII码进行比较）。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strcmp() |} 
+  \begin{itemize}
+  \item
+    若第一个字符串小于第二个则返回一个负数；
+  \item
+    若第一个字符串较大就返回一个整数。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：\lstinline| strcmp() |}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch11/code/compare.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strcmp() |}
+我的系统的输出结果为
+\begin{lstlisting}[backgroundcolor=\color{red!20}]  
+strcmp("A", "A") is 0
+strcmp("A", "B") is -1
+strcmp("B", "A") is 1
+strcmp("C", "A") is 2
+strcmp("Z", "a") is -7
+strcmp("apples", "apple") is 115
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strcmp() |}
+而有些系统输出结果为
+\begin{lstlisting}[backgroundcolor=\color{red!20}]  
+strcmp("A", "A") is 0
+strcmp("A", "B") is -1
+strcmp("B", "A") is 1
+strcmp("C", "A") is 1
+strcmp("Z", "a") is -1
+strcmp("apples", "apple") is 1
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strncmp() |}
+\begin{itemize}
+\item \red{函数原型}
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+  int strncmp(const char * s1, 
+              const char * s2,
+              size_t n);
+\end{lstlisting}
+\item \red{功能}
+\item[]
+  比较字符串\lstinline| s1 |和\lstinline| s2 |的前\lstinline| n |个字符或直到第一个空字符为止。返回结果与\lstinline| strcmp() |类似。  
+\end{itemize}    
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strncmp() |}
+如果想搜索以\lstinline| "astro" |开头的字符串，可以限定搜索前5个字符。
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：\lstinline| strncmp() |}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch11/code/starsrch.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strncmp() |}
+\begin{lstlisting}[language=c]
+Found: astronomy
+Found: astrophysics
+The list contained 2 words beginning with astro.
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strcpy() |} 
+\begin{itemize}
+\item \red{函数原型}
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+char * strcpy(char * s1, 
+        const char * s2);
+\end{lstlisting}
+\item 
+  \red{功能}
+\item[]把字符串\lstinline| s2 |（包括空字符）复制到\lstinline| s1 |指向的位置，返回\lstinline| s1 |。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strcpy() |} 
+\begin{itemize}
+\item
+\lstinline| s2 |称为源(source)字符串，\lstinline| s1 |称为目标(target)字符串。
+\\[0.1in]
+\item
+指针\lstinline| s2 |可以是一个已声明的指针、数组名或字符串常量。\\[0.1in]
+\item
+指针\lstinline| s1 |应指向空间大到足够容纳字符串\lstinline| s2 |的数组。\\[0.1in]
+\item[]
+\red{谨记：声明一个数组将为数据分配存储空间，而声明一个指针值为一个地址分配存储空间。}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：\lstinline| strcpy() |}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch11/code/copy1.c}
+
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strcpy() |}
+\begin{lstlisting}[backgroundcolor=\color{blue!20}]
+Enter 5 words beginning with q:
+quit
+quarter
+quite
+quotient
+nomore
+nomore doesn't begin with q!
+quiz
+Here are the words accepted:
+quit
+quarter
+quite
+quotient
+quiz
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strcpy() |} 
+\lstinline| strcpy() |还有两个重要的属性：\vspace{0.1in}
+\begin{itemize}
+\item 它是\lstinline| char * |类型，返回第一个参数的值； \\[0.1in]
+\item 第一个参数不需要指向数组的开始，这样就可以复制到目标字符串的指定位置。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：\lstinline| strcpy() |}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch11/code/copy2.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strcpy() |}
+\begin{lstlisting}[backgroundcolor=\color{blue!20}]
+beast
+Be the best that you can be.
+Be the beast
+beast
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strncpy() |} 
+\begin{itemize}
+\item \red{函数原型}
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+    char * strcpy(char * s1, const char * s2,
+                  size_t n);
+\end{lstlisting}
+\item 
+  \red{功能}
+\item[]
+  把字符串\lstinline| s2 |的前\lstinline| n |个字符或直到空字符为止的字符复制到\lstinline| s1 |指向的位置，第三个参数\lstinline| n |用于指明最大可复制的字符数。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strncpy() |} 
+\begin{itemize}
+\item 
+若源字符串的字符数小于\lstinline| n |，则整个字符串都被复制过来，包括空字符；
+\item
+复制的字符数不能超过\lstinline| n |，必须要给空字符留位置。处于这个原因，调用该函数时，\lstinline| n |一般设置为目标数组长度减1。
+\item
+函数返回\lstinline| s1 |。
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：\lstinline| strncpy() |}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch11/code/copy3.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| strncpy() |}
+\begin{lstlisting}[backgroundcolor=\color{blue!20}]
+Enter 5 words begin with q:
+quack
+quadratic
+quisling
+quota
+quagga
+Here are the words accepted:
+quack
+quadra
+quisli
+quota
+quagga
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| sprintf() |}
+\lstinline| sprintf() |在{\tf stdio.h}中声明。 \vspace{.05in}
+
+\begin{itemize}
+\item 
+作用同{\tf printf()}一样，但它写到字符串中而不是输出显示。 \\[0.1in]
+\item
+第一个参数是目标字符串的地址，其余参数同{\tf printf()}。
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：\lstinline| sprintf() |}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch11/code/format.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：\lstinline| sprintf() |}
+\begin{lstlisting}[backgroundcolor=\color{blue!20}]
+Enter your first name:
+warning: this program uses gets(), which is unsafe.
+Teddy
+Enter your last name:
+Bear
+Enter your prize money:
+2000
+Bear, Teddy              : $2000.00
+
+\end{lstlisting}
+
+\pause \rule{\textwidth}{0.3mm}\vspace{0.3mm}
+
+\lstinline| sprintf() |获取输入，并把输入格式化为标准形式后存放在字符串{\tf format}中。
+
+\end{frame}

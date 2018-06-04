@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h>
 
 double power(double a, int n)
 {
@@ -12,15 +13,17 @@ double power(double a, int n)
 
 int main(int argc, char * argv[])
 {
+  int n;
+  double a;
+  
   if (argc != 3) {
     printf("usage: %s base exponetial\n", argv[0]);
+    return 1;
   }
-  else {
-    double a;
-    sscanf(argv[1], "%lf", &a);
-    int n;
-    sscanf(argv[2], "%d", &n);
-    printf("%.2f ^ %2d = %.2f\n", a, n, power(a, n));
-  }
+
+  a = atof(argv[1]);
+  n = atoi(argv[2]);
+  printf("%.2f ^ %2d = %.2f\n", a, n, power(a, n));
+
   return 0;
 }

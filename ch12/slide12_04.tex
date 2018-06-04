@@ -1,0 +1,59 @@
+\section{结构体数组}
+
+\subsection{示例程序}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\subsecname}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch12/code/manybook.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{lstlisting}[backgroundcolor=\color{blue!20}]
+Enter the book title.
+Press [enter] at the start of a line to stop.
+C primer plus[enter]
+Enter the author.
+Stephan Prata[enter]
+Enter the value.
+80[enter]
+Enter the next title.
+C programing language[enter]
+Enter the author.
+Dennis Ritchie[enter]
+Enter the value.
+40[enter]
+Enter the next title.
+
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{lstlisting}[backgroundcolor=\color{blue!20}]
+Here is the list of your book:
+C primer plus by Stephan Prata: 80.00
+C programing language by Dennis Ritchie: 40.00    
+  \end{lstlisting}
+\end{frame}
+
+\subsection{声明结构体数组}
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{lstlisting}
+struct book library[MAXBOOK];
+  \end{lstlisting}
+声明一个具有\verb|MAXBOOK|个元素的数组，每个元素都是一个\verb|book|类型的结构体。\vspace{0.1in}
+
+注意：\verb|library|本身不是结构体变量名，它是元素类型为\verb|struct book|的数组名。
+\end{frame}
+
+\subsection{标识结构体数组的成员}
+\begin{frame}[fragile]\ft{\subsecname}
+  为了标识结构体数组的成员，可这么做
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+library[0].value;     //`第1个数组元素的value成员`
+library[4].title;     //`第5个数组元素的title成员`
+library[2].title[4];  //`第3个数组元素的title成员`
+                      //`   的第5个字符`
+  \end{lstlisting}
+\end{frame}
+

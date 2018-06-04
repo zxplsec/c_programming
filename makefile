@@ -1,4 +1,4 @@
-file=jkbs
+file=googleblue
 
 all: pdf out 
 	make pdf

@@ -1,0 +1,123 @@
+\section{联合}
+
+\begin{frame}[fragile]\ft{\secname}
+  联合(union)是一个使用同一存储空间（但不同时）存储不同数据的数据类型。\vspace{0.1in}
+
+
+  使用联合类型的数组，可以创建相同大小单元的数组，每个单元都能存储多种类型的数据。
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+联合以与结构同样的方式建立，需要一个联合模板和一个联合变量。以下是一个创建带标记的联合模板的例子：
+\begin{lstlisting}[basicstyle=\ttfamily]
+union hold {
+  int digit;
+  double bigfl;
+  char letter;
+}  
+\end{lstlisting}
+该联合可以含有一个\verb|int|值、一个\verb|double|值或一个\verb|char|值。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+以下是定义3个hold类型联合变量的例子
+\begin{lstlisting}[basicstyle=\ttfamily]
+union hold fit;
+union hold save[10];
+union hold * pu;
+\end{lstlisting}
+
+\begin{itemize}
+\item 第一个声明创建一个变量\verb|fit|。编译器分配足够多的空间一保存所描述的可能性的最大需要。在此情况下，最大可能性是\verb|double|数据，
+  需要8个字节。\\[0.1in]
+\item 第二个声明创建一个\verb|save|数组，含10个元素，每个元素占8个字节。\\[0.1in]
+\item 第三个声明创建一个指针，可以存放一个\verb|hold|联合的地址。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+可以初始化一个联合。因联合只存储一个值，故其初始化规则与结构的初始化不同，它有三种选择：\vspace{0.05in}
+
+\begin{enumerate}
+\item 可以把一个联合初始化为同类型的另一个联合；\\[0.1in]
+\item 可以初始化联合的第一个元素；\\[0.1in]
+\item 按照C99标准，可以使用一个指定初始化项目。
+\end{enumerate}
+
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+union hold valA;
+valA.letter = 'R';
+union hold valB = valA;
+union hold valC = {88};
+union hold valD = {.bigfl = 118.2};
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+以下代码说明了如何使用联合：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+union hold fit;
+fit.digit = 23;    //`把23存储在fit中，使用2字节`
+fit.bigfl = 2.0;   //`清除23，存储2.0，使用8字节`
+fit.letter = 'h';  //`清除2.0，存储'h'，使用1字节` 
+\end{lstlisting}
+点运算符表示正在使用哪种数据类型。在同一时间只能存储一个值。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+可以与指向联合的指针一样使用\verb|->|运算符：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+union hold * pu;
+union hold fit;
+pu = & fit;
+x = pu->digit;   //`相当于x = fit.digit`
+\end{lstlisting}
+接下来的语句告诉你什么是不能做的：
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+fit.letter = 'A';
+flnum = 3.2 * fit.bigfl;   //`错误`
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：联合的应用}
+假定有一个表示一辆汽车的结构。如果是私车，就要一个结构成员来描述汽车所有者；如果是租车，需要一个成员来描述租赁公司。
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+struct owner {
+  char socsecurity[20];
+  ...
+};
+
+struct leasecompany {
+  char name[40];
+  char headquarters[40];
+  ...
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：联合的应用}
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+union data {
+  struct owner owncar;
+  struct leasecompany leasecar;
+};
+
+struct car_data{
+  char make[15];
+  int status;  // `0 = 私有，1 = 租赁` 
+  union data owerinfo;
+  ...
+}
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：联合的应用}
+假定\verb|honda|是一个\verb|car_data|结构，则
+\begin{itemize}
+\item 若\verb|honda.status|为\verb|0|，则程序可使用\verb|honda.owerinfo.owncar.socsecurity|；\\[0.1in]
+\item 若\verb|honda.status|为\verb|1|，则程序可使用\verb|honda.owerinfo.leasecar.name|；\\[0.1in]
+\end{itemize}
+\end{frame}
+

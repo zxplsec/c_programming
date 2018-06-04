@@ -1,23 +1,27 @@
 // dec2base.c
 #include <stdio.h>
+#include <stdlib.h>
+
 char *BaseString = "0123456789ABCDEF";
+
 void dec2base(unsigned long dec, int base);
 
-int main(void)
+int main(int argc, char * argv[])
 {
-  unsigned long  number;
-  int n;
+  unsigned long dec;
+  int base;
 
-  printf("Enter the base you want to choose: ");
-  scanf("%d", &n);
-  printf("Enter an integer (q to quit):\n");
-  while (scanf("%lu", &number) == 1) {
-    printf("Result: ");
-    dec2base(number, n);
-    putchar('\n');
-    printf("Enter an integer (q to quit):\n");
+  if(argc != 3) {
+    fprintf(stderr, "Usage: %s dec base\n", argv[0]);
+    return 1;
   }
-  printf("Done.\n");
+  
+  dec = strtoul(argv[1], NULL, 0);
+  base = atoi(argv[2]);
+  printf("(10) %lu = (%d) ", dec, base);
+  dec2base(dec, base);
+  putchar('\n');
+  
   return 0;
 }
 

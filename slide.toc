@@ -1,9 +1,2 @@
-\beamer@sectionintoc {2}{数组}{3}{0}{1}
-\beamer@sectionintoc {3}{多维数组}{30}{0}{2}
-\beamer@sectionintoc {4}{指针与数组}{43}{0}{3}
-\beamer@sectionintoc {5}{函数、数组与指针}{55}{0}{4}
-\beamer@sectionintoc {6}{指针操作}{86}{0}{5}
-\beamer@sectionintoc {7}{保护数组内容}{104}{0}{6}
-\beamer@sectionintoc {8}{指针与多维数组}{126}{0}{7}
-\beamer@sectionintoc {9}{变长数组}{164}{0}{8}
-\beamer@sectionintoc {10}{关键概念}{181}{0}{9}
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {2}{函数}{3}{0}{1}

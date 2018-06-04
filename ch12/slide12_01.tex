@@ -1,0 +1,37 @@
+\section{示例}
+
+\begin{frame}[fragile]\ft{\secname}
+  \begin{itemize}
+  \item  结构体将几个类型的数据结合在一起，将其当成一个类型来处理。
+  \item[] 例如图书馆管理书籍，一本书包含编号、书名、单价等内容，于是把编号、书名、单价等结合成一个类型。
+  \item 这样的数据类型是自定义的数据类型。
+  \end{itemize}
+
+注意：结构体是数据类型，而不是变量，必须在程序中定义了该类型后才能操作数据。
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname}
+\lstinputlisting
+[language=c,numbers=left,frame=single]
+{ch12/code/book.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  \begin{lstlisting}[backgroundcolor=\color{blue!20}]
+Please enter the book title.
+C primer plus
+Please enter the author.
+Stephan Prata
+Now enter the value.
+80
+C primer plus by Stephan Prata: 80.00
+C primer plus: *Stephan Prata* (80.00)
+Done.    
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+该程序创建的结构由3部分组成，每个部分称为成员{\tf (member)}。
+\end{frame}
+

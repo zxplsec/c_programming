@@ -1,0 +1,193 @@
+%%% GoogleBlue Beamer
+%%%
+%%% WisdomFusion <WisdomFusion@gmailcom>
+
+\mode<presentation>
+
+\useoutertheme[subsection=false]{smoothbars}
+\useinnertheme[shadow=false]{rounded}
+\usecolortheme{orchid}
+\usecolortheme{whale}
+
+\setbeamerfont{block title}{size={}}
+% \newfontfamily\plexcondensed{IBM Plex Sans Condensed}
+
+% Itemize items: default (triangle), circle, square, ball
+%\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{itemize items}{\large$\bullet$}
+
+% Enumerate items: default, circle, square, ball
+\setbeamertemplate{enumerate items}[circle]
+
+% Outline: default, sections numbered, subsections numbered, circle, square, ball, ball unnumbered
+\setbeamertemplate{sections/subsections in toc}[circle]
+
+% General blocks: 
+\setbeamertemplate{blocks}[rounded=false]
+
+% Title page:
+\setbeamertemplate{title page}[default][colsep=-4bp, rounded=false]
+
+% Part page:
+\setbeamertemplate{part page}[default][colsep=-4bp, rounded=false]
+
+% Navigation symbols:
+%\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{sidebar right}{}
+\setbeamertemplate{footline}{}
+
+% Colors
+%\definecolor{sapred}{RGB}{130,36,51}
+\definecolor{sapblue}{RGB}{0,103,120}
+
+% Material Colors
+\definecolor{matred}{HTML}{Dd4b39}
+\definecolor{matblue}{HTML}{2196F3}
+\definecolor{matbluelight}{HTML}{BBDEFB}
+\definecolor{matbluedark}{HTML}{1976D2}
+
+\setbeamercolor{structure}{fg=matbluedark}
+%\setbeamercolor{frametitle}{parent=subsection in head/foot}
+%\setbeamercolor{frametitle right}{parent=section in head/foot}
+\definecolor{grey}{HTML}{51504A}
+\setbeamercolor{section in head/foot}{bg=matbluedark, fg=white}
+\setbeamercolor{footline}{bg=matbluedark}
+\setbeamercolor{title in head/foot}{bg=matbluedark, fg=white}
+
+% shadowing
+\AtBeginDocument{
+  \pgfdeclareverticalshading{b@matshade}{\the\paperwidth}
+  {rgb(0pt)=(1,1,1); rgb(2pt)=(0.8,0.8,0.8); rgb(3pt)=(0.75,0.75,0.75)}
+}
+
+
+\AtBeginPart{
+  {% start a group to keep the template change local
+    \setbeamercolor{background canvas}{bg=matblue, fg=white}
+    \frame{\partpage}
+
+    \setbeamertemplate{part page}{
+      \begin{beamercolorbox}[center, wd=\textwidth]{part title}
+        \usebeamerfont{part title}\insertpart
+      \end{beamercolorbox}
+    }
+  }% end group
+}
+
+
+\usepackage{tcolorbox}  
+\tcbuselibrary{skins}                                 % preamble 
+\usepackage{tikz}                                     %
+\usetikzlibrary{shadows, shadings}                    %
+
+\tikzset{myshadow/.style={                            % custom shadow with tikz
+    opacity=.16,
+    shadow xshift=0.03,
+    shadow yshift=-0.03,
+    shade,
+    shading=axis,
+    shading angle=315
+  }
+} 
+
+\tcbset{                                              % set a custom tcolorbox
+  skin=enhanced,                                      % enables use of shadows
+  frame style={fill=matblue,drop shadow={myshadow}},  % sets the frame color and the shadow properties
+  bottom=5pt,                                         % distance between the body text and the bottom frame
+  top=5pt,                                            % distance between the body text and the top frame
+  boxrule=0mm,                                        % frame width
+  bottomtitle=2mm,                                    % distance between the title text and the bottom title frame               
+  toptitle=2mm,                                       % distance between the title text and the top title frame
+  lefttitle=10pt                                      % title text left margin
+}
+
+
+\setbeamercolor{block body}{bg=matbluelight, fg=black}
+\defbeamertemplate*{block begin}{mat theme}
+{
+  \vskip\smallskipamount
+  \begin{tcolorbox}[title=\small \insertblocktitle]
+    \small
+}
+
+\defbeamertemplate*{block end}{mat theme}
+{
+  \end{tcolorbox}\vskip\smallskipamount
+}
+
+
+\defbeamertemplate*{headline}{mat theme}
+{
+  \leavevmode
+  \begin{beamercolorbox}[wd=\paperwidth]{section in head/foot}
+    \vskip4pt
+    \hskip4pt
+    % \insertshorttitle
+    % \hfill
+    %\plexcondensed
+    \insertsectionnavigationhorizontal{1.0\textwidth}{\hskip0pt plus1fill}{}  % something wrong
+    \vskip2pt
+
+    \ifx\insertframesubtitle\@empty
+      \pgfuseshading{b@matshade}
+    \fi
+  \end{beamercolorbox}
+}
+
+
+% footline
+\defbeamertemplate*{footline}{mat theme}
+{
+  \begin{beamercolorbox}[wd=\paperwidth, ht=2.25ex, dp=1.25ex]{title in head/foot}
+    \begin{minipage}{0.48\textwidth}
+      \hskip10pt \usebeamertemplate***{navigation symbols}
+    \end{minipage}
+    \begin{minipage}{0.48\textwidth}
+      \flushright \insertframenumber\,/\,\inserttotalframenumber
+    \end{minipage}
+  \end{beamercolorbox}
+}
+
+
+% title page
+\defbeamertemplate*{title page}{my theme}[1][]
+{
+
+  \nointerlineskip
+
+  % author
+  \usebeamerfont{subtitle}
+  \begin{beamercolorbox}[sep=2em, wd=\paperwidth, dp=0.5cm, right]{thead}
+    \usebeamerfont{author}
+    \insertauthor
+  \end{beamercolorbox}
+
+  \nointerlineskip
+
+  % title
+  \setbeamercolor{postit}{fg=white, bg=matblue}
+  \begin{beamercolorbox}[sep=2em, wd=\paperwidth, ht=3.5cm, dp=2.25cm]{postit}
+    \begin{minipage}[t]{\textwidth}
+      \usebeamerfont{title} {\huge \inserttitle} \par
+      \vskip4pt
+      \usebeamerfont{subtitle} {\small 
+        %\plexcondensed 
+        \insertsubtitle}
+    \end{minipage}
+  \end{beamercolorbox}
+
+}
+
+
+% frametitle
+\setbeamerfont{frametitle}{size=\normalsize, parent=structure}
+\defbeamertemplate*{frametitle}{mat theme}{
+  \nointerlineskip
+
+  \setbeamercolor{titlebar}{fg=white, bg=matblue}
+  \begin{beamercolorbox}[wd=\paperwidth, ht=5.5ex]{titlebar}
+    \hskip10pt \textbf{\insertframetitle} \vfill
+    \pgfuseshading{b@matshade}
+  \end{beamercolorbox}
+}
+

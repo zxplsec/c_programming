@@ -1,0 +1,276 @@
+% !TEX program = xelatex
+\documentclass[aspectratio=1610,utf8]{beamer}
+% use beamer if english only
+% aspectratio: 1610, 169, 149, 54, 43 and 32
+% By default, it is to 128mm by 96mm, 4:3
+\usepackage[UTF8,noindent]{ctex}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{googleblue}
+\usepackage{xcolor}
+\usepackage{braket}
+\usepackage{listings}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{ifthen}
+
+\lstset{
+        language=c,
+        keywordstyle=\color{red},
+        % frame=tb,
+        basicstyle=\ttfamily,
+        commentstyle=\small\color{blue},
+        breakindent=0pt,
+        rulesepcolor=\color{red!20!green!20!blue!20},
+        rulecolor=\color{black},
+        tabsize=4,
+        numbersep=5pt,
+        breaklines=true,
+        backgroundcolor=\color{red!10},
+        showstringspaces=false,
+        showspaces=false,
+        showtabs=false,
+        extendedchars=false,
+        escapeinside=``,
+}
+
+\usepackage{multicol}
+\setlength\columnsep{10pt} % This is the default columnsep
+\usepackage{setspace}
+
+%\usepackage{ebgaramond}
+\usefonttheme{serif}
+\usepackage{fontspec}
+
+\input{asset/global_newcommand}
+%\input{asset/global_usepackage}
+\input{asset/global_newenviroment}
+\input{asset/global_newtheorem}
+
+
+% \setmainfont{Helvetica Neue}
+\setmainfont{Arial}
+% \setmainfont{IBM Plex Serif}
+% \setsansfont{IBM Plex Sans}
+% \setmathrm{Cambria Math}
+% \setmonofont{IBM Plex Mono}
+
+\setCJKmainfont{WenQuanYi Micro Hei}
+% \setCJKmainfont[ItalicFont=STKaiti]{Source Han Sans CN}
+% \setCJKmainfont[BoldFont=STHeiti,ItalicFont=STKaiti]{STHeiti}
+% \setCJKsansfont[BoldFont=STHeiti]{STXihei}
+% \setCJKmonofont{STKaiti}
+
+\setbeamercovered{transparent}
+
+
+% \title[Beamer教程]{\LaTeX  ~Beamber教程}
+% \subtitle{\texttt{\LaTeX} 让制作演示文稿变得简单}
+% \author[张晓平]{\scriptsize \textcolor{black}{张晓平\\ <xpzhang.math@whu.edu.cn>}}
+% \date{May, $2018$}
+
+
+\newcommand{\inputslide}[1]
+{
+  \ifthenelse{\equal{#1}{o1}}{
+    \input{ch01/op01.tex}
+  }{}
+  \ifthenelse{\equal{#1}{o2}}{
+    \input{ch02/op02.tex}
+  }{}
+  \ifthenelse{\equal{#1}{o3}}{
+    \input{ch03/op03.tex}
+  }{}
+  \ifthenelse{\equal{#1}{o4}}{
+    \input{ch04/op04.tex}
+  }{}
+  \ifthenelse{\equal{#1}{o5}}{
+    \input{ch05/op05.tex}
+  }{}
+  \ifthenelse{\equal{#1}{o6}}{
+    \input{ch06/op06.tex}
+  }{}
+  \ifthenelse{\equal{#1}{o7}}{
+    \input{ch07/op07.tex}
+  }{}
+  \ifthenelse{\equal{#1}{o8}}{
+    \input{ch08/op08.tex}
+  }{}
+  \ifthenelse{\equal{#1}{o9}}{
+    \input{ch09/op09.tex}
+  }{}
+  \ifthenelse{\equal{#1}{o10}}{
+    \input{ch10/op10.tex}
+  }{}
+  \ifthenelse{\equal{#1}{o11}}{
+    \input{ch11/op11.tex}
+  }{}
+  \ifthenelse{\equal{#1}{s1}}{
+    \input{ch01/slide01_0.tex}
+    \input{ch01/slide01_1.tex}
+    \input{ch01/slide01_2.tex}
+    \input{ch01/slide01_3.tex}
+    \input{ch01/slide01_4.tex}
+    \input{ch01/slide01_5.tex}
+    \input{ch01/slide01_6.tex}
+    \input{ch01/slide01_7.tex}
+  }{}
+  \ifthenelse{\equal{#1}{s2}}{
+    \input{ch02/slide02_1.tex}
+    \input{ch02/slide02_2.tex}
+    \input{ch02/slide02_3.tex}
+    \input{ch02/slide02_4.tex}
+    \input{ch02/slide02_5.tex}
+    \input{ch02/slide02_6.tex}
+  }{}
+  \ifthenelse{\equal{#1}{s3}}{
+    \input{ch03/slide03_0.tex}
+    \input{ch03/slide03_1.tex}
+    \input{ch03/slide03_2.tex}
+    \input{ch03/slide03_3.tex}
+    \input{ch03/slide03_4.tex}
+  }{}
+  \ifthenelse{\equal{#1}{s4}}{
+    \input{ch04/slide04_1.tex}
+    \input{ch04/slide04_2.tex}
+    \input{ch04/slide04_3.tex}
+    \input{ch04/slide04_4.tex}
+  }{}
+  \ifthenelse{\equal{#1}{s5}}{
+    \input{ch05/slide05_0.tex}
+    \input{ch05/slide05_1.tex}
+    \input{ch05/slide05_2.tex}
+    \input{ch05/slide05_3.tex}
+    \input{ch05/slide05_4.tex}
+    \input{ch05/slide05_5.tex}
+    \input{ch05/slide05_6.tex}
+  }{}
+  \ifthenelse{\equal{#1}{s6}}{
+    \input{ch06/slide06_01.tex}
+    \input{ch06/slide06_02.tex}
+    \input{ch06/slide06_03.tex}
+    \input{ch06/slide06_04.tex}
+    \input{ch06/slide06_05.tex}
+    \input{ch06/slide06_06.tex}
+    \input{ch06/slide06_07.tex}
+    \input{ch06/slide06_08.tex}
+    \input{ch06/slide06_09.tex}
+    \input{ch06/slide06_10.tex}
+    \input{ch06/slide06_11.tex}
+    \input{ch06/slide06_12.tex}
+  }{}
+  \ifthenelse{\equal{#1}{s7}}{
+    \input{ch07/slide07_01.tex}
+    \input{ch07/slide07_02.tex}
+    \input{ch07/slide07_03.tex}
+    \input{ch07/slide07_04.tex}
+    \input{ch07/slide07_05.tex}
+    \input{ch07/slide07_06.tex}
+    \input{ch07/slide07_07.tex}
+    \input{ch07/slide07_08.tex}
+  }{}
+  \ifthenelse{\equal{#1}{s8}}{ 
+   	\input{ch08/slide08_00.tex}
+    \input{ch08/slide08_01.tex}
+    \input{ch08/slide08_02.tex}
+    \input{ch08/slide08_03.tex}
+%    \input{ch08/slide08_04.tex}
+    \input{ch08/slide08_05.tex}
+    \input{ch08/slide08_06.tex}
+    \input{ch08/slide08_07.tex}
+  }{}
+  \ifthenelse{\equal{#1}{s9}}{
+    \input{ch09/slide09_01.tex}
+    % \input{ch09/slide09_02.tex}
+    \input{ch09/slide09_03.tex}
+    % \input{ch09/slide09_04.tex}
+    \input{ch09/slide09_05.tex}
+    \input{ch09/slide09_06.tex}
+    \input{ch09/slide09_07.tex}
+  }{}
+  \ifthenelse{\equal{#1}{s10}}{
+    \input{ch10/slide10_01.tex}
+    \input{ch10/slide10_02.tex}
+    \input{ch10/slide10_03.tex}
+    \input{ch10/slide10_04.tex}
+    \input{ch10/slide10_05.tex}
+    \input{ch10/slide10_06.tex}
+    \input{ch10/slide10_07.tex}
+    \input{ch10/slide10_08.tex}
+    %\input{ch10/slide10_09.tex}
+    \input{ch10/slide10_10.tex}
+  }{}
+  \ifthenelse{\equal{#1}{s11}}{
+    \input{ch11/slide11_01.tex}
+    \input{ch11/slide11_02.tex}
+    \input{ch11/slide11_03.tex}
+    \input{ch11/slide11_04.tex}
+    \input{ch11/slide11_05.tex}
+  }{}
+  \ifthenelse{\equal{#1}{s12}}{
+    \input{ch12/slide12_01.tex}
+    \input{ch12/slide12_02.tex}
+    \input{ch12/slide12_03.tex}
+    \input{ch12/slide12_04.tex}
+    \input{ch12/slide12_05.tex}
+    \input{ch12/slide12_06.tex}
+    \input{ch12/slide12_07.tex}
+    \input{ch12/slide12_10.tex}
+    \input{ch12/slide12_11.tex}
+    \input{ch12/slide12_12.tex}
+    \input{ch12/slide12_13.tex}
+    \input{ch12/slide12_14.tex}
+  }{}
+}
+
+
+\begin{document}
+\addtocounter{framenumber}{-1}
+
+\newcommand{\num}{s12}
+\newcommand{\choosetitle}[1]
+{
+  \ifthenelse{\equal{#1}{o1}}{\title{C上机}}{}
+  \ifthenelse{\equal{#1}{o2}}{\title{C上机}}{}
+  \ifthenelse{\equal{#1}{o3}}{\title{C上机}\subtitle{C数据}}{}
+  \ifthenelse{\equal{#1}{o4}}{\title{C上机}\subtitle{格式化输入输出}}{}
+  \ifthenelse{\equal{#1}{o5}}{\title{C上机}\subtitle{运算符、表达式和语句}}{}
+  \ifthenelse{\equal{#1}{o6}}{\title{C上机}\subtitle{循环}}{}
+  \ifthenelse{\equal{#1}{o7}}{\title{C上机}\subtitle{分支}}{}
+  \ifthenelse{\equal{#1}{o8}}{\title{C上机}\subtitle{字符输入输出与输入确认}}{}
+  \ifthenelse{\equal{#1}{o9}}{\title{C上机}\subtitle{函数}}{}
+  \ifthenelse{\equal{#1}{o10}}{\title{C上机}\subtitle{数组与指针}}{}
+  \ifthenelse{\equal{#1}{o11}}{\title{C上机}\subtitle{字符串及字符串函数}}{}
+  \ifthenelse{\equal{#1}{s1}}{\title[C语言]{C语言程序设计}\subtitle{C语言介绍}}{}
+  \ifthenelse{\equal{#1}{s2}}{\title[C语言]{C语言程序设计}\subtitle{简单C程序的说明}}{}
+  \ifthenelse{\equal{#1}{s3}}{\title[C语言]{C语言程序设计}\subtitle{C数据}}{}
+  \ifthenelse{\equal{#1}{s4}}{\title[C语言]{C语言程序设计}\subtitle{字符串与格式化输入/输出}}{}
+  \ifthenelse{\equal{#1}{s5}}{\title[C语言]{C语言程序设计}\subtitle{运算符、表达式和语句}}{}
+  \ifthenelse{\equal{#1}{s6}}{\title[C语言]{C语言程序设计}\subtitle{循环}}{}
+  \ifthenelse{\equal{#1}{s7}}{\title[C语言]{C语言程序设计}\subtitle{分支}}{}
+  \ifthenelse{\equal{#1}{s8}}{\title[C语言]{C语言程序设计}\subtitle{字符输入输出与输入确认}}{}
+  \ifthenelse{\equal{#1}{s9}}{\title[C语言]{C语言程序设计}\subtitle{函数}}{}
+  \ifthenelse{\equal{#1}{s10}}{\title[C语言]{C语言程序设计}\subtitle{数组与指针}}{}
+  \ifthenelse{\equal{#1}{s11}}{\title[C语言]{C语言程序设计}\subtitle{字符串与字符串函数}}{}
+  \ifthenelse{\equal{#1}{s12}}{\title[C语言]{C语言程序设计}\subtitle{字符串与字符串函数}}{}
+}
+
+\choosetitle{\num}
+\author{张晓平 \\[.1in] 武汉大学数学与统计学院\\[.1in]
+  Homepage: \alert{xpzhang.me}}
+
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\inputslide{\num}
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
