@@ -1,5 +1,5 @@
-# filename=examA
-filename=examB_answer
+#filename=examA
+filename=examA_answer
 pdf: 
 	pdflatex ${filename}
 	pdflatex ${filename}

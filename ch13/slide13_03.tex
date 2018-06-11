@@ -1,0 +1,22 @@
+\section{存储类与函数}
+
+\begin{frame}[fragile]\ft{secname}
+  函数也有存储类。函数可以是外部的（默认情况下）或者静态的。
+
+  \begin{itemize}
+  \item 外部函数可被其他文件中的函数使用，而静态函数只可以在定义它的文件中使用。如
+    \begin{lstlisting}[language=c,frame=single]
+double gamma();
+static double beta();
+extern double delta();
+\end{lstlisting}
+{ gamma()}与{ delta()}可被程序中其他文件中的函数使用，而{ beta()}不行。因{ beta()}被限定在同一文件内，故可在其他文件中使用同名的不同函数。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{secname}
+  \begin{itemize}
+  \item 使用{ static}的原因之一就是创建一个特定模块所私有的函数，从而避免可能的名字冲突。\\[0.1in]
+  \item 使用{ extern}来声明在其他文件中定义的函数。这一习惯做法主要是为了使程序更清晰，因为除非函数声明中使用了关键字{ static}，否则就认为它是{ extern}的。
+  \end{itemize}
+\end{frame}

@@ -1,0 +1,325 @@
+\section{内存的动态分配}
+
+\begin{frame}[fragile]\ft{\secname}
+  本节主要介绍四个函数
+  \begin{itemize}
+  \item {malloc()}
+  \item {calloc()}
+  \item {realloc()}
+  \item {free()}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+回顾一下，对于如下声明
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+float x;
+char place[]="Beijing'';  
+\end{lstlisting}
+此时系统将留出足够存储{ float}或字符串的内存空间。而声明
+\begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+char plates[100];  
+\end{lstlisting}
+将留出{ 100}个内存位置，每个位置可存储一个{ int}值。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  C的功能远不止如此，可以在程序运行时分配更多的内存。  
+  主要工具是{ malloc()}，
+  \begin{itemize}
+  \item 
+    它接受一个参数：\red{所需内存字节数}。
+  \item
+    然后{ malloc()}找到可用内存中一个大小合适的块。
+  \item
+    内存是匿名的，也就是说，{ malloc()}分配了内存，
+    但没有为它指定名字。但它可以返回那块内存中第一个字节的地址。
+  \item
+    于是，你可以把该地址赋值给一个指针变量，并使用该指针来访问那块内存。
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+
+  \begin{itemize}
+  \item 
+    因{ char}代表一个字节，故传统上曾将{ malloc()}定义为指向{ char}的指针类型。
+  \item
+    { ANSI C}标准使用了一个新类型：指向{ void}的指针，并允许将{ void}指针赋值给其他类型的指针。
+  \item
+    若{ malloc()}找不到所需的空间，则返回空指针。
+  \end{itemize}
+  
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+  以下展示如何用{ malloc()}创建一个数组。
+ \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+ double * ptd;
+ ptd = (double *) malloc(30 * sizeof(double));
+ \end{lstlisting}
+\rule{\textwidth}{0.3mm} \pause \vspace{0.3mm}
+
+这段代码请求{ 30}个{ double}值的空间，并把{ ptd}指向该空间所在位置。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  需要注意的是，{ ptd}是作为指向一个{ double}值的指针声明的，而不是指向{ 30}个{ double}值的数据块的指针。\vspace{0.2in}
+
+  而数组的名字是其第一个元素的地址，因此，如果令{ ptd}指向一个内存块的第一个元素，就可以像使用数组名一样使用它。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  创建数组的三种方法：
+  \begin{itemize}
+  \item 声明一个数组，声明时用常量表达式指定数组维数，然后用数组名访问各元素；\\[0.1in]
+  \item 声明一个变长数组，声明时用变量表达式指定数组维数，然后用数组名访问各元素；\\[0.1in]
+  \item 声明一个指针，调用{ malloc()}，然后使用该指针来访问数组元素。
+  \end{itemize}
+  \rule{\textwidth}{0.3mm} \pause \vspace{0.3mm}
+
+  使用第二种或第三种方法可以创建一个动态数组。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  在{ C99}之前，不允许这么做：
+ \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+ double item[n];
+ \end{lstlisting} \vspace{0.1in}
+
+ 然而，即使在{ C99}之前，也可以这么做
+ \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+ ptd = (double *) malloc(n * sizeof(double));
+ \end{lstlisting}  
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+  一般地，分配了内存，就应该释放内存。释放内存的主要工具是{ free()}。
+  \begin{itemize}
+  \item { free()}的参数是{ malloc()}返回的地址，它释放先前分配的地址。
+  \item 所分配内存的持续时间从调用{ malloc()}分配内存开始，到调用{ free()}释放内存结束。
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+  设想{ malloc()}函数与{ free()}管理一个内存池。每次调用{ malloc()}函数分配内存供程序使用，每次调用{ free()}将内存归还到池中。
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {ch13/code/dyn_arr.c}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}] 
+What is the maximum number of type double entries?
+8
+Enter the values (q to quit): 
+1 2 3 4 5 6  7 8
+Here are your 8 entries:
+   1.00    2.00    3.00    4.00    5.00    6.00    7.00 
+   8.00 
+Done.   
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  注意在程序末尾的{ free()}，用于释放{ malloc()}函数分配的内存。{ free()}只释放其参数所指向的内存块。
+  \vspace{0.1in}
+
+  该例中，{ free()}不是必须的，因为程序终止后所有已分配的内存都将被自动释放。
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname}
+  为什么会使用动态数组？主要是获得了程序的灵活性。\vspace{0.1in}
+
+  假定某程序在大多数时候需要的数组元素不超过100个；而在某些情况下，却需要10000个元素。在声明数组时，不得不考虑最坏情形并声明一个长度为10000的数组。这样一来，在大多数情况下，程序将浪费内存。
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：{ free()}的重要性}
+  观察以下代码：
+  \begin{lstlisting}[language=c,numbers=left,frame=single]
+int main(void)
+{
+  double glad[2000];
+  int i;
+  ...
+  for (i = 0; i < 1000; i++)
+    gobble(glad, 2000);
+  ...  
+}
+
+void gobble(double ar[], int n)
+{
+  double * tmp = (double *) malloc(n * sizeof(double));
+  ...
+  // free(tmp);
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{ free()}的重要性}
+  第一次调用{ gobble()}时，它创建了指针{ tmp}，并使用{ malloc()}为之分配了{ 16000}字节的内存。
+  
+  若没有调用{ free()}，当函数终止时，指针{ tmp}作为一个自动变量消失了，但它所指向的{ 16000}字节的内存依然存在。我们无法访问这些内存，因为地址不见了。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{ free()}的重要性}
+  第二次调用{ gobble()}时，它又创建了指针{ tmp}，再次使用{ malloc()}为之分配了{ 16000}字节的内存。
+
+  第一个{ 16000}字节的块已不可用，因此{ malloc()}不得不再找一个{ 16000}字节的块。当函数终止时，这个内存块也无法访问，不可再用。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：{ free()}的重要性}
+   循环执行了{ 1000}次，当循环结束时，已经有{ 1600}万字节的内存从内存池中移走。事实上，在到达这一步之前，程序可能已经内存溢出了。这类问题被称为内存泄露{ (memory leak)}，可以在函数末尾处调用{ free()}防止该问题出现。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：calloc函数}
+  内存分配还可以使用{ calloc()}，典型应用如
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+long * newmem;
+newmem = (long *) calloc(100, sizeof(long));    
+  \end{lstlisting}
+  \rule{\textwidth}{0.3mm} \pause \vspace{0.3mm}
+  
+  \begin{itemize}
+  \item   { calloc()}的第一个参数是所需内存单元的数量，第二个参数是每个单元的字节大小，返回类型同{ malloc()}函数。\\[0.1in]
+  \item
+    { calloc()}的另一个特性：\red{它将块中的全部位置都设置为0。}\\[0.1in]
+  \item
+    { free()}也可用来释放由{ calloc()}分配的内存。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：realloc函数}
+可以使用{ realloc()}给一个已经分配了地址的指针重新分配空间，其函数原型声明为
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+void * realloc(void * ptr, unsigned newsize)    
+  \end{lstlisting}
+  \rule{\textwidth}{0.3mm} \pause \vspace{0.3mm}
+  
+  \begin{itemize}
+  \item 参数{ ptr}为原有的空间地址；
+  \item 参数{ newsize}是重新申请的地址长度。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：realloc函数}
+  { realloc()}可以对给定的指针所指的空间进行扩大或者缩小，无论是扩张或是缩小，原有内存的中内容将保持不变。当然，对于缩小，则被缩小的那一部分的内容会丢失。
+
+  \red{{ realloc()}并不保证调整后的内存空间和原来的内存空间保持同一内存地址。}相反，{ realloc()}返回的指针很可能指向一个新的地址。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：realloc函数}
+  { realloc()}是从堆上分配内存的。
+
+  当扩大一块内存空间时，{ realloc()}试图直接从堆上现存的数据后面的那些字节中获得附加的字节，
+  \begin{itemize}
+  \item  如果能够满足，自然天下太平；
+  \item  如果数据后面的字节不够，问题就出来了，那么就使用堆上第一个有足够大小的自由块，现存的数据然后就被拷贝至新的位置，而老块则放回到堆上。
+  \end{itemize}
+\red{这句话传递的一个重要的信息就是数据可能被移动。}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：realloc函数}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {ch13/code/realloc1.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：realloc函数}
+  \begin{lstlisting}[backgroundcolor=\color{red!20}] 
+p = 0x110a010
+q = 0x110a010
+\end{lstlisting}
+{ realloc()}后，内存地址没有发生改变。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：realloc函数}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {ch13/code/realloc2.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname：realloc函数}
+  \begin{lstlisting}[backgroundcolor=\color{red!20}] 
+p = 0x7fc2c9716010
+q = 0x1574010
+\end{lstlisting}
+{ realloc()}后，内存地址发生了改变。
+\end{frame}
+
+
+
+\begin{frame}[fragile]\ft{\secname：动态内存分配与变长数组}
+  VLA与{ malloc()}在功能上有些一致，比如它们都可以用来创建一个大小在运行时决定的数组：
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int vlamal()
+{
+  int n;
+  int * pi;
+  scanf(``%d", &n);
+  pi = (int *) malloc(n * sizeof(int));
+
+  int ar[n];
+  pi[2] = ar[2] = 5;
+  ...
+}    
+  \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：动态内存分配与变长数组}
+  区别一：\vspace{0.05in}
+
+  \begin{itemize}
+  \item VLA是自动存储的，其结果之一是VLA所用内存空间在运行后会自动释放，不必使用{ free()}。\\[0.1in]
+  \item { malloc()}创建的数组不必局限于在一个函数中。例如，函数可以创建一个数组并返回指针，供调用它的函数访问。
+    然后，后者可以在它结束时调用{ free()}。
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\secname：动态内存分配与变长数组}
+  区别二：\vspace{0.05in}
+
+  \begin{itemize}
+  \item  VLA对多维数组来说更为方便。  \\[0.1in]
+  \item  也可以使用{ malloc()}来定义一个二维数组，但语法较麻烦。
+  \end{itemize}
+
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+int n = 5;
+int m = 6;
+int ar1[n][m];   // VLA
+int (* p1) [6];  // Before C99
+int (* p2) [m];  // C99    
+  \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname：动态内存分配与变长数组}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {ch13/code/dyn_ar2d.c}
+\end{frame}
+
+
+
+\begin{frame}[fragile]\ft{\secname}
+  \begin{lstlisting}[language=c,backgroundcolor=\color{red!20}]
+   0    1    2    3    4 
+   1    2    3    4    5 
+   2    3    4    5    6 
+   3    4    5    6    7 
+  \end{lstlisting}
+\end{frame}

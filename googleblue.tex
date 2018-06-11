@@ -1,5 +1,5 @@
 % !TEX program = xelatex
-\documentclass[aspectratio=1610,utf8]{beamer}
+\documentclass[aspectratio=149,utf8]{beamer}
 % use beamer if english only
 % aspectratio: 1610, 169, 149, 54, 43 and 32
 % By default, it is to 128mm by 96mm, 4:3
@@ -222,6 +222,13 @@
     \input{ch12/slide12_13.tex}
     \input{ch12/slide12_14.tex}
   }{}
+    \ifthenelse{\equal{#1}{s13}}{
+    \input{ch13/slide13_01.tex}
+    \input{ch13/slide13_02.tex}
+    \input{ch13/slide13_03.tex}
+    \input{ch13/slide13_04.tex}
+    \input{ch13/slide13_05.tex}
+  }{}
 }
 
 
@@ -254,6 +261,7 @@
   \ifthenelse{\equal{#1}{s10}}{\title[C语言]{C语言程序设计}\subtitle{数组与指针}}{}
   \ifthenelse{\equal{#1}{s11}}{\title[C语言]{C语言程序设计}\subtitle{字符串与字符串函数}}{}
   \ifthenelse{\equal{#1}{s12}}{\title[C语言]{C语言程序设计}\subtitle{结构体及其他类型}}{}
+  \ifthenelse{\equal{#1}{s13}}{\title[C语言]{C语言程序设计}\subtitle{存储类、链接和内存管理}}{}
 }
 
 \choosetitle{\num}

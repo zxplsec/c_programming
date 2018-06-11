@@ -1,0 +1,18 @@
+#include<stdio.h>
+#define N 456
+#define X 124.35
+#define S "Hello World"
+int main(void)
+{
+  printf("*%8d*", N);
+  printf("*%-8d*", N);
+  printf("*%.2f*", X);
+  printf("*%10.3f*", X);
+  printf("*%-10.3e*", X);
+  printf("*%010.3f*", X);
+  printf("*%15s*", S);
+  printf("*%15.5s*", S);
+  printf("*%1-15.5s*", S);
+
+  return 0;
+}

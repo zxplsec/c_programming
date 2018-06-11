@@ -1,0 +1,586 @@
+\section{存储类}
+
+\begin{frame}[fragile]\ft{\secname}
+  \begin{itemize}
+  \item 
+    存储期{ (storage duration)}
+  \item 
+    作用域{ (scope)}
+  \item 
+    链接{ (linkage)}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{}
+  \begin{itemize}
+  \item 存储期：变量在内存中保留的时间
+  \item 变量的作用域与链接一起表明程序的哪些部分可以通过变量名来使用它。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{作用域}
+  作用域描述了程序中可以访问一个标识符的一个或多个区域。\vspace{0.1in}
+
+  一个C变量的作用域可以是
+  \begin{itemize}
+  \item 代码块作用域
+  \item 函数原型作用域
+  \item 文件作用域
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{作用域}
+  \red{代码块}是包含在开始花括号与对应的结束花括号之间的一段代码。如
+  \begin{itemize}
+  \item 函数体
+  \item 一个函数内的任一复合语句
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{作用域}
+
+  代码块中定义的变量具有\red{代码块作用域 (block scope)}，从该变量被定义的地方到包含该定义的代码块的末尾该变量均可见。\vspace{0.1in}
+
+  \begin{zhu}
+    函数的形参尽管在函数的开始花括号前被定义，同样也具有代码块作用域，隶属于包含函数体的代码块。
+  \end{zhu}
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{作用域}
+  如下代码中，{ x}和{ y}都有直到结束花括号的代码块作用域。
+  \begin{lstlisting}[language=c,frame=single]
+double block(double x)
+{
+  double y = 0.0;
+  ...
+  return y;
+}    
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{作用域}
+在一个内部代码块中声明的变量，其作用域局限于该代码块。
+\end{frame}
+
+\begin{frame}[fragile]\ft{作用域}
+  \begin{lstlisting}[language=c,frame=single]
+double block(double x)
+{
+  double y = 0.0;
+  int i;
+  for (i = 0; i < 10; i++) {
+    double z = x + y;  // z`作用域的开始`
+    ...    
+  }                    // z`作用域的结束`
+  ...
+  return y;
+}    
+  \end{lstlisting}
+  该例中，{ z}的作用域被限制在内部代码中，只有该代码块中的代码可以访问z。
+\end{frame}
+
+\begin{frame}[fragile]\ft{作用域}
+  传统上，具有代码块作用域的变量都必须在代码块的开始处进行声明。{ C99}放宽了这一规则，允许在一个代码块中的任何位置声明变量。可以这么写
+  \begin{lstlisting}[language=c,frame=single]
+for (int i = 0; i < 10; i++)
+  printf("A C99 feature: i = %d'', i);
+  \end{lstlisting}
+  这里，{ i}的作用域仅限于{ for}循环，离开{ for}循环后就看不到变量{ i}了。
+\end{frame}
+
+\begin{frame}[fragile]\ft{作用域}
+  函数原型作用域{ (function prototype scope)}从变量定义处一直到原型声明的末尾，这意味着编译器在处理一个函数原型的参数时，只关心该参数的类型，而名字无关紧要。
+\end{frame}
+
+\begin{frame}[fragile]\ft{作用域}
+  一个在所有函数之外定义的变量具有文件作用域{ (file scope)}。具有文件作用域的变量从它定义处到包含该定义的文件结尾处都是可见的。
+\end{frame}
+
+\begin{frame}[fragile]\ft{作用域}
+  \begin{lstlisting}[language=c,frame=single]
+#include <stdio.h>
+int units = 0;
+void critic(void);
+
+int main(void) { ... }
+
+void critic(void) {  ... }    
+  \end{lstlisting}
+这里，{ units}具有文件作用域，在{ main()}和{ critic()}中都可以使用它。
+因它们可以在不止一个函数中使用，故\red{文件作用域变量也被称为全局变量{ (global variable)}。}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{链接}
+一个C变量有如下三种链接：\vspace{0.05in}
+\begin{itemize}
+\item 外部链接{ (external linkage)} \\[0.1in]
+\item 内部链接{ (internal linkage)} \\[0.1in]
+\item 空链接{ (no linkage)}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{链接}
+  \begin{itemize}
+  \item 具有\red{代码块作用域与函数原型作用域}的变量有\red{空链接}，这意味着它们是由其定义所在的代码块或函数原型所私有的。\\[0.1in]
+  \item 全局变量可能有内部或外部链接。\\[0.1in]
+    \begin{itemize}
+    \item 一个具有外部链接的变量可以在一个多文件程序的任何地方使用；\\[0.1in]
+    \item 一个具有内部链接的变量可以在一个文件的任何地方使用。
+    \end{itemize}
+    
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{链接}
+  要区分一个全局变量是具有内部链接还是外部链接，可以看看在外部定义中是否使用了关键字{ static}。
+  \begin{lstlisting}[language=c,frame=single]
+int a = 5;
+static int b = 3;
+int main(void)
+{
+  ...
+}    
+...
+  \end{lstlisting}
+  \begin{itemize}
+  \item 和该文件属于同一程序的其他文件可以使用变量{ a}。
+  \item 变量{ b}是该文件私有的，但可以被该文件的任一函数使用。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{存储时期}
+  \begin{itemize}
+  \item 静态存储时期{ (static storage duration)} \\[0.05in]
+  \item[] 若一个变量有静态存储时期，则它将在程序执行期间一直存在。\\[0.05in]
+  \item[] 例如，全局变量有静态存储时期。注意，对于全局变量，关键字{ static}表明其链接类型，而非存储时期。\\[0.1in]
+  \item 自动存储时期{ (auto storage duration)}\\[0.05in]
+  \item[] 具有代码块作用域的变量一般具有自动存储时期。程序进入定义这些变量的代码块时，为其分配内存；当退出该代码块时，将释放内存。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  如下代码中，变量{ number}和{ index}在每次调用{ bore()}时生成，每次结束函数调用时消失：
+  \begin{lstlisting}[language=c,frame=single]
+void bore(int number)
+{
+  int index;
+  for (index = 0; index < number; index++)
+    ...
+}    
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+C使用作用域、链接和存储时期来定义5种存储类：
+\begin{enumerate}
+\item 自动
+\item 寄存器
+\item 具有代码块作用域的静态
+\item 具有外部链接的静态
+\item 具有内部链接的静态
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  \begin{table}
+    \centering
+    %\caption{5种存储类}
+    \begin{tabular}{p{3cm}|p{1cm}|p{1.5cm}|p{1cm}|p{3cm}}\hline
+      存储类&存储时期&作用域&链接&声明方式\\\hline\hline
+      自动&自动&代码块&空&代码块内\\\hline
+      寄存器&自动&代码块&空&代码块内，使用{ register}\\\hline
+      具有外部链接的静态&静态&文件&外部&所有函数之外\\\hline
+      具有内部链接的静态&静态&文件&内部&所有函数之外，使用{ static}\\\hline
+      具有代码块作用域的静态&静态&代码块&空&代码块内，使用{ static}\\\hline
+    \end{tabular}
+    
+  \end{table}
+\end{frame}
+
+\subsection{自动变量}
+\begin{frame}[fragile]\ft{\subsecname}
+默认情况下，在代码块或函数头中定义的任何变量都属于自动存储类。可显示地使用{ auto}使此意图更清晰。
+\begin{lstlisting}[language=c,frame=single]
+int main(void)
+{
+  auto int i;
+  ...
+}  
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{itemize}
+  \item \red{代码块作用域与空链接}意味着只有变量定义所在的代码块才能通过名字访问该变量，其他函数中与其同名的变量与它无关。\\[0.1in]
+  \item 自动存储时期意味着：\red{当程序进入包含变量声明的代码块时，变量开始存在；当程序离开该代码块时，自动变量马上消失。}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+观察一下嵌套代码：
+\begin{lstlisting}[language=c,frame=single]
+int loop(int n)
+{
+  int m;              // `m的作用域`
+  scanf("%d'', &m);
+  {
+    int i;            // `m和i的作用域`
+    for (i = m ; i < n; i++)
+      puts("i is local to a sub-block\n'');
+  }
+  return m;           // `m的作用域，i已经消失`
+}  
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+该代码中，变量{ i}仅在内层花括号中可见，变量{ n}和{ m}分别在函数头和外层代码块中定义，在整个函数中可用，并且一直存在函数终止。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{wenti}
+    如果内层代码块有变量与外层代码块中的变量重名，会发生什么？
+  \end{wenti} \pause 
+  
+  内层定义将覆盖外部定义，但当程序离开内层代码块时，外部变量将重新恢复作用。
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\subsecname}
+\lstinputlisting
+[language=c,frame=single,numbers=left]
+{ch13/code/hiding.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{lstlisting}[language=c,frame=single]
+x in outer block: 30
+x in inner block: 77
+x in outer block: 30
+x in while loop: 101
+x in while loop: 101
+x in while loop: 101
+x in outer block: 34  
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\subsecname}
+\lstinputlisting
+[language=c,frame=single,numbers=left]
+{ch13/code/forc99.c}
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{lstlisting}[language=c,frame=single]
+Initially, n = 10
+loop 1: n = 1
+loop 1: n = 2
+After loop 1, n = 10
+loop 2: index n = 1
+loop 2: n = 30
+loop 2: index n = 2
+loop 2: n = 30
+After loop 2, n = 10
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{自动变量的初始化}
+除非你显式地初始化自动变量，否则它不会被自动初始化。
+\begin{lstlisting}[language=c,frame=single]
+int main(void)
+{
+  int i;
+  int j = 5;
+  ...
+}  
+\end{lstlisting}
+变量{ j}初始化为5，而变量{ i}的初值则是先前占用分配给它的空间的任意值。
+\end{frame}
+
+
+\subsection{寄存器变量}
+\begin{frame}[fragile]\ft{\subsecname}
+通常，变量存储在内存中。如果幸运，寄存器变量可以被存储在CPU寄存器中，从而可以比普通变量更快地被访问和操作。
+\vspace{0.1in}
+
+因为寄存器变量多是存放在一个寄存器而非内存中，故\red{无法获得寄存器变量的地址。} 
+
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+
+寄存器变量同自动变量一样，有代码块作用域、空链接以及自动存储时期。通常使用关键字{ register}声明寄存器变量：
+\begin{lstlisting}[language=c,frame=single]
+int main(void)
+{
+  register int quick;
+  ...
+}    
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+所谓“幸运”，是因为声明一个寄存器变量仅仅是一个请求，而非命令。编译器必须在你的请求与可用寄存器的个数之间做出权衡，
+所以你可能达不成愿望。在此情况下，变量会变成普通的自动变量，但依然不能使用地址运算符。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+可以把一个形参请求为寄存器变量，只需在函数头使用register关键字：
+\begin{lstlisting}[language=c,frame=single]
+void foo(register int n)
+{
+  ...
+}    
+\end{lstlisting}
+\end{frame}
+
+\subsection{具有代码块作用域的静态变量}
+\begin{frame}[fragile]\ft{\subsecname}
+对于静态变量{ (static variable)}，“静态”是指变量的位置固定不变。\vspace{0.05in}
+
+\begin{itemize}
+\item 全局变量具有静态存储时期。\\[0.15in]
+\item 也可创建具有代码块作用域，兼具静态存储的局部变量。\\[0.1in]
+\item[] 这些变量和自动变量具有相同的作用域，但当包含这些变量的函数完成工作时，它们并不消失。\\[0.1in]
+\item[] 也就是说，这些变量具有代码块作用域、空链接，却有静态存储时期。从一次函数调用到下一次函数调用，
+计算机都记录着它们的值。\\[0.1in]
+\item[] 这样的变量使用关键字{ static}在代码块中声明创建。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\subsecname}
+\lstinputlisting
+[language=c,frame=single,numbers=left]
+{ch13/code/loc_stat.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{lstlisting}[language=c,frame=single]
+iteration 1: 
+fade = 1 and stay = 1
+iteration 2: 
+fade = 1 and stay = 2
+iteration 3: 
+fade = 1 and stay = 3    
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+每次调用时，静态变量{ stay}的值都被加1，而变量{ fade}每次都重新开始。这表明了初始化的不同：\vspace{0.1in}
+
+\red{每次调用{ trystat}时，{ fade}都被初始化，而{ stay}只在编译时被初始化一次。如果不显式地对静态变量进行初始化，它们将被初始化为0。}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+以下两个声明看起来相似：
+\begin{lstlisting}[language=c,frame=single]
+int fade = 1;
+static int stay = 1;  
+\end{lstlisting}
+\begin{itemize}
+\item 第一条语句确实是{ trystat}的一部分，每次调用时都会被执行，它是个运行时的动作。\\[0.1in]
+\item 第二条语句实际上并不是{ trystat}的一部分。调试并逐步执行程序时，你会发现程序看起来跳过了这条语句，因为静态变量和外部变量在程序调入内存时就已经到位了。\\[0.1in]
+\item[] 把这个语句放在{ trystat}函数中是为了告诉编译器只有函数{ trystat}可以看到该变量。它不是运行时执行的语句。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+对函数形参不能使用{ static}：
+\begin{lstlisting}[language=c,frame=single]
+int wontwork(static int flu);  // `不允许`
+\end{lstlisting}
+\end{frame}
+
+
+\subsection{具有外部链接的静态变量}
+\begin{frame}[fragile]\ft{\subsecname}
+ 具有外部链接的静态变量具有文件作用域、外部链接和静态存储时期。\vspace{0.1in}
+ 
+ 该类型也被称为外部存储类{ (external storage class)}，该类型的变量被称为外部变量{ (external variable)}。\vspace{0.1in}
+
+ 把变量的定义声明放在所有函数之外，即创建了一个外部变量。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{itemize}
+  \item 
+    为了使程序更加清晰，可以在外部变量的函数中使用关键字{ extern}再次声明它。\\[0.1in]
+  \item
+    如果变量是在别的文件中定义的，使用{ extern}来声明该变量就是必须的。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+\begin{lstlisting}[language=c,frame=single]
+int num;          //`外部定义的变量`
+double arr[100];  //`外部定义的数组`
+extern char ch;   //`必须的声明，因ch在其他文件中定义`
+void next(void);
+int main(void)
+{
+  extern int num;      //`可选的声明`
+  extern double arr[]; //`可选的声明`
+  ...
+}
+void next(void){ ... }
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+\begin{itemize}
+\item { num}的两次声明是链接的例子，因为它们指向同一变量。外部变量具有外部链接。
+\item 无需在{ double arr[]}中指明数组大小，因第一次声明已提供了这一信息。外部变量具有文件作用域，它们从被声明处到文件结尾都是可见的，故{ main()}中的一组{ extern}声明完全可以省略。如果它们出现在那，仅表明{ main()}使用这些变量。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{itemize}
+  \item 若函数中的声明不写extern，则创建一个独立的自动变量。在{ main()}中，若用{ extern int num;}替换{ int num;}，则创建一个名为{ num}的自动变量，它是一个独立的局部变量，而不同于初始的{num}。程序执行时，{ main()}中该局部变量起作用；而{ next()}中，外部的{ num}将起作用。简言之，\red{程序执行代码块内语句时，代码块作用域的变量将覆盖文件作用域的同名变量。}
+  \item 外部变量具有静态存储时期，因此数组{ arr}一直存在并保持其值。
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{lstlisting}[language=c,frame=single]
+// example 1
+int num;
+int magic();
+int main(void)
+{
+  extern int num;
+  ...
+}
+int magic()
+{
+  extern int num;
+  ...
+}  
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{lstlisting}[language=c,frame=single]
+// example 2
+int num;
+int magic();
+int main(void)
+{
+  extern int num;
+  ...
+}
+int magic()
+{
+  ...
+}  
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{lstlisting}[language=c,frame=single]
+// example 3
+int num;
+int magic();
+int main(void)
+{
+  int num;
+  ...
+}
+int nnn;
+int magic()
+{
+  auto int num;
+  ...
+}  
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{外部变量的初始化}
+
+\begin{itemize}
+        \item 和自动变量一样，外部变量可被显示地初始化；
+        \item 不同于自动变量，若不对外部变量进行初始化，它们将被初始化为0；
+        \item 不同于自动变量，只可用常量表达式来初始化文件作用域变量。
+\end{itemize}
+
+该原则也适用于外部定义的数组。
+\end{frame}
+
+\begin{frame}[fragile]\ft{外部变量的初始化}
+\begin{lstlisting}[language=c,frame=single]
+int x = 10;              // OK
+int y = 3 * 20;          // OK
+size_t z = sizeof(int);  // OK
+int x2 = 2 * x;          // INVALID
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{外部变量的使用}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {ch13/code/global.c}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{外部变量的使用}
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+How many pounds to a firkin of butter?
+14
+No luck. Try again.
+56
+You must have looked it up!
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{外部变量的使用}
+  { main()}与{ critic()}都通过标识符{ units}来访问同一变量。在C的术语中，称{ units}具有文件作用域、外部链接及静态存储时期。
+\end{frame}
+  
+\subsection{具有内部链接的静态变量}
+\begin{frame}[fragile]\ft{\subsecname}
+  这种存储类的变量具有静态存储时期、文件作用域以及内部链接。通常使用{ static}在所有函数外部进行定义（同外部变量的定义）。
+  \begin{lstlisting}[language=c,frame=single]
+static int num = 1;
+int main(void) { ... }    
+\end{lstlisting}
+\end{frame}
+ 
+ \begin{frame}[fragile]\ft{\subsecname}
+   普通的外部变量可被程序中的任一文件中所包含的函数使用，而具有内部链接的静态变量只可以被同一文件中的函数使用。
+\end{frame}
+ 
+ \begin{frame}[fragile]\ft{\subsecname}
+   可在函数中使用{ extern}来再次声明任何具有文件作用域的变量，但这并不改变链接。
+\end{frame}
+ 
+\begin{frame}[fragile]\ft{\subsecname}
+\begin{lstlisting}[language=c,frame=single]
+int traveler = 1;         // `外部链接`
+static int stayhome = 1;  // `内部链接`
+
+int main(void)
+{
+  extern int traveler;    //`使用全局变量`travelre
+  extern int stayhome;    //`使用全局变量`stayhome
+}
+\end{lstlisting}   \pause
+对这个文件来说，{ traveler}和{ stayhome}都是全局的，但只有{ traveler}可被其他文件中的代码使用。使用extern的两个声明表明{ main()}在使用两个全局变量，但{ stayhome}仍具有内部链接。
+\end{frame}
+
+
+\subsection{多文件}
+\begin{frame}\ft{\subsecname}
+  只有在使用多文件程序时，内部链接与外部链接的区别才显得重要。
+\end{frame}
+
+\begin{frame}\ft{\subsecname}
+  复杂的C程序往往使用多个独立的代码文件。有时，这些文件可能需要共享一个外部变量。ANSI C通过\red{在一个文件中定义变量，在其他文件中引用声明这个变量}来实现共享。
+
+  \red{除了一个声明（定义声明）外， 其他所有声明都必须使用关键字{ extern}，并且只有在定义声明中才可以对该变量进行初始化。}
+\end{frame}
+
+\begin{frame}\ft{\subsecname}
+除非在第二个文件中也声明了该变量（使用{ extern}），否则在一个文件中定义的外部变量不可以用于第二个文件。
+\end{frame}

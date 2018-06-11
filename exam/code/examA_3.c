@@ -8,14 +8,15 @@ int main(void)
   printf("Plese enter an integer: ");
   scanf("%d", &n);
   print(n);
+  putchar('\n');
 
   return 0;
 }
 
 void print(int n)
 {
-  if(n > 0) {
-    printf("%d\n", n);
+  if(n > 1) 
     print(n-1);
-  }
+  printf("%d ", n);
+  
 }

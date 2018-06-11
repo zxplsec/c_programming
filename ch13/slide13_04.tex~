@@ -1,0 +1,76 @@
+\section{随机数函数与静态变量}
+
+\begin{frame}[fragile]\ft{\secname} 
+  C提供了{\tf rand()}来产生随机数，它使用了一个具有内部链接的静态变量。
+
+  {\tf rand()}是一个“伪随机数发生器”，这意味着可以预测数字的实际顺序，但这些数字在可能的取值范围内均匀地分布。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname} 
+  \lstinputlisting
+  [language=c,frame=single]
+  {code/rand0.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname} 
+  \lstinputlisting
+  [language=c,frame=single]
+  {code/r_drive0.c}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  先运行一次：
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+16838
+5758
+10113
+17515
+31051  
+\end{lstlisting}
+  再运行一次：
+\begin{lstlisting}[backgroundcolor=\color{red!20}]
+16838
+5758
+10113
+17515
+31051  
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {code/s_and_r.c}  
+\end{frame}
+
+\begin{frame}[fragile]\ft{\secname}
+注意{\tf next}是一个具有内部链接的文件作用域变量，这意味着它可以同时被{\tf rand1()}和{\tf srand1()}使用，但不可以被其他文件中的函数使用。
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname}
+  \lstinputlisting
+  [language=c,numbers=left,frame=single]
+  {code/r_drive1.c}  
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]\ft{\secname}
+  \begin{lstlisting}[backgroundcolor=\color{red!20}]
+Please enter your choice for seed.
+1
+16838
+5758
+10113
+17515
+31051
+Please enter next seed (q to quit)
+2
+908
+22817
+10239
+12914
+25837
+Please enter next seed (q to quit)
+q
+Done
+  \end{lstlisting}
+\end{frame}

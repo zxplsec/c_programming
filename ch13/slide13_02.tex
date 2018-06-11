@@ -1,0 +1,85 @@
+\section{存储类说明符}
+
+\begin{frame}[fragile]\ft{\subsecname} 
+  关键字{ static}与{ extern}的含义随上下文而不同。{ C}语言中有5个作为存储类说明符的关键字：
+  \begin{itemize}
+  \item { auto}
+  \item { register}
+  \item { static}
+  \item { extern}
+  \item { typedef}：它与内存存储无关，由于语法原因被归入此类。
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\subsecname}
+  \begin{zhu}
+    不可以在一个声明中使用一个以上存储类说明符，这意味着\red{不能将其它任一存储类说明符作为{ typedef}的一部分}。
+  \end{zhu}
+\end{frame}
+
+
+\begin{frame}[fragile]\ft{\subsecname}
+  { auto}表明一个变量具有自动存储时期，它只能用在具有代码块作用域的变量声明中。使用它仅用于明确指出意图，使程序更易读。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  { register}也只能用在具有代码块作用域的变量声明中。它将一个变量归入寄存器存储类，这相当于请求将该变量存储在一个寄存器内，以更快地存取。
+
+  { register}的使用将导致不能获取变量的地址。
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  对于{ static}，
+  \begin{itemize}
+  \item 用于具有代码块作用域的变量声明时，使该变量具有静态存储时期，从而得以在程序运行期间存在并保留其值。此时，变量仍具有代码作用域和空链接。
+  \item 用于具有文件作用域的变量声明时，表明该变量具有内部链接。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{\subsecname}
+  { extern}表明你在声明一个已经在别处定义的了变量，
+  \begin{itemize}
+  \item 若该声明具有文件作用域，所指向的变量必然具有外部链接；
+  \item 若该声明具有代码块作用域，所指向的变量可能具有外部链接也可能具有内部链接，这取决于该变量的定义声明。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{总结}
+  \begin{itemize}
+  \item 自动变量具有代码块作用域、空链接和自动存储时期。它们是局部的，为定义它们的代码所私有。
+
+  \item 寄存器变量与自动变量具有相同的属性，但编译器可能使用速度更快的内存或寄存器来存储它们。无法获取一个寄存器变量的地址。
+  \end{itemize}
+
+  
+\end{frame}
+
+\begin{frame}[fragile]\ft{总结}
+  具有静态存储时期的变量可能具有外部链接、内部链接或空链接。
+    \begin{itemize}
+    \item 当变量在文件的所有函数之外声明时，它是一个具有文件作用域的外部变量，具有外部链接和静态存储时期。\\[0.1in]
+    \item 若在这样的声明中再加上{ static}，将获得一个具有静态存储时期、文件作用域和内部链接的变量。\\[0.1in]
+    \item 若在一个函数内使用关键字{ static}声明变量，变量将具有静态存储时期、代码块作用域和空链接。
+    \end{itemize}
+ 
+\end{frame}
+
+\begin{frame}[fragile]\ft{总结}
+  \begin{itemize}
+  \item 当程序执行到包含变量声明的代码块时，给具有自动存储时期的变量分配内存，并在代码块结束时释放内存。如果没有初始化，该变量将是垃圾值。\\[0.1in]
+  \item 在程序编译时给具有静态存储时期的变量分配内存，并在程序运行时一直保持。若没有初始化，将被设置为0。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\ft{总结}
+  \begin{itemize}
+  \item 具有代码块作用域的变量局部于包含变量声明的代码块。\\[0.1in]
+  \item 具有文件作用域的变量对文件中在它声明之后的所有函数可见。
+    \begin{itemize}
+    \item 若一个文件作用域变量具有外部链接，则它可被程序中的其他文件使用；
+    \item 若一个文件作用域变量具有内部链接，则它只能在声明它的文件中使用。
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
